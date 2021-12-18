@@ -1,84 +1,61 @@
 baseURL = 'https://kseki.github.io/'
-languageCode = 'ja-jp'
 title = 'Klog'
-theme = 'terminal'
-pagenate = 5
+#themesDir = "../.."
+theme = "m10c"
+paginate = 8
+languageCode = 'ja-jp'
 defaultContentLanguage = 'ja'
 
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 2
+#  [[menu.main]]
+#    identifier = "about"
+#    name = "About"
+#    url = "/about/"
+#    weight = 3
+
 [params]
-  # dir name of your main content (default is `content/posts`).
-  # the list of set content will show up on your index page (baseurl).
-  contentTypeName = 'posts'
+  author = "kseki"
+  description = "Web developer"
+  menu_item_separator = " - "
+  [[params.social]]
+    icon = "github"
+    name = "Github"
+    url = "https://github.com/kseki"
+  [[params.social]]
+    icon = "twitter"
+    name = "kseki"
+    url = "https://twitter.com/_kseki"
 
-  # ["orange", "blue", "red", "green", "pink"]
-  themeColor = 'green'
+  # Default theme
+  #[params.style]
+  #  darkestColor = "#242930"
+  #  darkColor = "#353b43"
+  #  lightColor = "#afbac4"
+  #  lightestColor = "#ffffff"
+  #  primaryColor = "#57cc8a"
 
-  # if you set this to 0, only submenu trigger will be visible
-  showMenuItems = 2
+  # Green theme
+  #[params.style]
+  #  darkestColor = "#315659"
+  #  darkColor = "#253031"
+  #  lightColor = "#96a879"
+  #  lightestColor = "#fff"
+  #  primaryColor = "#dad865"
 
-  # show selector to switch language
-  showLanguageSelector = false
-
-  # set theme to full screen width
-  fullWidthTheme = true
-
-  # center theme with default width
-  centerTheme = false
-
-  # if your resource directory contains an image called `cover.(jpg|png|webp)`,
-  # then the file will be used as a cover automatically.
-  # With this option you don't have to put the `cover` param in a front-matter.
-  autoCover = true
-
-  # set post to show the last updated
-  # If you use git, you can set `enableGitInfo` to `true` and then post will automatically get the last updated
-  showLastUpdated = true
-
-  # set a custom favicon (default is a `themeColor` square)
-  # favicon = "favicon.ico"
-
-  # Provide a string as a prefix for the last update date. By default, it looks like this: 2020-xx-xx [Updated: 2020-xx-xx] :: Author
-  # updatedDatePrefix = "Updated"
-
-  # set all headings to their default size (depending on browser settings)
-  # it's set to `true` by default
-  # oneHeadingSize = false
-
-
-[params.twitter]
-  # set Twitter handles for Twitter cards
-  # see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution
-  # do not include @
-  creator = ""
-  site = ""
-
-[languages]
-  [languages.ja]
-    languageName = "Japanese"
-    title = "Klog"
-    subtitle = "A simple, retro theme for Hugo"
-    owner = "kseki"
-    keywords = ""
-    copyright = ""
-    menuMore = "Show more"
-    readMore = "Read more"
-    readOtherPosts = "Read other posts"
-    newerPosts = "Newer posts"
-    olderPosts = "Older posts"
-    missingContentMessage = "Page not found..."
-    missingBackButtonLabel = "Back to home page"
-
-    [languages.ja.params.logo]
-      logoText = "Klog"
-      logoHomeLink = "/"
-
-    [languages.ja.menu]
-      [[languages.ja.menu.main]]
-        identifier = "about"
-        name = "About"
-        url = "/about"
-      [[languages.ja.menu.main]]
-        identifier = "showcase"
-        name = "Showcase"
-        url = "/showcase"
-
+  # Red theme
+  #[params.style]
+  #  darkestColor = "#d35050"
+  #  darkColor = "#212121"
+  #  lightColor = "#d6d6d6"
+  #  lightestColor = "#d3d3d3"
+  #  primaryColor = "#ffffff"
