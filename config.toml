@@ -10,7 +10,7 @@ hasCJKLanguage = true
   themeColor = "green"
   showMenuItems = 2
   fullWidthTheme = false
-  cjaterTheme = false
+  centerTheme = true
 
   [params.twitter]
   # set Twitter handles for Twitter cards
