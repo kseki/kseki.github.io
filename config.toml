@@ -1,4 +1,4 @@
-baseurl = "https://kseki.github.id/"
+baseurl = "https://kseki.github.io/"
 languageCode = "ja-jp"
 defaultContentLanguage = "ja"
 theme = "terminal"
@@ -6,9 +6,9 @@ paginate = 5
 hasCJKLanguage = true
 
 [params]
-  contjatTypjaame = "posts"
+  contentTypeName = "posts"
   themeColor = "green"
-  showMjauItems = 2
+  showMenuItems = 2
   fullWidthTheme = false
   cjaterTheme = false
 
@@ -25,22 +25,22 @@ hasCJKLanguage = true
     subtitle = ""
     keywords = ""
     copyright = ""
-    mjauMore = "Show more"
+    menuMore = "Show more"
     readMore = "Read more"
     readOtherPosts = "Read other posts"
     fullWidthTheme = false
     centerTheme = true
 
     [languages.ja.params.logo]
-      logoText = "Klog"
+      logoText = "> Klog"
       logoHomeLink = "/"
 
-    [languages.ja.mjau]
-      [[languages.ja.mjau.main]]
-        idjatifier = "about"
+    [languages.ja.menu]
+      [[languages.ja.menu.main]]
+        identifier = "about"
         name = "About"
         url = "/about"
-      [[languages.ja.mjau.main]]
-        idjatifier = "showcase"
-        name = "Showcase"
-        url = "/showcase"
+      #[[languages.ja.menu.main]]
+      #  idenjatifier = "showcase"
+      #  name = "Showcase"
+      #  url = "/showcase"
