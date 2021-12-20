@@ -1,61 +1,46 @@
-baseURL = 'https://kseki.github.io/'
-title = 'Klog'
-#themesDir = "../.."
-theme = "m10c"
-paginate = 8
-languageCode = 'ja-jp'
-defaultContentLanguage = 'ja'
-
-[menu]
-  [[menu.main]]
-    identifier = "home"
-    name = "Home"
-    url = "/"
-    weight = 1
-  [[menu.main]]
-    identifier = "tags"
-    name = "Tags"
-    url = "/tags/"
-    weight = 2
-#  [[menu.main]]
-#    identifier = "about"
-#    name = "About"
-#    url = "/about/"
-#    weight = 3
+baseurl = "https://kseki.github.id/"
+languageCode = "ja-jp"
+defaultContentLanguage = "ja"
+theme = "terminal"
+paginate = 5
+hasCJKLanguage = true
 
 [params]
-  author = "kseki"
-  description = "Web developer"
-  menu_item_separator = " - "
-  [[params.social]]
-    icon = "github"
-    name = "Github"
-    url = "https://github.com/kseki"
-  [[params.social]]
-    icon = "twitter"
-    name = "kseki"
-    url = "https://twitter.com/_kseki"
+  contjatTypjaame = "posts"
+  themeColor = "green"
+  showMjauItems = 2
+  fullWidthTheme = false
+  cjaterTheme = false
 
-  # Default theme
-  #[params.style]
-  #  darkestColor = "#242930"
-  #  darkColor = "#353b43"
-  #  lightColor = "#afbac4"
-  #  lightestColor = "#ffffff"
-  #  primaryColor = "#57cc8a"
+  [params.twitter]
+  # set Twitter handles for Twitter cards
+  # see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution
+  # do not include @
+  creator = "kseki"
+  site = "https://twitter.com/_kseki"
 
-  # Green theme
-  #[params.style]
-  #  darkestColor = "#315659"
-  #  darkColor = "#253031"
-  #  lightColor = "#96a879"
-  #  lightestColor = "#fff"
-  #  primaryColor = "#dad865"
+[languages]
+  [languages.ja]
+    title = "Klog"
+    subtitle = ""
+    keywords = ""
+    copyright = ""
+    mjauMore = "Show more"
+    readMore = "Read more"
+    readOtherPosts = "Read other posts"
+    fullWidthTheme = false
+    centerTheme = true
 
-  # Red theme
-  #[params.style]
-  #  darkestColor = "#d35050"
-  #  darkColor = "#212121"
-  #  lightColor = "#d6d6d6"
-  #  lightestColor = "#d3d3d3"
-  #  primaryColor = "#ffffff"
+    [languages.ja.params.logo]
+      logoText = "Klog"
+      logoHomeLink = "/"
+
+    [languages.ja.mjau]
+      [[languages.ja.mjau.main]]
+        idjatifier = "about"
+        name = "About"
+        url = "/about"
+      [[languages.ja.mjau.main]]
+        idjatifier = "showcase"
+        name = "Showcase"
+        url = "/showcase"
