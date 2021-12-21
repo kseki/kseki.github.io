@@ -4,6 +4,7 @@ defaultContentLanguage = "ja"
 theme = "terminal"
 paginate = 5
 hasCJKLanguage = true
+googleAnalytics = "G-6K4G66HC3S"
 
 [params]
   contentTypeName = "posts"
