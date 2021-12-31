@@ -5,6 +5,7 @@ theme = "terminal"
 paginate = 5
 hasCJKLanguage = true
 googleAnalytics = "G-6K4G66HC3S"
+disqusShortname = "kota718"
 
 [params]
   contentTypeName = "posts"
