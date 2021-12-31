@@ -6,6 +6,8 @@ paginate = 5
 hasCJKLanguage = true
 googleAnalytics = "G-6K4G66HC3S"
 disqusShortname = "k-s-blog"
+pygmentsUseClasses = true
+pygmentsCodefences = true
 
 [params]
   contentTypeName = "posts"
