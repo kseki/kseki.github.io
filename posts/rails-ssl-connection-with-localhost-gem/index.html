@@ -1,0 +1,191 @@
+<!doctype html><html lang=ja>
+<head>
+<title>SSL証明書を自作せずに、Railsの開発環境でhttps接続する方法 :: Klog</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。しかし、localhostというGemを使えばSSL証明書を自作せずにRailsの開発環境でhttps接続できます。">
+<meta name=keywords content>
+<meta name=robots content="noodp">
+<link rel=canonical href=https://kseki.github.io/posts/rails-ssl-connection-with-localhost-gem/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6K4G66HC3S"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-6K4G66HC3S',{anonymize_ip:!1})}</script>
+<link rel=stylesheet href=https://kseki.github.io/assets/style.css>
+<link rel=stylesheet href=https://kseki.github.io/assets/green.css>
+<link rel=apple-touch-icon href=https://kseki.github.io/img/apple-touch-icon-192x192.png>
+<link rel="shortcut icon" href=https://kseki.github.io/img/favicon/green.png>
+<meta name=twitter:card content="summary">
+<meta name=twitter:site content="https://twitter.com/_kseki">
+<meta name=twitter:creator content="kseki">
+<meta property="og:locale" content="ja">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSL証明書を自作せずに、Railsの開発環境でhttps接続する方法">
+<meta property="og:description" content="https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。しかし、localhostというGemを使えばSSL証明書を自作せずにRailsの開発環境でhttps接続できます。">
+<meta property="og:url" content="https://kseki.github.io/posts/rails-ssl-connection-with-localhost-gem/">
+<meta property="og:site_name" content="Klog">
+<meta property="og:image" content="https://kseki.github.io/img/favicon/green.png">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="article:published_time" content="2021-12-31 00:00:00 +0000 UTC">
+<link rel=stylesheet href=https://unpkg.com/jpn.css@latest/dist/bootstrap/jpn.min.css>
+</head>
+<body class=green>
+<div class="container center headings--one-size">
+<header class=header>
+<div class=header__inner>
+<div class=header__logo>
+<a href=/>
+<div class=logo>
+> Klog
+</div>
+</a>
+</div>
+<div class=menu-trigger>menu</div>
+</div>
+<nav class=menu>
+<ul class="menu__inner menu__inner--desktop">
+<li><a href=/about>About</a></li>
+</ul>
+<ul class="menu__inner menu__inner--mobile">
+<li><a href=/about>About</a></li>
+</ul>
+</nav>
+</header>
+<div class=content>
+<div class=post>
+<h1 class=post-title>
+<a href=https://kseki.github.io/posts/rails-ssl-connection-with-localhost-gem/>SSL証明書を自作せずに、Railsの開発環境でhttps接続する方法</a></h1>
+<div class=post-meta>
+<span class=post-date>
+2021-12-31
+</span>
+<span class=post-author>:: kseki</span>
+</div>
+<div class=post-content><div>
+<h3 id=概要>概要<a href=#概要 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。<br>
+しかし、localhostというGemを使えばSSL証明書を自作せずにRailsの開発環境でhttps接続できます。</p>
+<h3 id=localhost-gemとは>localhost Gemとは<a href=#localhost-gemとは class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p><a href=https://github.com/socketry/localhost>localhost Gem</a>とは、<strong>Gemを追加するだけ</strong>で<code>https://localhost:8080</code>のようにSSL接続できる便利なライブラリです。<br>
+自動的に秘密鍵及び、自己証明書（オレオレ証明書）を作成してくれます。</p>
+<h3 id=設定方法>設定方法<a href=#設定方法 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>開発環境だけlocalhost Gemを使いたいので、GemfileのdevelopmentグループブロックにGemを追加。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=c1># Gemfile</span>
+<span class=n>group</span> <span class=ss>:development</span> <span class=k>do</span>
+  <span class=n>gem</span> <span class=s1>&#39;localhost&#39;</span>
+<span class=k>end</span>
+</code></pre></div><h3 id=実行>実行<a href=#実行 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>Pumaコマンドであれば、Gem追加だけでhttps接続ができます。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ bundle <span class=nb>exec</span> puma -b <span class=s1>&#39;ssl://localhost:9292&#39;</span> config.ru
+
+Puma starting in single mode...
+* Puma version: 5.5.2 <span class=o>(</span>ruby 3.0.2-p107<span class=o>)</span> <span class=o>(</span><span class=s2>&#34;Zawgyi&#34;</span><span class=o>)</span>
+*  Min threads: <span class=m>5</span>
+*  Max threads: <span class=m>5</span>
+*  Environment: development
+*          PID: <span class=m>14848</span>
+* Listening on ssl://127.0.0.1:9292?
+* Listening on ssl://<span class=o>[</span>::1<span class=o>]</span>:9292?
+Use Ctrl-C to stop
+</code></pre></div><p>ただ、これだとアプリケーションログは<code>log/development.log</code>に出力されるので、別タブを開いて<code>tail</code>コマンド等で参照するしかありません。
+<code>rails server</code>で実行できた方が何かと便利です。</p>
+<h3 id=rails-serverで動かす>Rails serverで動かす<a href=#rails-serverで動かす class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>Pumaの設定ファイルにSSL接続の設定を追加します。<br>
+Railsデフォルトの設定で3000番ポートは使われているので3001番ポートを指定します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=c1># config/puma.rb</span>
+<span class=nb>require</span> <span class=s1>&#39;localhost/authority&#39;</span>
+<span class=n>authority</span> <span class=o>=</span> <span class=no>Localhost</span><span class=o>::</span><span class=no>Authority</span><span class=o>.</span><span class=n>fetch</span>
+
+<span class=n>ssl_bind</span> <span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=s1>&#39;3001&#39;</span><span class=p>,</span> <span class=p>{</span>
+  <span class=ss>key</span><span class=p>:</span> <span class=n>authority</span><span class=o>.</span><span class=n>key_path</span><span class=p>,</span>
+  <span class=ss>cert</span><span class=p>:</span> <span class=n>authority</span><span class=o>.</span><span class=n>certificate_path</span>
+<span class=p>}</span>
+</code></pre></div><p>Railsコマンドで実行する。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ bundle <span class=nb>exec</span> rails <span class=nv>server</span>
+
+<span class=o>=</span>&gt; Booting <span class=nv>Puma</span>
+<span class=o>=</span>&gt; Rails 7.0.0 application starting in <span class=nv>development</span>
+<span class=o>=</span>&gt; Run <span class=sb>`</span>bin/rails server --help<span class=sb>`</span> <span class=k>for</span> more startup options
+Puma starting in single mode...
+* Puma version: 5.5.2 <span class=o>(</span>ruby 3.0.2-p107<span class=o>)</span> <span class=o>(</span><span class=s2>&#34;Zawgyi&#34;</span><span class=o>)</span>
+*  Min threads: <span class=m>5</span>
+*  Max threads: <span class=m>5</span>
+*  Environment: development
+*          PID: <span class=m>17087</span>
+* Listening on ssl://127.0.0.1:3001?cert<span class=o>=</span>/Users/kseki/.localhost/localhost.crt<span class=p>&amp;</span><span class=nv>key</span><span class=o>=</span>/Users/kseki/.localhost/localhost.key<span class=p>&amp;</span><span class=nv>verify_mode</span><span class=o>=</span>none
+* Listening on http://127.0.0.1:3000
+* Listening on http://<span class=o>[</span>::1<span class=o>]</span>:3000
+Use Ctrl-C to stop
+</code></pre></div><p>リスニングしているポートが２つあります。<br>
+<code>https://localhost:3001</code>にアクセスすると続けてアプリケーションログも出力されます。</p>
+<pre tabindex=0><code class=language-log data-lang=log>Started GET &quot;/&quot; for 127.0.0.1 at 2021-12-31 23:20:45 +0900
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.0ms | Allocations: 15)
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | Allocations: 484)
+Completed 200 OK in 1ms (Views: 1.0ms | Allocations: 733)
+</code></pre><p>当然<code>http://localhost:3000</code>にアクセスしても動きます。</p>
+<h3 id=ポート3000番で接続したい>ポート3000番で接続したい<a href=#ポート3000番で接続したい class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>更にhttpsだけで接続するようにするにはPumaの設定を変更します。</p>
+<ul>
+<li><code>ssl_bind</code>メソッドの引数を<code>3001</code>から<code>3000</code>に変更</li>
+<li><code>PORT</code>指定行をコメントアウト</li>
+</ul>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff># config/puma.rb
+
+<span class=gd>- ssl_bind &#39;127.0.0.1&#39;, &#39;3001&#39;, {
+</span><span class=gd></span><span class=gi>+ ssl_bind &#39;127.0.0.1&#39;, &#39;3000&#39;, {
+</span><span class=gi></span>
+<span class=gd>- port ENV.fetch(&#34;PORT&#34;) { 3000 }
+</span><span class=gd></span><span class=gi>+ # port ENV.fetch(&#34;PORT&#34;) { 3000 }
+</span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ bundle <span class=nb>exec</span> rails <span class=nv>server</span>
+
+<span class=o>=</span>&gt; Booting <span class=nv>Puma</span>
+<span class=o>=</span>&gt; Rails 7.0.0 application starting in <span class=nv>development</span>
+<span class=o>=</span>&gt; Run <span class=sb>`</span>bin/rails server --help<span class=sb>`</span> <span class=k>for</span> more startup options
+Puma starting in single mode...
+* Puma version: 5.5.2 <span class=o>(</span>ruby 3.0.2-p107<span class=o>)</span> <span class=o>(</span><span class=s2>&#34;Zawgyi&#34;</span><span class=o>)</span>
+*  Min threads: <span class=m>5</span>
+*  Max threads: <span class=m>5</span>
+*  Environment: development
+*          PID: <span class=m>20097</span>
+* Listening on ssl://127.0.0.1:3000?cert<span class=o>=</span>/Users/kseki/.localhost/localhost.crt<span class=p>&amp;</span><span class=nv>key</span><span class=o>=</span>/Users/kseki/.localhost/localhost.key<span class=p>&amp;</span><span class=nv>verify_mode</span><span class=o>=</span>none
+Use Ctrl-C to stop
+
+</code></pre></div><p><code>https://localhost:3000</code>にアクセスすると続けてアプリケーションログが出力されます。</p>
+<pre tabindex=0><code class=language-log data-lang=log>Started GET &quot;/&quot; for 127.0.0.1 at 2021-12-31 23:28:51 +0900
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.4ms | Allocations: 448)
+  Rendered layout layouts/application.html.erb (Duration: 4.6ms | Allocations: 1473)
+Completed 200 OK in 12ms (Views: 8.2ms | Allocations: 4696)
+</code></pre><h3 id=まとめ>まとめ<a href=#まとめ class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p><a href=https://gist.github.com/kseki/bdd31b60f3ce1efff7846849687b26ea>Gist</a>に必要箇所だけまとめたので御覧ください。</p>
+<h3 id=参考>参考<a href=#参考 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<ul>
+<li><a href=https://github.com/socketry/localhost>socketry/localhost</a></li>
+<li><a href=https://github.com/socketry/localhost/blob/v1.1.9/lib/localhost/authority.rb>socketry/localhost: Localhost::Authority</a></li>
+<li><a href=https://github.com/puma/puma#self-signed-ssl-certificates-via-the-localhost-gem-for-development-use>puma/puma: Self-signed SSL certificates (via the localhost gem, for development use)</a></li>
+<li><a href=https://www.rubydoc.info/gems/puma/Puma%2FDSL:ssl_bind>Method: Puma::DSL#ssl_bind — Documentation for puma (5.5.2)</a></li>
+</ul>
+</div></div>
+<div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//k-s-blog.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</div>
+<footer class=footer>
+<div class=footer__inner>
+<div class=copyright>
+<span>© 2021 Powered by <a href=http://gohugo.io>Hugo</a></span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span>
+</div>
+</div>
+</footer>
+<script src=https://kseki.github.io/assets/main.js></script>
+<script src=https://kseki.github.io/assets/prism.js></script>
+</div>
+</body>
+</html>

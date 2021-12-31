@@ -1,4 +1,105 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Klog</title><link>https://kseki.github.io/</link><description>Recent content on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Fri, 25 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://kseki.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>About</title><link>https://kseki.github.io/about/</link><pubDate>Wed, 22 Dec 2021 00:00:00 +0000</pubDate><guid>https://kseki.github.io/about/</guid><description>自己紹介 はじめまして、 WEBエンジニア10年目の「kseki」です。 主にサーバーサイドですが、インフラ、フロントエンドもできます。 好きな言語</description><content>&lt;h3 id="自己紹介">自己紹介&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Klog</title><link>https://kseki.github.io/</link><description>Recent content on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Fri, 31 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://kseki.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>SSL証明書を自作せずに、Railsの開発環境でhttps接続する方法</title><link>https://kseki.github.io/posts/rails-ssl-connection-with-localhost-gem/</link><pubDate>Fri, 31 Dec 2021 00:00:00 +0000</pubDate><guid>https://kseki.github.io/posts/rails-ssl-connection-with-localhost-gem/</guid><description>概要 https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。 しかし、localhostというGemを使えばS</description><content>&lt;h3 id="概要">概要&lt;/h3>
+&lt;p>https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。&lt;br>
+しかし、localhostというGemを使えばSSL証明書を自作せずにRailsの開発環境でhttps接続できます。&lt;/p>
+&lt;h3 id="localhost-gemとは">localhost Gemとは&lt;/h3>
+&lt;p>&lt;a href="https://github.com/socketry/localhost">localhost Gem&lt;/a>とは、&lt;strong>Gemを追加するだけ&lt;/strong>で&lt;code>https://localhost:8080&lt;/code>のようにSSL接続できる便利なライブラリです。&lt;br>
+自動的に秘密鍵及び、自己証明書（オレオレ証明書）を作成してくれます。&lt;/p>
+&lt;h3 id="設定方法">設定方法&lt;/h3>
+&lt;p>開発環境だけlocalhost Gemを使いたいので、GemfileのdevelopmentグループブロックにGemを追加。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-ruby" data-lang="ruby">&lt;span class="c1"># Gemfile&lt;/span>
+&lt;span class="n">group&lt;/span> &lt;span class="ss">:development&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="n">gem&lt;/span> &lt;span class="s1">&amp;#39;localhost&amp;#39;&lt;/span>
+&lt;span class="k">end&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="実行">実行&lt;/h3>
+&lt;p>Pumaコマンドであれば、Gem追加だけでhttps接続ができます。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ bundle &lt;span class="nb">exec&lt;/span> puma -b &lt;span class="s1">&amp;#39;ssl://localhost:9292&amp;#39;&lt;/span> config.ru
+Puma starting in single mode...
+* Puma version: 5.5.2 &lt;span class="o">(&lt;/span>ruby 3.0.2-p107&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Zawgyi&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+* Min threads: &lt;span class="m">5&lt;/span>
+* Max threads: &lt;span class="m">5&lt;/span>
+* Environment: development
+* PID: &lt;span class="m">14848&lt;/span>
+* Listening on ssl://127.0.0.1:9292?
+* Listening on ssl://&lt;span class="o">[&lt;/span>::1&lt;span class="o">]&lt;/span>:9292?
+Use Ctrl-C to stop
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>ただ、これだとアプリケーションログは&lt;code>log/development.log&lt;/code>に出力されるので、別タブを開いて&lt;code>tail&lt;/code>コマンド等で参照するしかありません。
+&lt;code>rails server&lt;/code>で実行できた方が何かと便利です。&lt;/p>
+&lt;h3 id="rails-serverで動かす">Rails serverで動かす&lt;/h3>
+&lt;p>Pumaの設定ファイルにSSL接続の設定を追加します。&lt;br>
+Railsデフォルトの設定で3000番ポートは使われているので3001番ポートを指定します。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-ruby" data-lang="ruby">&lt;span class="c1"># config/puma.rb&lt;/span>
+&lt;span class="nb">require&lt;/span> &lt;span class="s1">&amp;#39;localhost/authority&amp;#39;&lt;/span>
+&lt;span class="n">authority&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="no">Localhost&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="no">Authority&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">fetch&lt;/span>
+&lt;span class="n">ssl_bind&lt;/span> &lt;span class="s1">&amp;#39;127.0.0.1&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;3001&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ss">key&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">authority&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">key_path&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ss">cert&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">authority&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">certificate_path&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Railsコマンドで実行する。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ bundle &lt;span class="nb">exec&lt;/span> rails &lt;span class="nv">server&lt;/span>
+&lt;span class="o">=&lt;/span>&amp;gt; Booting &lt;span class="nv">Puma&lt;/span>
+&lt;span class="o">=&lt;/span>&amp;gt; Rails 7.0.0 application starting in &lt;span class="nv">development&lt;/span>
+&lt;span class="o">=&lt;/span>&amp;gt; Run &lt;span class="sb">`&lt;/span>bin/rails server --help&lt;span class="sb">`&lt;/span> &lt;span class="k">for&lt;/span> more startup options
+Puma starting in single mode...
+* Puma version: 5.5.2 &lt;span class="o">(&lt;/span>ruby 3.0.2-p107&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Zawgyi&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+* Min threads: &lt;span class="m">5&lt;/span>
+* Max threads: &lt;span class="m">5&lt;/span>
+* Environment: development
+* PID: &lt;span class="m">17087&lt;/span>
+* Listening on ssl://127.0.0.1:3001?cert&lt;span class="o">=&lt;/span>/Users/kseki/.localhost/localhost.crt&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">key&lt;/span>&lt;span class="o">=&lt;/span>/Users/kseki/.localhost/localhost.key&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">verify_mode&lt;/span>&lt;span class="o">=&lt;/span>none
+* Listening on http://127.0.0.1:3000
+* Listening on http://&lt;span class="o">[&lt;/span>::1&lt;span class="o">]&lt;/span>:3000
+Use Ctrl-C to stop
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>リスニングしているポートが２つあります。&lt;br>
+&lt;code>https://localhost:3001&lt;/code>にアクセスすると続けてアプリケーションログも出力されます。&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-log" data-lang="log">Started GET &amp;quot;/&amp;quot; for 127.0.0.1 at 2021-12-31 23:20:45 +0900
+Processing by HomeController#index as HTML
+Rendering layout layouts/application.html.erb
+Rendering home/index.html.erb within layouts/application
+Rendered home/index.html.erb within layouts/application (Duration: 0.0ms | Allocations: 15)
+Rendered layout layouts/application.html.erb (Duration: 0.6ms | Allocations: 484)
+Completed 200 OK in 1ms (Views: 1.0ms | Allocations: 733)
+&lt;/code>&lt;/pre>&lt;p>当然&lt;code>http://localhost:3000&lt;/code>にアクセスしても動きます。&lt;/p>
+&lt;h3 id="ポート3000番で接続したい">ポート3000番で接続したい&lt;/h3>
+&lt;p>更にhttpsだけで接続するようにするにはPumaの設定を変更します。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>ssl_bind&lt;/code>メソッドの引数を&lt;code>3001&lt;/code>から&lt;code>3000&lt;/code>に変更&lt;/li>
+&lt;li>&lt;code>PORT&lt;/code>指定行をコメントアウト&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff"># config/puma.rb
+&lt;span class="gd">- ssl_bind &amp;#39;127.0.0.1&amp;#39;, &amp;#39;3001&amp;#39;, {
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ ssl_bind &amp;#39;127.0.0.1&amp;#39;, &amp;#39;3000&amp;#39;, {
+&lt;/span>&lt;span class="gi">&lt;/span>
+&lt;span class="gd">- port ENV.fetch(&amp;#34;PORT&amp;#34;) { 3000 }
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ # port ENV.fetch(&amp;#34;PORT&amp;#34;) { 3000 }
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ bundle &lt;span class="nb">exec&lt;/span> rails &lt;span class="nv">server&lt;/span>
+&lt;span class="o">=&lt;/span>&amp;gt; Booting &lt;span class="nv">Puma&lt;/span>
+&lt;span class="o">=&lt;/span>&amp;gt; Rails 7.0.0 application starting in &lt;span class="nv">development&lt;/span>
+&lt;span class="o">=&lt;/span>&amp;gt; Run &lt;span class="sb">`&lt;/span>bin/rails server --help&lt;span class="sb">`&lt;/span> &lt;span class="k">for&lt;/span> more startup options
+Puma starting in single mode...
+* Puma version: 5.5.2 &lt;span class="o">(&lt;/span>ruby 3.0.2-p107&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Zawgyi&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+* Min threads: &lt;span class="m">5&lt;/span>
+* Max threads: &lt;span class="m">5&lt;/span>
+* Environment: development
+* PID: &lt;span class="m">20097&lt;/span>
+* Listening on ssl://127.0.0.1:3000?cert&lt;span class="o">=&lt;/span>/Users/kseki/.localhost/localhost.crt&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">key&lt;/span>&lt;span class="o">=&lt;/span>/Users/kseki/.localhost/localhost.key&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">verify_mode&lt;/span>&lt;span class="o">=&lt;/span>none
+Use Ctrl-C to stop
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>https://localhost:3000&lt;/code>にアクセスすると続けてアプリケーションログが出力されます。&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-log" data-lang="log">Started GET &amp;quot;/&amp;quot; for 127.0.0.1 at 2021-12-31 23:28:51 +0900
+Processing by HomeController#index as HTML
+Rendering layout layouts/application.html.erb
+Rendering home/index.html.erb within layouts/application
+Rendered home/index.html.erb within layouts/application (Duration: 1.4ms | Allocations: 448)
+Rendered layout layouts/application.html.erb (Duration: 4.6ms | Allocations: 1473)
+Completed 200 OK in 12ms (Views: 8.2ms | Allocations: 4696)
+&lt;/code>&lt;/pre>&lt;h3 id="まとめ">まとめ&lt;/h3>
+&lt;p>&lt;a href="https://gist.github.com/kseki/bdd31b60f3ce1efff7846849687b26ea">Gist&lt;/a>に必要箇所だけまとめたので御覧ください。&lt;/p>
+&lt;h3 id="参考">参考&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/socketry/localhost">socketry/localhost&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/socketry/localhost/blob/v1.1.9/lib/localhost/authority.rb">socketry/localhost: Localhost::Authority&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/puma/puma#self-signed-ssl-certificates-via-the-localhost-gem-for-development-use">puma/puma: Self-signed SSL certificates (via the localhost gem, for development use)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.rubydoc.info/gems/puma/Puma%2FDSL:ssl_bind">Method: Puma::DSL#ssl_bind — Documentation for puma (5.5.2)&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>About</title><link>https://kseki.github.io/about/</link><pubDate>Wed, 22 Dec 2021 00:00:00 +0000</pubDate><guid>https://kseki.github.io/about/</guid><description>自己紹介 はじめまして、 WEBエンジニア10年目の「kseki」です。 主にサーバーサイドですが、インフラ、フロントエンドもできます。 好きな言語</description><content>&lt;h3 id="自己紹介">自己紹介&lt;/h3>
 &lt;p>&lt;img src="https://kseki.github.io/img/kou.png" alt="kseki">&lt;/p>
 &lt;p>はじめまして、 WEBエンジニア10年目の「kseki」です。&lt;br>
 主にサーバーサイドですが、インフラ、フロントエンドもできます。&lt;br>
@@ -7,17 +108,6 @@
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/kseki">GitHub&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://twitter.com/_kseki">Twitter&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Hello Friend</title><link>https://kseki.github.io/posts/hello/</link><pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate><guid>https://kseki.github.io/posts/hello/</guid><description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante. Donec quis dolor nec nunc mollis interdum vel in purus. Sed vitae leo scelerisque, sollicitudin elit sed, congue ante. In augue nisl, vestibulum commodo est a, tristique porttitor est. Proin laoreet iaculis ornare. Nullam ut neque quam.
-Fusce pharetra suscipit orci nec tempor.</description><content>&lt;p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante. &lt;strong>Donec quis dolor nec nunc mollis interdum vel in purus&lt;/strong>. Sed vitae leo scelerisque, sollicitudin elit sed, congue ante. In augue nisl, vestibulum commodo est a, tristique porttitor est. Proin laoreet iaculis ornare. Nullam ut neque quam.&lt;/p>
-&lt;blockquote>
-&lt;p>Fusce pharetra suscipit orci nec tempor. Quisque vitae sem sit amet sem mollis consequat. Sed at imperdiet lorem. Vestibulum pharetra faucibus odio, ac feugiat tellus sollicitudin at. Pellentesque varius tristique mi imperdiet dapibus. Duis orci odio, sodales lacinia venenatis sit amet, feugiat et diam.&lt;/p>
-&lt;/blockquote>
-&lt;p>Sed a leo id risus venenatis vulputate non quis nulla. Aenean nisl quam, lacinia pulvinar orci sit amet, eleifend eleifend dui. Nulla tempor ligula leo, eu vehicula quam condimentum a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla gravida tristique nunc sed semper. Morbi nec felis odio.&lt;/p>
-&lt;ul>
-&lt;li>Sed efficitur, lacus ac scelerisque pellentesque, lectus risus dignissim nisl, fermentum semper lectus diam eget lacus.&lt;/li>
-&lt;li>Nunc ornare purus enim, id eleifend mauris vestibulum volutpat.&lt;/li>
-&lt;li>Aenean facilisis ut ipsum condimentum ultrices.&lt;/li>
-&lt;li>Fusce sed metus vulputate, lobortis purus et, finibus purus. Suspendisse quis posuere lorem. Vivamus vulputate nec risus in pulvinar.&lt;/li>
 &lt;/ul></content></item><item><title>Showcase</title><link>https://kseki.github.io/showcase/</link><pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate><guid>https://kseki.github.io/showcase/</guid><description>Header 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante. Donec quis dolor nec nunc mollis interdum vel in purus. Sed vitae leo scelerisque, sollicitudin elit sed, congue ante. In augue nisl, vestibulum commodo est a, tristique porttitor est. Proin laoreet iaculis ornare. Nullam ut neque quam.</description><content>&lt;h2 id="header-2">Header 2&lt;/h2>
 &lt;p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante. &lt;strong>Donec quis dolor nec nunc mollis interdum vel in purus&lt;/strong>. Sed vitae leo scelerisque, sollicitudin elit sed, congue ante. In augue nisl, vestibulum commodo est a, tristique porttitor est. Proin laoreet iaculis ornare. Nullam ut neque quam.&lt;/p>
 &lt;blockquote>
@@ -25,46 +115,46 @@ Fusce pharetra suscipit orci nec tempor.</description><content>&lt;p>Lorem ipsum
 &lt;/blockquote>
 &lt;h3 id="header-3">Header 3&lt;/h3>
 &lt;p>Nulla libero turpis, lacinia vitae cursus ut, auctor dictum nisl. Fusce varius felis nec sem ullamcorper, at convallis nisi vestibulum. Duis risus odio, porta sit amet placerat mollis, tincidunt non mauris. Suspendisse fringilla, &lt;code>odio a dignissim pharetra&lt;/code>, est urna sollicitudin urna, eu scelerisque magna ex vitae tellus.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-css" data-lang="css">&lt;span style="color:#75715e">/* PostCSS code */&lt;/span>
-&lt;span style="color:#f92672">pre&lt;/span> {
-&lt;span style="color:#66d9ef">background&lt;/span>: &lt;span style="color:#ae81ff">#1a1a1d&lt;/span>;
-&lt;span style="color:#66d9ef">padding&lt;/span>: &lt;span style="color:#ae81ff">20&lt;/span>&lt;span style="color:#66d9ef">px&lt;/span>;
-&lt;span style="color:#66d9ef">border-radius&lt;/span>: &lt;span style="color:#ae81ff">8&lt;/span>&lt;span style="color:#66d9ef">px&lt;/span>;
-&lt;span style="color:#66d9ef">font-size&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>&lt;span style="color:#66d9ef">rem&lt;/span>;
-&lt;span style="color:#66d9ef">overflow&lt;/span>: &lt;span style="color:#66d9ef">auto&lt;/span>;
-&lt;span style="color:#960050;background-color:#1e0010">@media&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">(--phone)&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">{&lt;/span>
-&lt;span style="color:#66d9ef">white-space&lt;/span>: &lt;span style="color:#66d9ef">pre-wrap&lt;/span>;
-&lt;span style="color:#66d9ef">word-wrap&lt;/span>: &lt;span style="color:#66d9ef">break-word&lt;/span>;
-}
-&lt;span style="color:#f92672">code&lt;/span> {
-&lt;span style="color:#66d9ef">background&lt;/span>: &lt;span style="color:#66d9ef">none&lt;/span> &lt;span style="color:#75715e">!important&lt;/span>;
-&lt;span style="color:#66d9ef">color&lt;/span>: &lt;span style="color:#ae81ff">#ccc&lt;/span>;
-&lt;span style="color:#66d9ef">padding&lt;/span>: &lt;span style="color:#ae81ff">0&lt;/span>;
-&lt;span style="color:#66d9ef">font-size&lt;/span>: &lt;span style="color:#66d9ef">inherit&lt;/span>;
-}
-&lt;span style="color:#960050;background-color:#1e0010">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-js" data-lang="js">&lt;span style="color:#75715e">// JS code
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>
-&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">menuTrigger&lt;/span> &lt;span style="color:#f92672">=&lt;/span> document.&lt;span style="color:#a6e22e">querySelector&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;.menu-trigger&amp;#39;&lt;/span>)
-&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">menu&lt;/span> &lt;span style="color:#f92672">=&lt;/span> document.&lt;span style="color:#a6e22e">querySelector&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;.menu&amp;#39;&lt;/span>)
-&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">mobileQuery&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">getComputedStyle&lt;/span>(document.&lt;span style="color:#a6e22e">body&lt;/span>).&lt;span style="color:#a6e22e">getPropertyValue&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;--phoneWidth&amp;#39;&lt;/span>)
-&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">isMobile&lt;/span> &lt;span style="color:#f92672">=&lt;/span> () =&amp;gt; window.&lt;span style="color:#a6e22e">matchMedia&lt;/span>(&lt;span style="color:#a6e22e">mobileQuery&lt;/span>).&lt;span style="color:#a6e22e">matches&lt;/span>
-&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">isMobileMenu&lt;/span> &lt;span style="color:#f92672">=&lt;/span> () =&amp;gt; {
-&lt;span style="color:#a6e22e">menuTrigger&lt;/span>.&lt;span style="color:#a6e22e">classList&lt;/span>.&lt;span style="color:#a6e22e">toggle&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;hidden&amp;#39;&lt;/span>, &lt;span style="color:#f92672">!&lt;/span>&lt;span style="color:#a6e22e">isMobile&lt;/span>())
-&lt;span style="color:#a6e22e">menu&lt;/span>.&lt;span style="color:#a6e22e">classList&lt;/span>.&lt;span style="color:#a6e22e">toggle&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;hidden&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">isMobile&lt;/span>())
-}
-&lt;span style="color:#a6e22e">isMobileMenu&lt;/span>()
-&lt;span style="color:#a6e22e">menuTrigger&lt;/span>.&lt;span style="color:#a6e22e">addEventListener&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;click&amp;#39;&lt;/span>, () =&amp;gt; &lt;span style="color:#a6e22e">menu&lt;/span>.&lt;span style="color:#a6e22e">classList&lt;/span>.&lt;span style="color:#a6e22e">toggle&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;hidden&amp;#39;&lt;/span>))
-window.&lt;span style="color:#a6e22e">addEventListener&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;resize&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">isMobileMenu&lt;/span>)
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&lt;span style="color:#75715e">&amp;lt;!-- HTML code --&amp;gt;&lt;/span>
-&amp;lt;&lt;span style="color:#f92672">section&lt;/span> &lt;span style="color:#a6e22e">id&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;main&amp;#34;&lt;/span>&amp;gt;
-&amp;lt;&lt;span style="color:#f92672">div&lt;/span>&amp;gt;
-&amp;lt;&lt;span style="color:#f92672">h1&lt;/span> &lt;span style="color:#a6e22e">id&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;title&amp;#34;&lt;/span>&amp;gt;{{ .Title }}&amp;lt;/&lt;span style="color:#f92672">h1&lt;/span>&amp;gt;
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="c">/* PostCSS code */&lt;/span>
+&lt;span class="nt">pre&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#1a1a1d&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">rem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">overflow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">auto&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="err">@media&lt;/span> &lt;span class="err">(--phone)&lt;/span> &lt;span class="err">{&lt;/span>
+&lt;span class="k">white-space&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">pre-wrap&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">word-wrap&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">break-word&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nt">code&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span> &lt;span class="cp">!important&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#ccc&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">inherit&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="err">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="c1">// JS code
+&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">menuTrigger&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">querySelector&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.menu-trigger&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">menu&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">querySelector&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.menu&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">mobileQuery&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">getComputedStyle&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">body&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">getPropertyValue&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;--phoneWidth&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">isMobile&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">matchMedia&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">mobileQuery&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">matches&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">isMobileMenu&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">menuTrigger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">classList&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toggle&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;hidden&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">!&lt;/span>&lt;span class="nx">isMobile&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="nx">menu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">classList&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toggle&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;hidden&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">isMobile&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">isMobileMenu&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">menuTrigger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addEventListener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;click&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">menu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">classList&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toggle&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;hidden&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addEventListener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;resize&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">isMobileMenu&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="c">&amp;lt;!-- HTML code --&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">section&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;main&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h1&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;title&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>{{ .Title }}&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 {{ range .Pages }}
 {{ .Render &amp;#34;summary&amp;#34;}}
 {{ end }}
-&amp;lt;/&lt;span style="color:#f92672">div&lt;/span>&amp;gt;
-&amp;lt;/&lt;span style="color:#f92672">section&lt;/span>&amp;gt;
+&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">section&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="header-4">Header 4&lt;/h4>
 &lt;p>Curabitur scelerisque felis viverra varius scelerisque. Ut enim libero, molestie gravida blandit at, mollis ornare tellus. Cras arcu mi, ultrices vel pulvinar vel, volutpat eu tortor. Nullam nec eros quis massa ultrices iaculis sed in metus. Praesent sollicitudin sem sit amet orci tempor gravida.&lt;/p>
 &lt;ul>
