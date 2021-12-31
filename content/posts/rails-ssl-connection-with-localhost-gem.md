@@ -13,7 +13,9 @@ https接続するために自己証明書(オレオレ証明書)を作成する�
 
 ### localhost Gemとは
 
-[localhost Gem](https://github.com/socketry/localhost)とは、**Gemを追加するだけ**で`https://localhost:8080`のように開発環境にてSSL接続できるよう、自動的に秘密鍵及び、自己証明書（オレオレ証明書）を作成してくれます。
+[localhost Gem](https://github.com/socketry/localhost)とは、**Gemを追加するだけ**で`https://localhost:8080`のようにSSL接続できる便利なライブラリです。  
+自動的に秘密鍵及び、自己証明書（オレオレ証明書）を作成してくれます。
+
 
 ### 設定方法
 
