@@ -150,5 +150,5 @@ Completed 200 OK in 12ms (Views: 8.2ms | Allocations: 4696)
 
 - [socketry/localhost](https://github.com/socketry/localhost)
 - [socketry/localhost: Localhost::Authority](https://github.com/socketry/localhost/blob/v1.1.9/lib/localhost/authority.rb)
-- [[puma/puma: Self-signed SSL certificates (via the localhost gem, for development use)](https://github.com/puma/puma#self-signed-ssl-certificates-via-the-localhost-gem-for-development-use)
+- [puma/puma: Self-signed SSL certificates (via the localhost gem, for development use)](https://github.com/puma/puma#self-signed-ssl-certificates-via-the-localhost-gem-for-development-use)
 - [Method: Puma::DSL\#ssl\_bind — Documentation for puma \(5\.5\.2\)](https://www.rubydoc.info/gems/puma/Puma%2FDSL:ssl_bind)
