@@ -4,6 +4,13 @@
       "extensions": [".md"]
     }
   },
+  "filters": {
+    "whitelist": {
+      "allow": [
+          "/^\\+{3}[\\s\\S]*?\\+{3}/m"
+      ]
+    }
+  },
   "rules": {
     "preset-ja-technical-writing": {
       "no-exclamation-question-mark": {
