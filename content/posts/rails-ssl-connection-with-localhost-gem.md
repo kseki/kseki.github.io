@@ -5,7 +5,7 @@ author = "kseki"
 # cover = "img/hello.jpg"
 description = "https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。しかし、localhostというGemを使えばSSL証明書を自作せずにRailsの開発環境でhttps接続できます。"
 categories = ["開発"]
-tags = ["Ruby", "Ruby on Rails"]
+tags = ["Ruby3.0.2", "Ruby on Rails7.0.0"]
 +++
 
 ### 概要
@@ -13,6 +13,11 @@ tags = ["Ruby", "Ruby on Rails"]
 https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。  
 しかし、localhostというGemを使えばSSL証明書を自作せずにRailsの開発環境でhttps接続できます。  
 今回のコードは[こちら](https://github.com/kseki/learning-localhost-gem)。
+
+- Ruby: 3.0.2
+- Ruby on Rails: 7.0.0
+- Puma: 5.5.2
+- localhost: 1.1.9 
 
 ### localhost Gemとは
 
