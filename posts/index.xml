@@ -2,6 +2,12 @@
 &lt;p>https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。&lt;br>
 しかし、localhostというGemを使えばSSL証明書を自作せずにRailsの開発環境でhttps接続できます。&lt;br>
 今回のコードは&lt;a href="https://github.com/kseki/learning-localhost-gem">こちら&lt;/a>。&lt;/p>
+&lt;ul>
+&lt;li>Ruby: 3.0.2&lt;/li>
+&lt;li>Ruby on Rails: 7.0.0&lt;/li>
+&lt;li>Puma: 5.5.2&lt;/li>
+&lt;li>localhost: 1.1.9&lt;/li>
+&lt;/ul>
 &lt;h3 id="localhost-gemとは">localhost Gemとは&lt;/h3>
 &lt;p>&lt;a href="https://github.com/socketry/localhost">localhost Gem&lt;/a>とは、&lt;strong>Gemを追加するだけ&lt;/strong>で&lt;code>https://localhost:8080&lt;/code>のようにSSL接続できる便利なライブラリです。&lt;br>
 自動的に秘密鍵及び、自己証明書（オレオレ証明書）を作成してくれます。&lt;/p>
