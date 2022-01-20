@@ -71,8 +71,10 @@ Docker上の絶対パスに変換してから渡すようにマッピング指�
 
 ### まとめ
 
+Gistにまとめました！
 [Setting up "Rubocop" to run on "Docker compose" using "ALE"](https://gist.github.com/kseki/811a9c4bd9f7a1c6bcec00691007bcc9)
 
 ### 参考
 
 - [dense\-analysis/ale: Check syntax in Vim asynchronously and fix files, with Language Server Protocol \(LSP\) support](https://github.com/dense-analysis/ale)
+- [Vim, ALE, Docker, and Per\-Project Linting \| Ryan McGrath](https://rymc.io/blog/2019/vim-ale-docker-per-project-linting/)
