@@ -4,8 +4,8 @@ date = "2021-12-31"
 author = "kseki"
 # cover = "img/hello.jpg"
 description = "https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。しかし、localhostというGemを使えばSSL証明書を自作せずにRailsの開発環境でhttps接続できます。"
-categories = ["開発"]
-tags = ["Ruby3.0.2", "Ruby on Rails7.0.0"]
+categories = ["開発環境"]
+tags = ["Ruby", "Ruby on Rails"]
 +++
 
 ### 概要
