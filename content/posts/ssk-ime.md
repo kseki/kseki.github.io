@@ -7,7 +7,6 @@ image = ""
 author = "kseki"
 categories = ["効率化"]
 tags = ["効率化", "IME", "日本語入力"]
-draft = true
 +++
 
 ## SKKとは
