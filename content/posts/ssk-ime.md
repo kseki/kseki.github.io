@@ -12,7 +12,7 @@ tags = ["効率化", "IME", "日本語入力"]
 ## SKKとは
 
 - SKK（エスケイケイ、Simple Kana to Kanji conversion program）
-- Emacs上で動く、日本語入力システムの一つである
+- Emacs上で動く、日本語入力システムの1つである
 
 引用: [SKK \- Wikipedia](https://ja.wikipedia.org/wiki/SKK)
 
