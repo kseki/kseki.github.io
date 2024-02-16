@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "lint": "textlint --fix 'content/posts/*.md'"
+  },
   "devDependencies": {
     "textlint": "^12.1.0",
     "textlint-filter-rule-whitelist": "^2.0.0",
