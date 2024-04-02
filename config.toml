@@ -15,6 +15,7 @@ pygmentsCodefences = true
   showMenuItems = 2
   fullWidthTheme = false
   centerTheme = true
+  favicon = '/img/cat-icon2.png'
 
   [params.twitter]
   # set Twitter handles for Twitter cards
