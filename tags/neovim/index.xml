@@ -1,4 +1,57 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neovim on Klog</title><link>https://kseki.github.io/tags/neovim/</link><description>Recent content in Neovim on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Thu, 20 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://kseki.github.io/tags/neovim/index.xml" rel="self" type="application/rss+xml"/><item><title>[Neovim] ALEを使ってDocker Compose上でRubocopを実行する</title><link>https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/</link><pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate><guid>https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/</guid><description>概要 昨今の開発環境はほとんどのロジェクトでDocker Composeなどの仮想環境で構成されています。 今回は、Neovim(Vim) + ALE</description><content>&lt;h3 id="概要">概要&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neovim on</title><link>https://kseki.github.io/tags/neovim/</link><description>Recent content in Neovim on</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Tue, 09 Apr 2024 16:30:42 +0900</lastBuildDate><atom:link href="https://kseki.github.io/tags/neovim/index.xml" rel="self" type="application/rss+xml"/><item><title>NeovimでGitHub Copilot Chatを使う方法</title><link>https://kseki.github.io/posts/how_to_github_copilot_chat_on_nvim/</link><pubDate>Tue, 09 Apr 2024 16:30:42 +0900</pubDate><guid>https://kseki.github.io/posts/how_to_github_copilot_chat_on_nvim/</guid><description>概要 GitHub Copilot Chatは、開発者がコーディング中にリアルタイムで支援を受けることができるツールです。 copilot.vim を使えばNeovimでもGitHub Copi</description><content>&lt;h3 id="概要">概要&lt;/h3>
+&lt;p>GitHub Copilot Chatは、開発者がコーディング中にリアルタイムで支援を受けることができるツールです。
+&lt;a href="https://github.com/github/copilot.vim">copilot.vim&lt;/a> を使えばNeovimでもGitHub Copilotは使えるのですが、まだChatには対応していません。
+Neovimエディタで利用することで、コードの自動補完やドキュメントの参照、コーディングの疑問点を解決するための対話が可能になります。&lt;/p>
+&lt;p>&lt;a href="https://github.com/CopilotC-Nvim/CopilotChat.nvim">CopilotChat.nvim&lt;/a>を使うことでChatを利用できるようになります。&lt;/p>
+&lt;h3 id="設定方法">設定方法&lt;/h3>
+&lt;h4 id="1-プラグインをインストールする">1. プラグインをインストールする&lt;/h4>
+&lt;p>まずプラグインをインストールする必要があります。お使いのプライグインマネージャーに応じて設定してください。
+自分の環境は&lt;a href="https://github.com/junegunn/vim-plug">vim-plug&lt;/a> なので下記を追加しました。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-vim" data-lang="vim">&lt;span class="nx">call&lt;/span> &lt;span class="nx">plug&lt;/span>#&lt;span class="nx">begin&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span>&lt;span class="nx">Plug&lt;/span> &lt;span class="s1">&amp;#39;zbirenbaum/copilot.lua&amp;#39;&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span>&lt;span class="nx">Plug&lt;/span> &lt;span class="s1">&amp;#39;nvim-lua/plenary.nvim&amp;#39;&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span>&lt;span class="nx">Plug&lt;/span> &lt;span class="s1">&amp;#39;CopilotC-Nvim/CopilotChat.nvim&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> { &lt;span class="s1">&amp;#39;branch&amp;#39;&lt;/span>: &lt;span class="s1">&amp;#39;canary&amp;#39;&lt;/span> }&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span>&lt;span class="nx">call&lt;/span> &lt;span class="nx">plug&lt;/span>#&lt;span class="nx">end&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span>&lt;span class="nx">lua&lt;/span> &lt;span class="p">&amp;lt;&amp;lt;&lt;/span> &lt;span class="nx">EOF&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span>&lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;CopilotChat&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>.&lt;span class="nx">setup&lt;/span> {}&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span>&lt;span class="nx">EOF&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>その後、&lt;code>:PackerSync&lt;/code>コマンドを実行しインストール後にNeovimを再起動すると完了です。&lt;/p>
+&lt;h4 id="2-github-copilot-chatが日本語で回答するように設定する">2. GitHub Copilot Chatが日本語で回答するように設定する&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-vim" data-lang="vim">&lt;span class="nx">lua&lt;/span> &lt;span class="p">&amp;lt;&amp;lt;&lt;/span> &lt;span class="nx">EOF&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span>&lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;CopilotChat&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>.&lt;span class="nx">setup&lt;/span>&lt;span class="p">(&lt;/span>{&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> &lt;span class="nx">show_help&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;yes&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> &lt;span class="nx">prompts&lt;/span> &lt;span class="p">=&lt;/span> {&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> &lt;span class="nx">Explain&lt;/span> &lt;span class="p">=&lt;/span> {&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_EXPLAIN 上記のコードを日本語で説明してください&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> }&lt;span class="p">,&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> &lt;span class="nx">Tests&lt;/span> &lt;span class="p">=&lt;/span> {&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_TESTS 上記のコードの詳細なユニットテストを書いてください。説明は日本語でお願いします。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> }&lt;span class="p">,&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> &lt;span class="nx">Fix&lt;/span> &lt;span class="p">=&lt;/span> {&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_FIX このコードには問題があります。バグを修正したコードを表示してください。説明は日本語でお願いします。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> }&lt;span class="p">,&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> &lt;span class="nx">Optimize&lt;/span> &lt;span class="p">=&lt;/span> {&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_REFACTOR 選択したコードを最適化し、パフォーマンスと可読性を向上させてください。説明は日本語でお願いします。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> }&lt;span class="p">,&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span> }&lt;span class="p">,&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span>}&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span>&lt;span class="nx">EOF&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>COPILOT_EXPLAIN&lt;/code>などはデフォルトでプロンプトの内容が定数化されています。(詳しくは、&lt;a href="https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/prompts.lua">prompts.lua&lt;/a> を参照ください。)
+続けて日本語で説明してもらうようにプロンプトを追加しています。&lt;/p>
+&lt;h3 id="使い方">使い方&lt;/h3>
+&lt;p>使い方はいろいろありますが、今回は、&lt;code>:CopilotChatTests&lt;/code>コマンドを使ってテストを作成してもらう方法を書きます。&lt;/p>
+&lt;ol>
+&lt;li>対象となるコードをヤンクする&lt;/li>
+&lt;li>コマンドモードで&lt;code>:CopilotChatTests&lt;/code>を入力するとChatが返ってくる&lt;/li>
+&lt;li>チャット画面で&lt;code>gy&lt;/code>をしてテストコードをヤンクする&lt;/li>
+&lt;li>テストファイルに&lt;code>p&lt;/code>でペースト&lt;/li>
+&lt;/ol>
+&lt;p>で完成です。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/img/copilot-chat-demo.gif" alt="demo.gif">&lt;/p>
+&lt;h3 id="まとめ">まとめ&lt;/h3>
+&lt;p>GitHub Copilot Chatは開発者にとって強力な支援ツールです。このツールを活用することで、開発の効率化とコーディングの質の向上が期待できます。&lt;/p>
+&lt;p>このブログポストは、NeovimでGitHub Copilot Chatを使う方法についての概要を提供しています。より詳細な情報やサポートが必要な場合は、公式ドキュメントやコミュニティフォーラムを参照してください。開発の旅において、GitHub Copilot Chatが有益なガイドとなることを願っています。&lt;/p></content></item><item><title>[Neovim] ALEを使ってDocker Compose上でRubocopを実行する</title><link>https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/</link><pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate><guid>https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/</guid><description>概要 昨今の開発環境はほとんどのロジェクトでDocker Composeなどの仮想環境で構成されています。 今回は、Neovim(Vim) + ALE</description><content>&lt;h3 id="概要">概要&lt;/h3>
 &lt;p>昨今の開発環境はほとんどのロジェクトでDocker Composeなどの仮想環境で構成されています。&lt;br>
 今回は、Neovim(Vim) + ALEを使ってDocker Compose上でRubocopを実行する方法を書きました。&lt;/p>
 &lt;h4 id="バージョン">バージョン&lt;/h4>
