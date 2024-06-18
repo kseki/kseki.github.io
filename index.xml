@@ -1,4 +1,41 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://kseki.github.io/</link><description>Recent content on</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Tue, 09 Apr 2024 16:30:42 +0900</lastBuildDate><atom:link href="https://kseki.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>NeovimでGitHub Copilot Chatを使う方法</title><link>https://kseki.github.io/posts/how_to_github_copilot_chat_on_nvim/</link><pubDate>Tue, 09 Apr 2024 16:30:42 +0900</pubDate><guid>https://kseki.github.io/posts/how_to_github_copilot_chat_on_nvim/</guid><description>概要 GitHub Copilot Chatは、開発者がコーディング中にリアルタイムで支援を受けることができるツールです。 copilot.vim を使えばNeovimでもGitHub Copi</description><content>&lt;h3 id="概要">概要&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://kseki.github.io/</link><description>Recent content on</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Tue, 18 Jun 2024 16:21:07 +0900</lastBuildDate><atom:link href="https://kseki.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>便利なGitコマンドラインツールLazygit</title><link>https://kseki.github.io/posts/how_to_lazygit/</link><pubDate>Tue, 18 Jun 2024 16:21:07 +0900</pubDate><guid>https://kseki.github.io/posts/how_to_lazygit/</guid><description>概要 Lazygitは、開発者の生産性を向上させるために設計された、コマンドラインツールです。このツールは、Gitの操作を簡単かつ効率的に行う</description><content>&lt;h3 id="概要">概要&lt;/h3>
+&lt;p>Lazygitは、開発者の生産性を向上させるために設計された、コマンドラインツールです。このツールは、Gitの操作を簡単かつ効率的に行うことができるインターフェースを提供します。ステータスの確認、コミットの作成、ブランチの切り替えなどの一般的なGit操作を簡単に行うことができます。&lt;/p>
+&lt;h3 id="インストール方法">インストール方法&lt;/h3>
+&lt;p>MacOSユーザーは、Homebrewを使用してLazygitを簡単にインストールできます。ターミナルを開き、以下のコマンドを実行します。&lt;/p>
+&lt;pre tabindex="0">&lt;code>brew install lazygit
+&lt;/code>&lt;/pre>&lt;p>※他のインストール方法は&lt;a href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#installation">こちら&lt;/a>&lt;/p>
+&lt;h3 id="チュートリアル">チュートリアル&lt;/h3>
+&lt;p>READMEに&lt;a href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#tutorials">チュートリアル&lt;/a>動画へのリンクがあるので一度やってみることをお勧めします！&lt;/p>
+&lt;h3 id="githubと連携して一連の開発作業のやり方">GitHubと連携して一連の開発作業のやり方&lt;/h3>
+&lt;p>Lazygitを使用してGitHubと連携し、開発作業を行うプロセスは以下の通りです。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>ブランチを作成&lt;/strong>
+リポジトリ内で新しいブランチを作成し、特定の機能や修正に取り組みます。
+ベースブランチの上にカーソルを合わせて&lt;code>c&lt;/code>を押すとダイアログが表示されるので、ブランチ名を入力してEnterキーを押すだけです。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/img/create-branch.gif" alt="create branch">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>ファイルを編集してコミット&lt;/strong>
+必要なファイルを編集し、変更をコミットします。Lazygitでは、変更をステージングし、コミットメッセージを入力することが容易です。
+コミットしたいディレクトリ、またはファイルにカーソルを合わせて&lt;code>Space&lt;/code>キーを押してステージング。&lt;code>c&lt;/code>を押すとダイアログが表示されるのでコミットメッセージを入力してEnterキーを押す。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/img/add-commit.gif" alt="add files and commit">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>リモートリポジトリーにpush、PRの作成&lt;/strong>
+コミットした変更をリモートリポジトリにpushします。GitHub上でPRを作成します。
+Pushしたいリポジトリにカーソルを合わせて&lt;code>P&lt;/code>を押しEnterするだけです。（リモートリポジトリが存在する場合は&lt;code>p&lt;/code>でOKです。）
+Pushが終わったら、PR作成したいリポジトリにカーソルを合わせて&lt;code>o&lt;/code>を押すと、ブラウザでPR作成画面が表示されます。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/img/push-and-open-pr.gif" alt="push and open pr">&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>他にも &lt;a href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#features">たくさんの機能&lt;/a> や &lt;a href="https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Command_Keybindings.md">カスタムコマンド&lt;/a> を追加出来ます！&lt;/p>
+&lt;h3 id="まとめ">まとめ&lt;/h3>
+&lt;p>Lazygitは、Gitの操作を簡単にし、開発者の作業を効率化する強力なツールです。その直感的なUIと豊富な機能により、開発プロセスがよりスムーズになります。この記事がLazygitの導入と利用の手助けになれば幸いです。&lt;/p>
+&lt;h3 id="参考">参考&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/jesseduffield/lazygit">jesseduffield/lazygit: simple terminal UI for git commands&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>NeovimでGitHub Copilot Chatを使う方法</title><link>https://kseki.github.io/posts/how_to_github_copilot_chat_on_nvim/</link><pubDate>Tue, 09 Apr 2024 16:30:42 +0900</pubDate><guid>https://kseki.github.io/posts/how_to_github_copilot_chat_on_nvim/</guid><description>概要 GitHub Copilot Chatは、開発者がコーディング中にリアルタイムで支援を受けることができるツールです。 copilot.vim を使えばNeovimでもGitHub Copi</description><content>&lt;h3 id="概要">概要&lt;/h3>
 &lt;p>GitHub Copilot Chatは、開発者がコーディング中にリアルタイムで支援を受けることができるツールです。
 &lt;a href="https://github.com/github/copilot.vim">copilot.vim&lt;/a> を使えばNeovimでもGitHub Copilotは使えるのですが、まだChatには対応していません。
 Neovimエディタで利用することで、コードの自動補完やドキュメントの参照、コーディングの疑問点を解決するための対話が可能になります。&lt;/p>
