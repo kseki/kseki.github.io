@@ -3,11 +3,9 @@ title = "便利なGitコマンドラインツールLazygit"
 date = "2024-06-18T16:21:07+09:00"
 author = "kseki"
 cover = "img/lazygit.png"
-tags = ["", ""]
-keywords = ["", ""]
+tags = ["Git", "Lazygit", "CUI"]
+categories = ["開発", "効率化"]
 description = "Lazygitは、開発者の生産性を向上させるために設計された、コマンドラインツールです。このツールは、Gitの操作を簡単かつ効率的に行うことができるインターフェースを提供します。ステータスの確認、コミットの作成、ブランチの切り替えなどの一般的なGit操作を簡単に行うことができます。"
-showFullContent = false
-readingTime = false
 +++
 
 ### 概要
@@ -34,19 +32,28 @@ Lazygitを使用してGitHubと連携し、開発作業を行うプロセスは�
 
 1. **ブランチを作成**
    リポジトリ内で新しいブランチを作成し、特定の機能や修正に取り組みます。
+   ベースブランチの上にカーソルを合わせて`c`を押すとダイアログが表示されるので、ブランチ名を入力してEnterキーを押すだけです。
+
+   ![create branch](/img/create-branch.gif)
 
 2. **ファイルを編集してコミット**
    必要なファイルを編集し、変更をコミットします。Lazygitでは、変更をステージングし、コミットメッセージを入力することが容易です。
+   コミットしたいディレクトリ、またはファイルにカーソルを合わせて`Space`キーを押してステージング。`c`を押すとダイアログが表示されるのでコミットメッセージを入力してEnterキーを押す。
 
-3. **リモートリポジトリーにpush**
-   コミットした変更をリモートリポジトリにpushします。Lazygitは、pushのプロセスを簡素化し、エラーを最小限に抑えます。
+   ![add files and commit](/img/add-commit.gif)
 
-4. **PRの作成**
-   GitHub上でPull Requestを作成し、コードレビューを依頼します。Lazygitは、このプロセスを直接サポートしていないため、GitHubのウェブインターフェースを使用します。
+3. **リモートリポジトリーにpush、PRの作成**
+   コミットした変更をリモートリポジトリにpushします。GitHub上でPRを作成します。
+   Pushしたいリポジトリにカーソルを合わせて`P`を押しEnterするだけです。（リモートリポジトリが存在する場合は`p`でOKです。）
+   Pushが終わったら、PR作成したいリポジトリにカーソルを合わせて`o`を押すと、ブラウザでPR作成画面が表示されます。
+
+   ![push and open pr](/img/push-and-open-pr.gif)
+
+他にも [たくさんの機能](https://github.com/jesseduffield/lazygit?tab=readme-ov-file#features) や [カスタムコマンド](https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Command_Keybindings.md) を追加することが可能です！
 
 ### まとめ
 
-Lazygitは、Gitの操作を簡単にし、開発者の作業を効率化する強力なツールです。その直感的なUIと豊富な機能により、開発プロセスがよりスムーズになります。この記事がLazygitの導入と利用の手助けになれば幸いです。オープンソースコミュニティに参加し、Lazygitのさらなる進化に貢献しましょう。
+Lazygitは、Gitの操作を簡単にし、開発者の作業を効率化する強力なツールです。その直感的なUIと豊富な機能により、開発プロセスがよりスムーズになります。この記事がLazygitの導入と利用の手助けになれば幸いです。
 
 ### 参考
 
