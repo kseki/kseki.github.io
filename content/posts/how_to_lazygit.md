@@ -49,7 +49,7 @@ Lazygitを使用してGitHubと連携し、開発作業を行うプロセスは�
 
    ![push and open pr](/img/push-and-open-pr.gif)
 
-他にも [たくさんの機能](https://github.com/jesseduffield/lazygit?tab=readme-ov-file#features) や [カスタムコマンド](https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Command_Keybindings.md) を追加することが可能です！
+他にも [たくさんの機能](https://github.com/jesseduffield/lazygit?tab=readme-ov-file#features) や [カスタムコマンド](https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Command_Keybindings.md) を追加出来ます！
 
 ### まとめ
 
