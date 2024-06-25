@@ -1,0 +1,175 @@
+<!doctype html><html lang=ja>
+<head>
+<title>AWS S3のファイルへのアクセスログをAthenaで確認する方法 :: </title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="まず、S3バケットでサーバーアクセスログを有効にする必要があります。これにより、アクセスされるたびにログが記録され、後で分析するために使用できます。">
+<meta name=keywords content>
+<meta name=robots content="noodp">
+<link rel=canonical href=https://kseki.github.io/posts/how_to_check_s3_access_log_with_athena/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6K4G66HC3S"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-6K4G66HC3S',{anonymize_ip:!1})}</script>
+<link rel=stylesheet href=https://kseki.github.io/assets/style.css>
+<link rel=stylesheet href=https://kseki.github.io/assets/green.css>
+<link rel=apple-touch-icon href=https://kseki.github.io/img/apple-touch-icon-192x192.png>
+<link rel="shortcut icon" href=https://kseki.github.io/img/cat-icon2.png>
+<meta name=twitter:card content="summary">
+<meta name=twitter:site content="https://twitter.com/_kseki">
+<meta name=twitter:creator content="kseki">
+<meta property="og:locale" content="ja">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS S3のファイルへのアクセスログをAthenaで確認する方法">
+<meta property="og:description" content="まず、S3バケットでサーバーアクセスログを有効にする必要があります。これにより、アクセスされるたびにログが記録され、後で分析するために使用できます。">
+<meta property="og:url" content="https://kseki.github.io/posts/how_to_check_s3_access_log_with_athena/">
+<meta property="og:site_name" content>
+<meta property="og:image" content="https://kseki.github.io/img/aws-athena.png">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="article:section" content="開発">
+<meta property="article:section" content="AWS">
+<meta property="article:published_time" content="2024-06-25 16:31:19 +0900 +0900">
+<link rel=stylesheet href=https://unpkg.com/jpn.css@latest/dist/bootstrap/jpn.min.css>
+<meta name=google-site-verification content="SRXYnYOhrpgV3QLtRxsYwQPjlGu1YkWtCoQsM1bSh24">
+</head>
+<body class=green>
+<div class="container center headings--one-size">
+<header class=header>
+<div class=header__inner>
+<div class=header__logo>
+<a href=/>
+<div class=logo>
+> Klog
+</div>
+</a>
+</div>
+<div class=menu-trigger>menu</div>
+</div>
+<nav class=menu>
+<ul class="menu__inner menu__inner--desktop">
+<li><a href=/about>About</a></li>
+</ul>
+<ul class="menu__inner menu__inner--mobile">
+<li><a href=/about>About</a></li>
+</ul>
+</nav>
+</header>
+<div class=content>
+<div class=post>
+<h1 class=post-title>
+<a href=https://kseki.github.io/posts/how_to_check_s3_access_log_with_athena/>AWS S3のファイルへのアクセスログをAthenaで確認する方法</a></h1>
+<div class=post-meta>
+<span class=post-date>
+2024-06-25
+</span>
+<span class=post-author>:: kseki</span>
+</div>
+<span class=post-tags>
+#<a href=https://kseki.github.io/tags/aws/>AWS</a>&nbsp;
+#<a href=https://kseki.github.io/tags/s3/>S3</a>&nbsp;
+#<a href=https://kseki.github.io/tags/athena/>Athena</a>&nbsp;
+</span>
+<img src=https://kseki.github.io/img/aws-athena.png class=post-cover alt="AWS S3のファイルへのアクセスログをAthenaで確認する方法" title="Cover Image">
+<div class=post-content><div>
+<h3 id=概要>概要<a href=#概要 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>Amazon S3のファイルへのアクセスログをAmazon Athenaで確認する方法です。</p>
+<h3 id=ステップ1-s3バケットのサーバーアクセスログを有効にする>ステップ1: S3バケットのサーバーアクセスログを有効にする<a href=#ステップ1-s3バケットのサーバーアクセスログを有効にする class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>まず、S3バケットでサーバーアクセスログを有効にする必要があります。これにより、アクセスされるたびにログが記録され、後で分析するために使用できます。</p>
+<p><img src=/img/athena-step1.png alt="edit s3 access log settings"></p>
+<h3 id=ステップ2-amazon-athenaコンソールを開く>ステップ2: Amazon Athenaコンソールを開く<a href=#ステップ2-amazon-athenaコンソールを開く class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>次に、Amazon Athenaコンソールにアクセスし、クエリエディタを使用してデータベースとテーブルを作成します。</p>
+<p><img src=/img/athena-step2.png alt="athena query editor"></p>
+<h3 id=ステップ3-データベースを作成する>ステップ3: データベースを作成する<a href=#ステップ3-データベースを作成する class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>Athenaで新しいデータベースを作成し、アクセスログデータの格納場所として設定します。
+今回は、デフォルトで用意されている<code>default</code>を使います。</p>
+<h3 id=ステップ4-テーブルスキーマを作成する>ステップ4: テーブルスキーマを作成する<a href=#ステップ4-テーブルスキーマを作成する class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>アクセスログデータの構造を定義するテーブルスキーマを作成します。
+以下のクエリを実行します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>CREATE</span><span class=w> </span><span class=k>EXTERNAL</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=o>`</span><span class=k>default</span><span class=p>.</span><span class=o>&lt;</span><span class=err>データベース名</span><span class=o>&gt;`</span><span class=p>(</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>bucketowner</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>bucket_name</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>requestdatetime</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>remoteip</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>requester</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>requestid</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=k>operation</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=k>key</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>request_uri</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>httpstatus</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>errorcode</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>bytessent</span><span class=o>`</span><span class=w> </span><span class=nb>BIGINT</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>objectsize</span><span class=o>`</span><span class=w> </span><span class=nb>BIGINT</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>totaltime</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>turnaroundtime</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>referrer</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>useragent</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>versionid</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>hostid</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>sigv</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>ciphersuite</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>authtype</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>endpoint</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>tlsversion</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>accesspointarn</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>,</span><span class=w>
+</span><span class=w>  </span><span class=o>`</span><span class=n>aclrequired</span><span class=o>`</span><span class=w> </span><span class=n>STRING</span><span class=p>)</span><span class=w>
+</span><span class=w></span><span class=k>ROW</span><span class=w> </span><span class=n>FORMAT</span><span class=w> </span><span class=n>SERDE</span><span class=w>
+</span><span class=w>  </span><span class=s1>&#39;org.apache.hadoop.hive.serde2.RegexSerDe&#39;</span><span class=w>
+</span><span class=w></span><span class=k>WITH</span><span class=w> </span><span class=n>SERDEPROPERTIES</span><span class=w> </span><span class=p>(</span><span class=w>
+</span><span class=w>  </span><span class=s1>&#39;input.regex&#39;</span><span class=o>=</span><span class=s1>&#39;([^ ]*) ([^ ]*) \\[(.*?)\\] ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) (\&#34;[^\&#34;]*\&#34;|-) (-|[0-9]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) (\&#34;[^\&#34;]*\&#34;|-) ([^ ]*)(?: ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*))?.*$&#39;</span><span class=p>)</span><span class=w>
+</span><span class=w></span><span class=n>STORED</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>INPUTFORMAT</span><span class=w>
+</span><span class=w>  </span><span class=s1>&#39;org.apache.hadoop.mapred.TextInputFormat&#39;</span><span class=w>
+</span><span class=w></span><span class=n>OUTPUTFORMAT</span><span class=w>
+</span><span class=w>  </span><span class=s1>&#39;org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat&#39;</span><span class=w>
+</span><span class=w></span><span class=k>LOCATION</span><span class=w>
+</span><span class=w>  </span><span class=s1>&#39;s3://&lt;S3バケット名&gt;/&lt;ディレクトリ&gt;/&#39;</span><span class=w>
+</span><span class=w>
+</span></code></pre></div><h3 id=ステップ5-テーブルをプレビューする>ステップ5: テーブルをプレビューする<a href=#ステップ5-テーブルをプレビューする class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>作成したテーブルスキーマが正しく機能しているかを確認するために、テーブルのプレビューを行います。</p>
+<p><img src=/img/athena-step5.png alt="preview table"></p>
+<h3 id=ステップ6-クエリを実行する>ステップ6: クエリを実行する<a href=#ステップ6-クエリを実行する class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>最後に、Athenaのクエリエディタを使用して、特定の条件に基づいてログデータをクエリします。例えば、特定のオブジェクトに対するDELETE操作や、特定のエラーコードを持つリクエストを検索することができます。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w>
+</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=k>default</span><span class=p>.</span><span class=o>&lt;</span><span class=err>データベース名</span><span class=o>&gt;</span><span class=w>
+</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=k>Key</span><span class=o>=</span><span class=s1>&#39;prefix/images/picture.jpg&#39;</span><span class=w>
+</span><span class=w>    </span><span class=k>AND</span><span class=w> </span><span class=k>operation</span><span class=o>=</span><span class=s1>&#39;REST.GET.OBJECT&#39;</span><span class=w>
+</span><span class=w>    </span><span class=k>AND</span><span class=w> </span><span class=n>parse_datetime</span><span class=p>(</span><span class=n>requestdatetime</span><span class=p>,</span><span class=s1>&#39;dd/MMM/yyyy:HH:mm:ss Z&#39;</span><span class=p>)</span><span class=w>
+</span><span class=w>    </span><span class=k>BETWEEN</span><span class=w> </span><span class=n>parse_datetime</span><span class=p>(</span><span class=s1>&#39;2024-06-18:07:00:00&#39;</span><span class=p>,</span><span class=s1>&#39;yyyy-MM-dd:HH:mm:ss&#39;</span><span class=p>)</span><span class=w>
+</span><span class=w>    </span><span class=k>AND</span><span class=w> </span><span class=n>parse_datetime</span><span class=p>(</span><span class=s1>&#39;2024-06-18:08:00:00&#39;</span><span class=p>,</span><span class=s1>&#39;yyyy-MM-dd:HH:mm:ss&#39;</span><span class=p>);</span><span class=w>
+</span></code></pre></div>
+<h3 id=参考>参考<a href=#参考 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<ul>
+<li><a href=https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/using-s3-access-logs-to-identify-requests.html>Amazon S3 アクセスログを使用したリクエストの識別 - Amazon Simple Storage Service</a></li>
+</ul>
+</div></div>
+<div class=pagination>
+<div class=pagination__title>
+<span class=pagination__title-h>Read other posts</span>
+<hr>
+</div>
+<div class=pagination__buttons>
+<span class="button next">
+<a href=https://kseki.github.io/posts/how_to_lazygit/>
+<span class=button__text>便利なGitコマンドラインツールLazygit</span>
+<span class=button__icon>→</span>
+</a>
+</span>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//k-s-blog.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</div>
+<footer class=footer>
+<div class=footer__inner>
+<div class=copyright>
+<span>© 2024 Powered by <a href=http://gohugo.io>Hugo</a></span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span>
+</div>
+</div>
+</footer>
+<script src=https://kseki.github.io/assets/main.js></script>
+<script src=https://kseki.github.io/assets/prism.js></script>
+</div>
+</body>
+</html>
