@@ -3,7 +3,7 @@ title = "NeovimでGitHub Copilot Chatを使う方法"
 date = "2024-04-09T16:30:42+09:00"
 author = "kseki"
 cover = "/img/copilot-chat-demo.jpg"
-tags = ["Neovim", "AI"]
+tags = ["Neovim", "AI", "Neovimプラグイン"]
 categories = ["開発", "効率化"]
 description = ""
 +++
