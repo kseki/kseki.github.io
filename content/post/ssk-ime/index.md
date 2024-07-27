@@ -1,13 +1,17 @@
-+++
-title = "日本語入力が効率的になるというSSKを試してみた"
-date = 2022-03-05T23:04:37+09:00
-description = "日本語入力が効率的になるSSKを試してみた"
-keywords = ["SSK", "日本語入力", "IME", "効率化", "効率的"]
-image = ""
-author = "kseki"
-categories = ["効率化"]
-tags = ["効率化", "IME", "日本語入力"]
-+++
+---
+title: 日本語入力が効率的になるというSSKを試してみた
+description: 日本語入力が効率的になるSSKを試してみた
+slug: hello-world
+date: 2022-03-05T23:04:37+09:00
+image: 
+categories:
+    - OS
+tags:
+    - 日本語入力
+    - IME
+    - 効率化
+weight: 1       # You can add weight to some posts to override the default sorting (date descending)
+---
 
 ## SKKとは
 

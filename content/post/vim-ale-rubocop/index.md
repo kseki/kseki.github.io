@@ -1,13 +1,19 @@
-+++
-title = "[Neovim] ALEを使ってDocker Compose上でRubocopを実行する"
-date = "2022-01-20"
-description = ""
-keywords = ["Vim", "Neovim", "ALE", "Docker Compose", "Rubocop", "Rails", "Lint"]
-cover = "img/vim-ale-rubocop.png"
-author = "kseki"
-categories = ["開発環境", "エディター"]
-tags = ["Vim", "Neovim", "ALE", "Docker Compose"]
-+++
+---
+title: NeovimでALEを使ってDocker Compose上でRubocopを実行する
+description: Neovim(Vim) + ALEを使ってDocker Compose上でRubocopを実行する方法
+slug: vim-ale-rubocop
+date: 2022-01-20
+image: vim-ale-rubocop.png
+categories:
+    - エディター
+tags:
+    - Vim
+    - Neovim
+    - Vimプラグイン
+    - Docker Compose
+    - Linter
+weight: 1
+---
 
 ### 概要
 

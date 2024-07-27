@@ -1,12 +1,16 @@
-+++
-title = "[Neovim]hop.nvimで爆速移動"
-date = "2024-07-16T16:50:23+09:00"
-author = "kseki"
-cover = "/img/hop-cover.png"
-tags = ["Neovim", "Neovimプラグイン"]
-categories = ["開発", "効率化"]
-description = "この記事ではNeovimのhop.nvimプラグインの使用方法について詳しく説明します。"
-+++
+---
+title: Neovim hop.nvimで爆速移動
+description: この記事ではNeovimのhop.nvimプラグインの使用方法について詳しく説明します
+slug: hop-nvim
+date: 2024-07-16T16:50:23+09:00
+image: hop-cover.png
+categories:
+    - エディター
+tabs:
+    - Neovim
+    - Neovimプラグイン
+weight: 1
+---
 
 ## 概要
 
@@ -59,7 +63,7 @@ return {
 2. `<Space>w`（HopWordコマンド実行キーマップ）をタイプ
 3. 目線にあるハイライトされた文字`ng`をタイプして移動完了
 
-![HopWordの使用例](/img/hopword.gif)
+![HopWordの使用例](hopword.gif)
 
 ### HopLine: 特定の行に直接ジャンプしたい時
 
@@ -70,14 +74,15 @@ return {
 1. `keys`より7行下の`return`に目線を移す。
 2. `<Space>l`（HopLineコマンド実行キーマップ）をタイプ
 3. 目線にあるハイライトされた文字`y`をタイプして移動完了
-![HopLineの使用例](/img/hopline.gif)
+
+![HopLineの使用例](hopline.gif)
 
 ### HopChar1: 画面上の特定の文字にジャンプしたい時
 
 現在、カーソルが1行目の`return`の上にあります。そこから18行下の`Hop Before Char ...`の行の先頭にジャンプしたい時の例です。
 コマンド的には、`<Space>c`, `H`, `<Enter>`, `r`でジャンプしています。
 
-![HopChar1の使用例](/img/hopchar1.gif)
+![HopChar1の使用例](hopchar1.gif)
 
 ### HopPattern: 画面上の特定のパターンにジャンプしたい時
 
@@ -88,7 +93,8 @@ return {
 2. `<Space>p`（HopPatternコマンド実行キーマップ）をタイプ
 3. ジャンプしたいパターン`direaction`をタイプ
 4. 目線にあるハイライトされた文字`s`をタイプして移動完了
-![HopPatternの使用例](/img/hoppattern.gif)
+
+![HopPatternの使用例](hoppattern.gif)
 
 ## まとめ
 
