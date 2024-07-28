@@ -3,7 +3,6 @@ title: 日本語入力が効率的になるというSSKを試してみた
 description: 日本語入力が効率的になるSSKを試してみた
 slug: hello-world
 date: 2022-03-05T23:04:37+09:00
-image: 
 categories:
     - OS
 tags:

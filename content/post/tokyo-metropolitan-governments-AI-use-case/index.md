@@ -3,7 +3,6 @@ title: 東京都デジタルサービス局のAI活用事例集の感想
 description: 東京都デジタルサービス局が発行した「AI活用事例集」を読んだ感想
 slug: tokyo-metropolitan-governments-AI-use-case
 date: 2024-07-09T17:00:38+09:00
-image:
 categories:
     - AI
 tags:
