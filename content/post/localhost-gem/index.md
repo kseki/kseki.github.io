@@ -26,6 +26,8 @@ https接続するために自己証明書(オレオレ証明書)を作成する�
 
 ### localhost Gemとは
 
+<div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://github.com/socketry/localhost" data-iframely-url="//iframely.net/r7DQH44?card=small"></a></div></div>
+
 [localhost Gem](https://github.com/socketry/localhost)とは、**Gemを追加するだけ**で`https://localhost:8080`のようにSSL接続できる便利なライブラリです。  
 自動的に秘密鍵及び、自己証明書（オレオレ証明書）を作成してくれます。
 
@@ -167,3 +169,5 @@ Completed 200 OK in 12ms (Views: 8.2ms | Allocations: 4696)
 - [socketry/localhost: Localhost::Authority](https://github.com/socketry/localhost/blob/v1.1.9/lib/localhost/authority.rb)
 - [puma/puma: Self-signed SSL certificates (via the localhost gem, for development use)](https://github.com/puma/puma#self-signed-ssl-certificates-via-the-localhost-gem-for-development-use)
 - [Method: Puma::DSL\#ssl\_bind — Documentation for puma \(5\.5\.2\)](https://www.rubydoc.info/gems/puma/Puma%2FDSL:ssl_bind)
+
+<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 52.5%; padding-top: 120px;"><a href="https://www.amazon.co.jp/SSL-TLS%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80%E2%94%80%E2%94%80Web%E3%81%AE%E5%AE%89%E5%85%A8%E6%80%A7%E3%82%92%E6%94%AF%E3%81%88%E3%82%8B%E6%9A%97%E5%8F%B7%E5%8C%96%E6%8A%80%E8%A1%93%E3%81%AE%E8%A8%AD%E8%A8%88%E6%80%9D%E6%83%B3-WEB-PRESS-plus-ebook/dp/B0D1T41LWV" data-iframely-url="//iframely.net/YusBdhx"></a></div></div><script async src="//iframely.net/embed.js"></script>
