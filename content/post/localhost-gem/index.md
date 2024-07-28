@@ -3,7 +3,6 @@ title: SSL証明書を自作せずに、Railsの開発環境でhttps接続する
 description: https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。しかし、localhostというGemを使えばSSL証明書を自作せずにRailsの開発環境でhttps接続できます。
 slug: localhost-gem
 date: 2021-12-31
-image: 
 categories:
     - 開発
 tags:
