@@ -16,6 +16,8 @@ weight: 1
 
 この記事では、Neovimのhop.nvimプラグインについて説明します。hop.nvimはカーソル移動のプラグインで、できるだけ少ないキー操作で任意の場所にジャンプできるようになります。以下では、その設定方法と具体的な使用例について詳しく説明します。
 
+<div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://github.com/hadronized/hop.nvim" data-iframely-url="//iframely.net/f2fMy4b?card=small"></a></div></div>
+
 ## 設定
 
 自分の設定例です。プラグイン管理がLazyの場合は、以下のように設定できます。
@@ -106,5 +108,5 @@ HopWord, HopLine, HopChar1, そして HopPatternといった主要なコマン�
 
 このプラグインを活用することで、あなたのコーディング体験はさらに向上するでしょう。
 
-## 参考
-- [smoka7/hop.nvim: Neovim motions on speed!](https://github.com/smoka7/hop.nvim)
+<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 52.5%; padding-top: 120px;"><a href="https://www.amazon.co.jp/%E5%AE%9F%E8%B7%B5Vim-%E6%80%9D%E8%80%83%E3%81%AE%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E3%81%A7%E7%B7%A8%E9%9B%86%E3%81%97%E3%82%88%E3%81%86%EF%BC%81-%E3%82%A2%E3%82%B9%E3%82%AD%E3%83%BC%E6%9B%B8%E7%B1%8D-%EF%BC%A4%EF%BD%92%EF%BD%85%EF%BD%97-%EF%BC%AE%EF%BD%85%EF%BD%89%EF%BD%8C-ebook/dp/B00HWLJI3U" data-iframely-url="//iframely.net/gvT3uei"></a></div></div><script async src="//iframely.net/embed.js"></script>
+
