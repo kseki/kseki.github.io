@@ -1,35 +1,40 @@
-+++
-title = "AWS S3のファイルへのアクセスログをAthenaで確認する方法"
-date = "2024-06-25T16:31:19+09:00"
-author = "kseki"
-cover = "img/aws-athena.png"
-tags = ["AWS", "S3", "Athena"]
-categories = ["開発", "AWS"]
-description = "まず、S3バケットでサーバーアクセスログを有効にする必要があります。これにより、アクセスされるたびにログが記録され、後で分析するために使用できます。"
-+++
+---
+title: AWS S3のファイルへのアクセスログをAthenaで確認する方法
+description: まず、S3バケットでサーバーアクセスログを有効にする必要があります。これにより、アクセスされるたびにログが記録され、後で分析するために使用できます。
+slug: s3-access-log-with-athena
+date: 2024-06-25T16:31:19+09:00
+image: aws-athena.png
+categories:
+    - AWS
+tags:
+    - AWS
+    - S3
+    - Athena
+weight: 1
+---
 
-### 概要
+## 概要
 
 Amazon S3のファイルへのアクセスログをAmazon Athenaで確認する方法です。
 
-### ステップ1: S3バケットのサーバーアクセスログを有効にする
+## ステップ1: S3バケットのサーバーアクセスログを有効にする
 
 まず、S3バケットでサーバーアクセスログを有効にする必要があります。これにより、アクセスされるたびにログが記録され、後で分析するために使用できます。
 
-![edit s3 access log settings](/img/athena-step1.png)
+![edit s3 access log settings](athena-step1.png)
 
-### ステップ2: Amazon Athenaコンソールを開く
+## ステップ2: Amazon Athenaコンソールを開く
 
 次に、Amazon Athenaコンソールにアクセスし、クエリエディタを使用してデータベースとテーブルを作成します。
 
-![athena query editor](/img/athena-step2.png)
+![athena query editor](athena-step2.png)
 
-### ステップ3: データベースを作成する
+## ステップ3: データベースを作成する
 
 Athenaで新しいデータベースを作成し、アクセスログデータの格納場所として設定します。
 今回は、デフォルトで用意されている`default`を使います。
 
-### ステップ4: テーブルスキーマを作成する
+## ステップ4: テーブルスキーマを作成する
 
 アクセスログデータの構造を定義するテーブルスキーマを作成します。
 以下のクエリを実行します。
@@ -75,15 +80,15 @@ LOCATION
 
 ```
 
-### ステップ5: テーブルをプレビューする
+## ステップ5: テーブルをプレビューする
 
 作成したテーブルスキーマが正しく機能しているかを確認するために、テーブルのプレビューを行います。
 
-![preview table](/img/athena-step5.png)
+![preview table](athena-step5.png)
 
-### ステップ6: クエリを実行する
+## ステップ6: クエリを実行する
 
-最後に、Athenaのクエリエディタを使用して、特定の条件に基づいてログデータをクエリします。例えば、特定のオブジェクトに対するDELETE操作や、特定のエラーコードを持つリクエストを検索することができます。
+最後に、Athenaのクエリエディタを使用して、特定の条件に基づいてログデータをクエリします。例えば、特定のオブジェクトに対するDELETE操作や、特定のエラーコードを持つリクエストを検索できます。
 
 <details>
   <summary>特定のオブジェクトの特定期間のGETログを見る</summary>
@@ -100,6 +105,6 @@ WHERE Key='prefix/images/picture.jpg'
 
 </details>
 
-### 参考
+## 参考
 
 - [Amazon S3 アクセスログを使用したリクエストの識別 - Amazon Simple Storage Service](https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/using-s3-access-logs-to-identify-requests.html)

@@ -1,14 +1,22 @@
-+++
-title = "NeovimでGitHub Copilot Chatを使う方法"
-date = "2024-04-09T16:30:42+09:00"
-author = "kseki"
-cover = "/img/copilot-chat-demo.jpg"
-tags = ["Neovim", "AI", "Neovimプラグイン"]
-categories = ["開発", "効率化"]
-description = ""
-+++
+---
+title: NeovimでGitHub Copilot Chatを使う方法
+description: NvimでGitHub Copilot Chatを使う方法と設定の説明
+slug: github-copilot-chat-nvim
+date: 2024-04-09T16:30:42+09:00
+image: copilot-chat-demo.jpg
+categories:
+    - エディター
+    - AI
+tags:
+    - Neovim
+    - AI
+    - AIツール
+    - ChatGPT
+    - Neovimプラグイン
+weight: 1
+---
 
-### 概要
+## 概要
 
 GitHub Copilot Chatは、開発者がコーディング中にリアルタイムで支援を受けることができるツールです。
 [copilot.vim](https://github.com/github/copilot.vim) を使えばNeovimでもGitHub Copilotは使えるのですが、まだChatには対応していません。
@@ -16,9 +24,9 @@ Neovimエディタで利用することで、コードの自動補完やドキ�
 
 [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim)を使うことでChatを利用できるようになります。
 
-### 設定方法
+## 設定方法
 
-#### 1. プラグインをインストールする
+### 1. プラグインをインストールする
 
 まずプラグインをインストールする必要があります。お使いのプライグインマネージャーに応じて設定してください。
 自分の環境は[vim-plug](https://github.com/junegunn/vim-plug) なので下記を追加しました。
@@ -37,7 +45,7 @@ EOF
 
 その後、`:PackerSync`コマンドを実行しインストール後にNeovimを再起動すると完了です。
 
-#### 2. GitHub Copilot Chatが日本語で回答するように設定する
+### 2. GitHub Copilot Chatが日本語で回答するように設定する
 
 ```vim
 lua << EOF
@@ -64,7 +72,7 @@ EOF
 `COPILOT_EXPLAIN`などはデフォルトでプロンプトの内容が定数化されています。(詳しくは、[prompts.lua](https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/prompts.lua) を参照ください。)
 続けて日本語で説明してもらうようにプロンプトを追加しています。
 
-### 使い方
+## 使い方
 
 使い方はいろいろありますが、今回は、`:CopilotChatTests`コマンドを使ってテストを作成してもらう方法を書きます。
 
@@ -75,9 +83,9 @@ EOF
 
 で完成です。
 
-![demo.gif](/img/copilot-chat-demo.gif)
+![demo.gif](copilot-chat-demo.gif)
 
-### まとめ
+## まとめ
 
 GitHub Copilot Chatは開発者にとって強力な支援ツールです。このツールを活用することで、開発の効率化とコーディングの質の向上が期待できます。
 

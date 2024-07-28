@@ -1,23 +1,27 @@
-+++
-title = "AIコードレビューのCodeRabbitを導入してみた"
-date = "2024-02-16T18:27:25+09:00"
-author = "kseki"
-cover = "img/coderabbit.png"
-tags = ["AI", "コードレビュー"]
-keywords = ["AI", "CodeRabbit", "コードレビュー"]
-categories = ["開発", "効率化"]
-description = ""
-showFullContent = false
-readingTime = false
-+++
+---
+title: AIコードレビューのCodeRabbitを導入してみた
+description: AIコードレビューサービスのCodeRabbitを導入した感想
+slug: coderabbit
+date: 2024-02-16T18:27:25+09:00
+image: coderabbit.png
+categories:
+    - 開発
+    - AI
+tags: 
+    - AI
+    - AIツール
+    - ChatGPT
+    - コードレビュー
+weight: 1
+---
 
-### 概要
+## 概要
 
 CodeRabbitというAIコードレビューサービスを試してみたので、良かったことなどをまとめました。
 
 [AIコードレビュー | CodeRabbit](https://coderabbit.ai/ja/)
 
-### 良かったこと
+## 良かったこと
 
 - コードの品質向上に貢献してくれる。指摘だけではなく、コード提案もしてくれる。ボタンクリックで適用できるので便利だ。
 - コードの可読性やパフォーマンスに関する問題を指摘してくれる。長年スルーしていた問題を改めて指摘してくれるので、コードのメンテナンス性が高まる。
@@ -25,11 +29,11 @@ CodeRabbitというAIコードレビューサービスを試してみたので�
 - ロジックの不備や考慮漏れを指摘してくれる。バグやエラーを防ぐことができる。
 - コメントを返信したら、CodeRabbitも返信をくれる。分からないところを聞くことで勉強になる。
 
-### 悪かったこと
+## 悪かったこと
 
 - 複数ファイル同じような変更をした時、ファイル数分同じ指摘コメントがつく。重複したコメントは不要だと思った。（XXと同じって書いてあるといちいち読み込まなくて済むと思った）
 
-### Code Rabbitの費用対効果
+## Code Rabbitの費用対効果
 
 [CodeRabbit価格設定](https://coderabbit.ai/ja/#pricing)
 
@@ -47,7 +51,7 @@ $15/月 \* 3人分 = $45/月 ⇒ 約6750円/月
 
 単純に比較するとCodeRabbitは人間のコードレビュアーに比べて非常に安価です。指摘の質も良く、費用対効果は高いです。
 
-### 継続するか
+## 継続するか
 
 - 継続する！
 - 将来もっと良いAIコードレビューサービスが出てくるかもしれないので契約は月額のまま。
