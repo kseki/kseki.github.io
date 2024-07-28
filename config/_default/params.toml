@@ -56,14 +56,14 @@ limit = 10
 [[widgets.page]]
 type = "toc"
 
-[opengraph.twitter]
-site = ""
-card = "summary_large_image"
-
-[defaultImage.opengraph]
-enabled = false
-local = false
-src = ""
+#[opengraph.twitter]
+#site = ""
+#card = "summary_large_image"
+#
+#[defaultImage.opengraph]
+#enabled = false
+#local = false
+#src = ""
 
 [colorScheme]
 toggle = true
