@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>OS on Klog</title><link>https://kseki.github.io/categories/os/</link><description>Recent content in OS on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><copyright>kseki</copyright><lastBuildDate>Sat, 05 Mar 2022 23:04:37 +0900</lastBuildDate><atom:link href="https://kseki.github.io/categories/os/index.xml" rel="self" type="application/rss+xml"/><item><title>日本語入力が効率的になるというSSKを試してみた</title><link>https://kseki.github.io/posts/hello-world/</link><pubDate>Sat, 05 Mar 2022 23:04:37 +0900</pubDate><guid>https://kseki.github.io/posts/hello-world/</guid><description>&lt;h2 id="skkとは">SKKとは
+&lt;/h2>&lt;ul>
+&lt;li>SKK（エスケイケイ、Simple Kana to Kanji conversion program）&lt;/li>
+&lt;li>Emacs上で動く、日本語入力システムの1つである&lt;/li>
+&lt;/ul>
+&lt;p>引用: &lt;a class="link" href="https://ja.wikipedia.org/wiki/SKK" target="_blank" rel="noopener"
+>SKK - Wikipedia&lt;/a>&lt;/p>
+&lt;h3 id="既存imeの問題点">既存IMEの問題点
+&lt;/h3>&lt;ul>
+&lt;li>形態素解析に基づいた自動変換で、文節を間違っていた場合にはカーソルキーで文節を変更する必要がある。その為、余計なキータイプが発生する。&lt;/li>
+&lt;/ul>
+&lt;h3 id="skkの特徴">SKKの特徴
+&lt;/h3>&lt;ol>
+&lt;li>かな漢字変換において形態素解析に基づいた変換を行わない。かなと漢字の境界をユーザが指定する。&lt;/li>
+&lt;li>ホームポジションを崩さず入力&lt;/li>
+&lt;li>シームレスな辞書登録&lt;/li>
+&lt;/ol>
+&lt;p>引用: &lt;a class="link" href="https://ja.wikipedia.org/wiki/SKK" target="_blank" rel="noopener"
+>SKK - Wikipedia&lt;/a>&lt;/p>
+&lt;h2 id="aquaskk">AquaSKK
+&lt;/h2>&lt;p>今回試したのは、AquaSKKというMacOSでもつかえるSKKベースのアプリケーションです。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/codefirst/aquaskk/releases" target="_blank" rel="noopener"
+>Releases · codefirst/aquaskk&lt;/a>&lt;/p>
+&lt;h2 id="skkの使い方">SKKの使い方
+&lt;/h2>&lt;ul>
+&lt;li>基本的にローマ字入力→ひらがなが一文字ずつ確定入力される(エンターいらず)&lt;/li>
+&lt;li>漢字変換するには、一文字目を大文字入力する必要がある
+&lt;ul>
+&lt;li>送りがななしのケース例： &lt;code>Kanji&lt;/code>と入力し、スペースキーで候補選択、次のキータイプ or エンターキーで確定する&lt;/li>
+&lt;li>送りがなありのケース例： &lt;code>OkuRigana&lt;/code>と入力し、スペースキーで候補選択、次のキータイプ or エンターキーで確定する&lt;/li>
+&lt;li>候補の漢字が無いケース: 自動的に辞書登録モードになる&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>カタカナ入力するには、一文字目を大文字入力し、qキーを押す必要がある
+&lt;ul>
+&lt;li>例： &lt;code>Katakana&lt;/code>と入力し、qキー入力でカタカナになり、同時に確定する&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="良い所">良い所
+&lt;/h3>&lt;ul>
+&lt;li>キータイプ数が減る&lt;/li>
+&lt;li>エンターキーを本来の目的のみで使える&lt;/li>
+&lt;li>即辞書登録できるのは良い&lt;/li>
+&lt;li>慣れると手書きと同じ感覚で使えるらしい&lt;/li>
+&lt;/ul>
+&lt;h3 id="悪い所">悪い所
+&lt;/h3>&lt;ul>
+&lt;li>今までの癖を抜くため相当な慣れが必要&lt;/li>
+&lt;li>シフトキー多用するので小指が疲れる&lt;/li>
+&lt;/ul></description></item></channel></rss>
