@@ -10,7 +10,7 @@ keywords:
     - Fisher-Yates
 slug: shuffle-algorithm-by-typescript
 date: 2024-08-06T16:33:05+09:00
-#image: 
+image: cover.webp
 categories:
     - 開発
     - 言語
