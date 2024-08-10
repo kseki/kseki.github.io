@@ -17,5 +17,3 @@ hasCJKLanguage = true
 
 timeout = 180
 
-# Change it to your Disqus shortname before using
-disqusShortname = "k-s-blog"

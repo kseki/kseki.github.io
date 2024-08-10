@@ -79,11 +79,3 @@ enabled = false
 [comments]
 enabled = true
 provider = "disqus"
-
-[comments.disqusjs]
-shortname = "k-s-blog"
-#apiUrl = ""
-#apiKey = ""
-#admin = ""
-#adminLabel = ""
-
