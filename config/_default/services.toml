@@ -1,2 +1,4 @@
 [googleAnalytics]
 #ID = 'G-6K4G66HC3S'
+[disqus]
+disqusShortname = "k-s-blog"
