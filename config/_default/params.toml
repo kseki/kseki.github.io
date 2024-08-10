@@ -70,7 +70,7 @@ toggle = true
 default = "auto"
 
 [imageProcessing.cover]
-enabled = true
+enabled = false
 
 [imageProcessing.content]
 enabled = false
