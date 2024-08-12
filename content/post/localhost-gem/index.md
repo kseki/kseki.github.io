@@ -170,4 +170,5 @@ Completed 200 OK in 12ms (Views: 8.2ms | Allocations: 4696)
 - [puma/puma: Self-signed SSL certificates (via the localhost gem, for development use)](https://github.com/puma/puma#self-signed-ssl-certificates-via-the-localhost-gem-for-development-use)
 - [Method: Puma::DSL\#ssl\_bind — Documentation for puma \(5\.5\.2\)](https://www.rubydoc.info/gems/puma/Puma%2FDSL:ssl_bind)
 
-<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 52.5%; padding-top: 120px;"><a href="https://www.amazon.co.jp/SSL-TLS%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80%E2%94%80%E2%94%80Web%E3%81%AE%E5%AE%89%E5%85%A8%E6%80%A7%E3%82%92%E6%94%AF%E3%81%88%E3%82%8B%E6%9A%97%E5%8F%B7%E5%8C%96%E6%8A%80%E8%A1%93%E3%81%AE%E8%A8%AD%E8%A8%88%E6%80%9D%E6%83%B3-WEB-PRESS-plus-ebook/dp/B0D1T41LWV" data-iframely-url="//iframely.net/YusBdhx"></a></div></div><script async src="//iframely.net/embed.js"></script>
+{{< product_card_amazon asin="4297114623" title="パーフェクト Ruby on Rails 【増補改訂版】 (Perfect series)" image="81yskupyNhL" >}}
+{{< product_card_amazon asin="B0D1T41LWV" title="SSL/TLS実践入門──Webの安全性を支える暗号化技術の設計思想 WEB+DB PRESS plus" image="81IKSxc0d1L" >}}

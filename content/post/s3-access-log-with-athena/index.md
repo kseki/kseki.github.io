@@ -109,4 +109,4 @@ WHERE Key='prefix/images/picture.jpg'
 
 - [Amazon S3 アクセスログを使用したリクエストの識別 - Amazon Simple Storage Service](https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/using-s3-access-logs-to-identify-requests.html)
 
-<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 52.5%; padding-top: 120px;"><a href="https://www.amazon.co.jp/AWS%E3%81%AE%E5%9F%BA%E6%9C%AC%E3%83%BB%E4%BB%95%E7%B5%84%E3%81%BF%E3%83%BB%E9%87%8D%E8%A6%81%E7%94%A8%E8%AA%9E%E3%81%8C%E5%85%A8%E9%83%A8%E3%82%8F%E3%81%8B%E3%82%8B%E6%95%99%E7%A7%91%E6%9B%B8-%E8%A6%8B%E3%82%8B%E3%81%A0%E3%81%91%E5%9B%B3%E8%A7%A3-%E5%B7%9D%E7%95%91%E5%85%89%E5%B9%B3/dp/4815607850" data-iframely-url="//iframely.net/9s1yQtY"></a></div></div><script async src="//iframely.net/embed.js"></script>
+{{< product_card_amazon asin="4815607850" title="AWSの基本・仕組み・重要用語が全部わかる教科書 (見るだけ図解)" image="8163tHByzgL" >}}
