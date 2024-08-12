@@ -1,0 +1,22 @@
+{{- $tag := .Site.Params.amazonJpAffiliate -}}
+{{- $product_id := .Get "asin" -}}
+{{- $product_image := .Get "image" -}}
+{{- $product_title := .Get "title" -}}
+{{- $product_url := printf "https://www.amazon.co.jp/gp/product/%s/tag=%s" $product_id $tag -}}
+{{- $product_image_url := printf "https://m.media-amazon.com/images/I/%s._AC_SX522_.jpg" $product_image -}}
+
+<div class="amazon-widget">
+  <div class="amazon-widget-img">
+    <a href="{{ $product_url }}" target="_blank">
+      <img src="{{ $product_image_url }}" />
+    </a>
+  </div>
+  <div class="amazon-widget-info">
+    <a href="{{ $product_url }}" target="_blank">
+      <span class="amazon-widget-title">
+        {{ $product_title }}
+      </span>
+    </a>
+    <a href="{{ $product_url }}" class="amazon-widget-button" target="_blank">Amazonで購入</a>
+  </div>
+</div>
