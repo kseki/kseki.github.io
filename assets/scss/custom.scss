@@ -1,0 +1,65 @@
+@mixin center-text {
+  text-align: center;
+  display: block;
+}
+
+@mixin margin-bottom($value) {
+  margin: 0 0 $value 0;
+}
+
+.amazon-widget {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: inherit;
+
+  &-img {
+    flex: 0 0 auto;
+    margin-right: 20px;
+
+    img {
+      max-width: 200px;
+      max-height: 200px;
+      border-radius: 10px;
+    }
+  }
+
+  &-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &-title {
+    font-size: 16px;
+    font-weight: bold;
+    @include margin-bottom(10px);
+    @include center-text;
+  }
+
+  &-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff9900;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    align-self: center;
+    width: 80%;
+
+    &:hover {
+      background-color: #e68a00;
+    }
+  }
+}

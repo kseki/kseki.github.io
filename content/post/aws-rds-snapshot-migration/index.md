@@ -125,4 +125,4 @@ Amazonリソースネーム(ARN): 先ほど共有した**レプリカのカス�
 
 この手順により、AWS RDSのスナップショットを異なるアカウントとリージョン間で移行することが可能となります。
 
-<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 52.5%; padding-top: 120px;"><a href="https://www.amazon.co.jp/%E5%A4%B1%E6%95%97%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6RDB%E3%81%AE%E6%AD%A3%E3%81%97%E3%81%84%E6%AD%A9%E3%81%8D%E6%96%B9-Software-Design-plus-%E6%9B%BD%E6%A0%B9/dp/4297104083" data-iframely-url="//iframely.net/2VullB1"></a></div></div><script async src="//iframely.net/embed.js"></script>
+{{< product_card_amazon asin="4297104083" title="失敗から学ぶRDBの正しい歩き方 (Software Design plus)" image="81z7uX1cs5L" >}}

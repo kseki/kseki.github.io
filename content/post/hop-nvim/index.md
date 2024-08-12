@@ -108,5 +108,4 @@ HopWord, HopLine, HopChar1, そして HopPatternといった主要なコマン�
 
 このプラグインを活用することで、あなたのコーディング体験はさらに向上するでしょう。
 
-<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 52.5%; padding-top: 120px;"><a href="https://www.amazon.co.jp/%E5%AE%9F%E8%B7%B5Vim-%E6%80%9D%E8%80%83%E3%81%AE%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E3%81%A7%E7%B7%A8%E9%9B%86%E3%81%97%E3%82%88%E3%81%86%EF%BC%81-%E3%82%A2%E3%82%B9%E3%82%AD%E3%83%BC%E6%9B%B8%E7%B1%8D-%EF%BC%A4%EF%BD%92%EF%BD%85%EF%BD%97-%EF%BC%AE%EF%BD%85%EF%BD%89%EF%BD%8C-ebook/dp/B00HWLJI3U" data-iframely-url="//iframely.net/gvT3uei"></a></div></div><script async src="//iframely.net/embed.js"></script>
-
+{{< product_card_amazon asin="B00HWLJI3U" title="実践Vim　思考のスピードで編集しよう！ (アスキー書籍)" image="71wWsTwuUlL" >}}

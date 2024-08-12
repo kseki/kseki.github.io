@@ -6,6 +6,8 @@ rssFullContent = true
 favicon = "favicon.ico"
 description = "test"
 
+amazonJpAffiliate = "kseki0c-22"
+
 [footer]
 since = 2021
 customText = ""
@@ -79,3 +81,4 @@ enabled = false
 [comments]
 enabled = true
 provider = "disqus"
+
