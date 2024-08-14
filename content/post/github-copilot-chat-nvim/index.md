@@ -22,7 +22,7 @@ GitHub Copilot Chatは、開発者がコーディング中にリアルタイム�
 [copilot.vim](https://github.com/github/copilot.vim) を使えばNeovimでもGitHub Copilotは使えるのですが、まだChatには対応していません。
 Neovimエディタで利用することで、コードの自動補完やドキュメントの参照、コーディングの疑問点を解決するための対話が可能になります。
 
-[CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim)を使うことでChatを利用できるようになります。
+[CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) を使うことでChatを利用できるようになります。
 
 <div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://github.com/CopilotC-Nvim/CopilotChat.nvim" data-iframely-url="//iframely.net/8ZyPqp6?card=small"></a></div></div>
 
@@ -31,7 +31,7 @@ Neovimエディタで利用することで、コードの自動補完やドキ�
 ### 1. プラグインをインストールする
 
 まずプラグインをインストールする必要があります。お使いのプライグインマネージャーに応じて設定してください。
-自分の環境は[vim-plug](https://github.com/junegunn/vim-plug) なので下記を追加しました。
+自分の環境は [vim-plug](https://github.com/junegunn/vim-plug) なので下記を追加しました。
 
 ```vim
 call plug#begin()
@@ -45,7 +45,7 @@ require("CopilotChat").setup {}
 EOF
 ```
 
-その後、`:PackerSync`コマンドを実行しインストール後にNeovimを再起動すると完了です。
+その後、 `:PackerSync` コマンドを実行しインストール後にNeovimを再起動すると完了です。
 
 ### 2. GitHub Copilot Chatが日本語で回答するように設定する
 
@@ -104,17 +104,17 @@ require("CopilotChat").setup({
 EOF
 ```
 
-`COPILOT_EXPLAIN`などはデフォルトでプロンプトの内容が定数化されています。(詳しくは、[prompts.lua](https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/prompts.lua) を参照ください。)
+`COPILOT_EXPLAIN` などはデフォルトでプロンプトの内容が定数化されています。(詳しくは、 [prompts.lua](https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/prompts.lua) を参照ください。)
 続けて日本語で説明してもらうようにプロンプトを追加しています。
 
 ## 使い方
 
-使い方はいろいろありますが、今回は、`:CopilotChatTests`コマンドを使ってテストを作成してもらう方法を書きます。
+使い方はいろいろありますが、今回は、 `:CopilotChatTests` コマンドを使ってテストを作成してもらう方法を書きます。
 
 1. 対象となるコードをヤンクする
-2. コマンドモードで`:CopilotChatTests`を入力するとChatが返ってくる
-3. チャット画面で`gy`をしてテストコードをヤンクする
-4. テストファイルに`p`でペースト
+2. コマンドモードで `:CopilotChatTests` を入力するとChatが返ってくる
+3. チャット画面で <kbd>g</kbd> + <kbd>y</kbd> をしてテストコードをヤンクする
+4. テストファイルに <kbd>p</kbd> でペースト
 
 で完成です。
 
