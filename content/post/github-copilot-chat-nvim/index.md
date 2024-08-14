@@ -24,8 +24,6 @@ Neovimエディタで利用することで、コードの自動補完やドキ�
 
 [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) を使うことでChatを利用できるようになります。
 
-<div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://github.com/CopilotC-Nvim/CopilotChat.nvim" data-iframely-url="//iframely.net/8ZyPqp6?card=small"></a></div></div>
-
 ## 設定方法
 
 ### 1. プラグインをインストールする
