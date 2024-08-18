@@ -1,7 +1,7 @@
 ---
 title: NeovimでALEを使ってDocker Compose上でRubocopを実行する
 description: Neovim(Vim) + ALEを使ってDocker Compose上でRubocopを実行する方法
-slug: vim-ale-rubocop
+slug: ale-vim-rubocop-on-docker-compose
 date: 2022-01-20
 image: vim-ale-rubocop.png
 categories:
