@@ -1,7 +1,7 @@
 ---
 title: 便利なGitコマンドラインツールLazygit
 description: Lazygitは、開発者の生産性を向上させるために設計された、コマンドラインツールです。このツールは、Gitの操作を簡単かつ効率的に行うことができるインターフェースを提供します。ステータスの確認、コミットの作成、ブランチの切り替えなどの一般的なGit操作を簡単に行うことができます。
-slug: lazygit
+slug: how_to_lazygit
 date: 2024-06-18T16:21:07+09:00
 image: lazygit.png
 categories: 
