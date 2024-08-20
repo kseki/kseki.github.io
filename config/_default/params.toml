@@ -4,7 +4,7 @@ mainSections = ["post"]
 rssFullContent = true
 
 favicon = "favicon.ico"
-description = "test"
+description = "プログラマの技術ブログ。プログラミング、Vim、AWSなど"
 
 amazonJpAffiliate = "kseki0c-22"
 
@@ -59,13 +59,13 @@ limit = 10
 type = "toc"
 
 #[opengraph.twitter]
-#site = ""
-#card = "summary_large_image"
-#
-#[defaultImage.opengraph]
-#enabled = false
-#local = false
-#src = ""
+site = "klog"
+card = "summary_large_image"
+
+[defaultImage.opengraph]
+enabled = true
+local = false
+src = "favicon-96x96.png"
 
 [colorScheme]
 toggle = true
