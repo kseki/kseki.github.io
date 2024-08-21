@@ -3,6 +3,7 @@ title: 東京都デジタルサービス局のAI活用事例集に見るChatGPT�
 description: 東京都デジタルサービス局が発行した「AI活用事例集」にみるChatGPTプロンプト
 slug: tokyo-metropolitan-governments-AI-use-case
 date: 2024-07-09T17:00:38+09:00
+lastmod: 2024-08-21
 image: cover.webp
 categories:
     - AI
@@ -10,6 +11,7 @@ tags:
     - プロンプト集
     - AI
     - ChatGPT
+    - プロンプトエンジニアリング
 weight: 1
 ---
 
