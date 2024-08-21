@@ -63,3 +63,12 @@
     }
   }
 }
+
+// For Mermaid diagrams
+.article-content {
+  pre.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
