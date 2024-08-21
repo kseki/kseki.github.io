@@ -10,6 +10,7 @@ keywords:
     - リバースプロキシ
 slug:
 date: 2024-08-13T16:14:17+09:00
+lastmod: 2024-08-21
 image: nginx.webp
 categories:
     - 開発
@@ -23,6 +24,17 @@ draft: false
 ## 概要
 
 複数のプロジェクトを同時に開発する際に、Nginxをリバースプロキシとして使用し、hostsファイルでローカルドメインを設定する方法を紹介します。
+
+```mermaid
+graph TD;
+    A[ブラウザ] -->|http://klog.local| B[Nginx]
+    A -->|http://admin.hoge.local| B
+    A -->|http://user.hoge.local| B
+    B -->|http://localhost:1313| C[klogプロジェクト]
+    B -->|http://localhost:3000| D[admin.hogeプロジェクト]
+    B -->|http://localhost:3001| E[user.hogeプロジェクト]
+
+```
 
 ## 複数プロジェクト開発の問題
 
