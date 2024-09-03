@@ -2,14 +2,29 @@
 title: NeovimでGitHub Copilot Chatでコミットメッセージを生成する方法
 description: NeovimのプラグインでGitHub Copilot Chatを起動し、Gitのコミットメッセージを生成してクリップボードにコピーする方法を紹介します。
 keywords: 
-    - XXX
-slug: 
+  - ChatGPT
+  - Git
+  - GitHub Copilot Chat
+  - Neovim
+  - nvim-cmp
+  - コミットメッセージ
+  - プログラミング
+  - プロンプト
+  - プロンプトエンジニアリング
+  - 開発ツール
+slug: neovim-github-copilot-chat-commit-message
 date: 2024-08-27T17:16:17+09:00
 image: cover.webp 
 categories:
-    - XXX
+  - エディター
+  - 開発
 tags: 
-    - XXX
+  - ChatGPT
+  - Git
+  - GitHub Copilot
+  - Neovim
+  - Neovimプラグイン
+  - プロンプトエンジニアリング
 weight: 1
 draft: false
 ---
@@ -39,7 +54,6 @@ draft: false
 
 ### CopilotChat.nvimの設定
 
-必要な箇所だけ抜粋っしています。
 以下のようなプロンプトを変数定義しておきます。
 
 ```lua
@@ -51,8 +65,7 @@ local commit_staged_prompt = [[
 - タイトルは最大50文字、変更理由を含めてください。
 - メッセージは72文字で折り返してください。
 - メッセージ全体をgitcommit言語のコードブロックで囲んでください。
-- ソースを見ても変更した理由がわからない時は、
-- コミットメッセージを作る前に質問して、その回答も参考にコミットメッセージを生成してください。
+- ソースを見ても変更した理由がわからない時は、コミットメッセージを作る前に質問して、その回答も参考にコミットメッセージを生成してください。
 ]]
 ```
 
@@ -86,6 +99,15 @@ return {
 
 ```
 
-## まとめ
+## 使い方
 
-## 参考
+実際に使っている様子をGIFで紹介します。
+不要な変数を削除して、コミットメッセージを生成してクリップボードにコピーしています。
+コピーしたコミットメッセージを使って、 [LazyGit](https://github.com/jesseduffield/lazygit) にてコミットを行います。
+
+![GitHub Copilot Chatでコミットメッセージを生成する](git-commit.gif)
+
+## 一緒に読みたい記事
+
+- [GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法](../github-copilot-chat-snippet)
+- [NeovimでGitHub Copilot Chatを使う方法](../github-copilot-chat-nvim)
