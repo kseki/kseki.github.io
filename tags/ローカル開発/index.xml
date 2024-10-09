@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ローカル開発 on Klog</title><link>https://kseki.github.io/tags/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E9%96%8B%E7%99%BA/</link><description>Recent content in ローカル開発 on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><copyright>kseki</copyright><lastBuildDate>Wed, 21 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://kseki.github.io/tags/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E9%96%8B%E7%99%BA/index.xml" rel="self" type="application/rss+xml"/><item><title>ローカルドメインとNginxで複数プロジェクト開発を便利に</title><link>https://kseki.github.io/posts/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%A8nginx%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%96%8B%E7%99%BA%E3%82%92%E4%BE%BF%E5%88%A9%E3%81%AB/</link><pubDate>Tue, 13 Aug 2024 16:14:17 +0900</pubDate><guid>https://kseki.github.io/posts/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%A8nginx%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%96%8B%E7%99%BA%E3%82%92%E4%BE%BF%E5%88%A9%E3%81%AB/</guid><description>&lt;img src="https://kseki.github.io/posts/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%A8nginx%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%96%8B%E7%99%BA%E3%82%92%E4%BE%BF%E5%88%A9%E3%81%AB/nginx.webp" alt="Featured image of post ローカルドメインとNginxで複数プロジェクト開発を便利に" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>複数のプロジェクトを同時に開発する際に、Nginxをリバースプロキシとして使用し、hostsファイルでローカルドメインを設定する方法を紹介します。&lt;/p>
+&lt;pre class="mermaid">graph TD;
+A[ブラウザ] -->|http://klog.local| B[Nginx]
+A -->|http://admin.hoge.local| B
+A -->|http://user.hoge.local| B
+B -->|http://localhost:1313| C[klogプロジェクト]
+B -->|http://localhost:3000| D[admin.hogeプロジェクト]
+B -->|http://localhost:3001| E[user.hogeプロジェクト]
+&lt;/pre>
+&lt;h2 id="複数プロジェクト開発の問題">複数プロジェクト開発の問題
+&lt;/h2>&lt;p>ローカル開発環境では通常、ブラウザに &lt;code>localhost:ポート番号&lt;/code> を入力してアクセスします。しかし、複数のプロジェクトを開発していると、ブラウザのアドレスバーに &lt;code>localhost&lt;/code> と入力した際に他のプロジェクトのパスがサジェストされてしまい、煩わしいことがあります。&lt;/p>
+&lt;p>※単にhostsファイルにドメインを設定するだけで上記問題は解決できます。大袈裟ではありますが、今回は勉強がてらNginxのリバースプロキシを設定しました。&lt;/p>
+&lt;h2 id="設定方法">設定方法
+&lt;/h2>&lt;p>以下の環境を前提に話を進めます。別の環境の場合は適宜読み替えてください。&lt;/p>
+&lt;pre>&lt;code>$ sw_vers
+ProductName: macOS
+ProductVersion: 14.5
+BuildVersion: 23F79
+$ brew -v
+Homebrew 4.3.15-52-ge590bca
+Homebrew/homebrew-cask (git revision 7adc70cd367; last commit 2024-08-04)
+$ nginx -v
+nginx version: nginx/1.27.0
+&lt;/code>&lt;/pre>
+&lt;h3 id="hostsファイルにローカルドメインを設定する">Hostsファイルにローカルドメインを設定する
+&lt;/h3>&lt;pre>&lt;code>sudo vim /etc/hosts
+&lt;/code>&lt;/pre>
+&lt;p>以下のように、127.0.0.1に対して対象としたいプロジェクト用のローカルドメインを設定します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># Host Database
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># localhost is used to configure the loopback interface
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># when the system is booting. Do not change this entry.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">127.0.0.1 localhost
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ # 技術ブログ
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ 127.0.0.1 klog.local
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ # hogeプロジェクト
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ 127.0.0.1 admin.hoge.local user.hoge.local
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="nginxのインストール">Nginxのインストール
+&lt;/h3>&lt;pre>&lt;code>brew install nginx
+&lt;/code>&lt;/pre>
+&lt;h3 id="nginxの起動">Nginxの起動
+&lt;/h3>&lt;pre>&lt;code>nginx
+&lt;/code>&lt;/pre>
+&lt;h3 id="nginxの設定">Nginxの設定
+&lt;/h3>&lt;p>Nginxの設定ファイルである &lt;code>/usr/local/etc/nginx/nginx.conf&lt;/code> を確認すると、 &lt;code>include servers/*&lt;/code> とあります。
+このディレクトリに設定ファイルを追加すれば読み込んでくれます。&lt;/p>
+&lt;pre>&lt;code>http {
+# ~ 省略 ~
+include servers/*;
+}
+&lt;/code>&lt;/pre>
+&lt;p>&lt;code>/usr/local/etc/nginx/servers/&lt;/code> に &lt;code>klog.conf&lt;/code> というファイルを作成し、以下の内容で保存します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ server {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ listen 80;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ server_name klog.local;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ location / {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_pass http://localhost:1313;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_http_version 1.1;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Upgrade $http_upgrade;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Connection &amp;#34;upgrade&amp;#34;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Real-IP $remote_addr;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Forwarded-Proto $scheme;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>hogeプロジェクトの分。&lt;code>hoge.conf&lt;/code> も追加します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ server {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ listen 80;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ server_name admin.hoge.local;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ location / {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_pass http://localhost:3000;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_http_version 1.1;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Upgrade $http_upgrade;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Connection &amp;#34;upgrade&amp;#34;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Real-IP $remote_addr;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Forwarded-Proto $scheme;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ server {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ listen 80;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ server_name user.hoge.local;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ location / {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_pass http://localhost:3001;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_http_version 1.1;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Upgrade $http_upgrade;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Connection &amp;#34;upgrade&amp;#34;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Real-IP $remote_addr;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Forwarded-Proto $scheme;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>設定ファイルが正しいかを確認します。以下のコマンドを実行し、エラーがなければOKです。&lt;/p>
+&lt;pre>&lt;code>nginx -t
+&lt;/code>&lt;/pre>
+&lt;p>設定を反映させるためにNginxをリロードします。&lt;/p>
+&lt;pre>&lt;code>nginx -s reload
+&lt;/code>&lt;/pre>
+&lt;h3 id="ブラウザでアクセスする">ブラウザでアクセスする
+&lt;/h3>&lt;p>設定が完了したら、ブラウザで &lt;code>http://kseki.local&lt;/code> にアクセスして動作を確認します。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%A8nginx%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%96%8B%E7%99%BA%E3%82%92%E4%BE%BF%E5%88%A9%E3%81%AB/1.webp"
+width="539"
+height="283"
+loading="lazy"
+alt="ブラウザにてローカルドメインでアクセス"
+class="gallery-image"
+data-flex-grow="190"
+data-flex-basis="457px"
+>&lt;/p>
+&lt;p>正常に表示されれば成功です！お疲れ様でした。&lt;/p>
+&lt;h2 id="注意点">注意点
+&lt;/h2>&lt;p>開発サーバーはポートを指定して起動すること。使用ポートを固定しないと、ポートが変わってしまった時に設定を変更する手間がかかります。&lt;/p>
+&lt;p>例えばHugoの場合、ファイル保存時にWebSocketを使って画面を更新しているので、ポート指定しないと自動更新されなくなってしまいます。&lt;/p>
+&lt;pre>&lt;code># Hugoの場合
+hugo server --port=1313 --liveReloadPort=80
+# Railsの場合
+bundle exec rails -b 30001
+&lt;/code>&lt;/pre>
+&lt;hr>
+&lt;p>以上で、Nginxを使用したローカルドメインの設定方法についての説明を終わります。これにより、複数のプロジェクトを効率的に開発できるようになります。&lt;/p></description></item></channel></rss>

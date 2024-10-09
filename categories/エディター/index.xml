@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>エディター on Klog</title><link>https://kseki.github.io/categories/%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E3%83%BC/</link><description>Recent content in エディター on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><copyright>kseki</copyright><lastBuildDate>Tue, 27 Aug 2024 17:16:17 +0900</lastBuildDate><atom:link href="https://kseki.github.io/categories/%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E3%83%BC/index.xml" rel="self" type="application/rss+xml"/><item><title>NeovimでGitHub Copilot Chatでコミットメッセージを生成する方法</title><link>https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/</link><pubDate>Tue, 27 Aug 2024 17:16:17 +0900</pubDate><guid>https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/</guid><description>&lt;img src="https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/cover.webp" alt="Featured image of post NeovimでGitHub Copilot Chatでコミットメッセージを生成する方法" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>前回の &lt;a class="link" href="../github-copilot-chat-snippet/index.md" >GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法&lt;/a> では、スニペットを使ってGitHub Copilot Chatのプロンプトを効率よく使う方法を紹介しました。今回は、Gitのコミットメッセージを生成してクリップボードにコピーする方法を紹介します。&lt;/p>
+&lt;h2 id="設定方法">設定方法
+&lt;/h2>&lt;p>以下の環境を前提に話を進めます。別の環境の場合は適宜読み替えてください。&lt;/p>
+&lt;pre>&lt;code> $ sw_vers
+ProductName: macOS
+ProductVersion: 14.6.1
+BuildVersion: 23G93
+$ nvim -v
+NVIM v0.10.1
+Build type: Release
+LuaJIT 2.1.1723675123
+CopilotChat.nvim
+branch canary
+commit 1a92bb6
+&lt;/code>&lt;/pre>
+&lt;h3 id="copilotchatnvimの設定">CopilotChat.nvimの設定
+&lt;/h3>&lt;p>以下のようなプロンプトを変数定義しておきます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">local&lt;/span> &lt;span class="n">commit_staged_prompt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">[[
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">以下の条件を踏まえて変更に対するコミットメッセージを書いてください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- コミットメッセージのprefixは、commitizenの規約に従ってください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- コミットメッセージ本文は日本語で書いてください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- タイトルは最大50文字、変更理由を含めてください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- メッセージは72文字で折り返してください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- メッセージ全体をgitcommit言語のコードブロックで囲んでください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- ソースを見ても変更した理由がわからない時は、コミットメッセージを作る前に質問して、その回答も参考にコミットメッセージを生成してください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>CopilotChat.nvimの設定ファイルに以下のように設定します。&lt;/p>
+&lt;ol>
+&lt;li>8行目にて、さっきのプロンプトを文字列結合して代入しています。&lt;/li>
+&lt;li>12~L17行目は、プロンプトの内容にコミットメッセージが含まれていた時にクリップボードにコピーするための設定です。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;CopilotC-Nvim/CopilotChat.nvim&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">branch&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;canary&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;CopilotChat&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">opts&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">prompts&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">CommitStaged&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">prompt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE&amp;#34;&lt;/span> &lt;span class="o">..&lt;/span> &lt;span class="n">commit_staged_prompt&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">selection&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">source&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">return&lt;/span> &lt;span class="n">select.gitdiff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">end&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">callback&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">local&lt;/span> &lt;span class="n">commit_message&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">response&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;```gitcommit(.-)```&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">if&lt;/span> &lt;span class="n">commit_message&lt;/span> &lt;span class="kr">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">vim.fn&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setreg&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;+&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">commit_message&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;c&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">end&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">end&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="使い方">使い方
+&lt;/h2>&lt;p>実際に使っている様子をGIFで紹介します。
+不要な変数を削除して、コミットメッセージを生成してクリップボードにコピーしています。
+コピーしたコミットメッセージを使って、 &lt;a class="link" href="https://github.com/jesseduffield/lazygit" target="_blank" rel="noopener"
+>LazyGit&lt;/a> にてコミットを行います。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/git-commit.gif"
+width="1018"
+height="592"
+loading="lazy"
+alt="GitHub Copilot Chatでコミットメッセージを生成する"
+class="gallery-image"
+data-flex-grow="171"
+data-flex-basis="412px"
+>&lt;/p>
+&lt;h2 id="一緒に読みたい記事">一緒に読みたい記事
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="../github-copilot-chat-snippet" >GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="../github-copilot-chat-nvim" >NeovimでGitHub Copilot Chatを使う方法&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法</title><link>https://kseki.github.io/posts/github-copilot-chat-snippet/</link><pubDate>Tue, 20 Aug 2024 16:11:47 +0900</pubDate><guid>https://kseki.github.io/posts/github-copilot-chat-snippet/</guid><description>&lt;img src="https://kseki.github.io/posts/github-copilot-chat-snippet/cover.webp" alt="Featured image of post GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>前回の &lt;a class="link" href="../github-copilot-chat-nvim" >NeovimでGitHub Copilot Chatを使う方法&lt;/a> では、GitHub Copilot ChatをNeovimで使う方法を紹介しました。今回は、プロンプトをスニペット化し、nvim-cmpと連携して使う方法を紹介します。&lt;/p>
+&lt;p>設計や実装の相談など、フォーマットは決まっているが中身が毎回変わるケースや、あらかじめプロンプトのフォーマットが決まっている場面ではスニペット化しておくと便利です。これにより、プロンプトエンジニアリングの効率が大幅に向上します。&lt;/p>
+&lt;h2 id="設定方法">設定方法
+&lt;/h2>&lt;p>以下の環境を前提に話を進めます。別の環境の場合は適宜読み替えてください。&lt;/p>
+&lt;pre>&lt;code> $ sw_vers
+ProductName: macOS
+ProductVersion: 14.6.1
+BuildVersion: 23G93
+$ nvim -v
+NVIM v0.10.1
+Build type: Release
+LuaJIT 2.1.1723675123
+nvim-cmp
+branch main
+commit ae644fe
+CopilotChat.nvim
+branch canary
+commit 1a92bb6
+nvim-snippets
+branch main
+commit 56b4052
+&lt;/code>&lt;/pre>
+&lt;h3 id="nvim-cmpの設定">nvim-cmpの設定
+&lt;/h3>&lt;p>nvim-cmpの設定を追加します。Copilot Chatのプロンプトがファイルタイプ &lt;code>copilot-chat&lt;/code> なので、このファイルタイプに対して補完用のソースを追加します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">local&lt;/span> &lt;span class="n">cmp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;cmp&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cmp.setup&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">filetype&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;copilot-chat&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sources&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;snippets&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;copilot&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;buffer&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="nvim-snippetsの設定">nvim-snippetsの設定
+&lt;/h3>&lt;p>以下の設定を追加します。&lt;/p>
+&lt;p>※自分は &lt;a class="link" href="https://github.com/garymjr/nvim-snippets" target="_blank" rel="noopener"
+>nvim-snippets&lt;/a> を使っていますが、他のスニペットプラグインを使っている場合はそのプラグインに合わせて設定してください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;garymjr/nvim-snippets&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">opts&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">opts&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">opts.search_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;~/.config/nvim/snippets&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">end&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">keys&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&amp;lt;Leader&amp;gt;cp&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">function&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">local&lt;/span> &lt;span class="n">filetype&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">vim.bo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">filetype&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">local&lt;/span> &lt;span class="n">path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">string.format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;~/.config/nvim/snippets/%s.json&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">filetype&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">vim.cmd&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;e &amp;#34;&lt;/span> &lt;span class="o">..&lt;/span> &lt;span class="n">path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">end&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">desc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Open snippets file&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>次に、&lt;code>~/.config/nvim/snippets/copilot-chat.json&lt;/code> にスニペットを追加します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;仕様相談&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;prefix&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;specon&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;body&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;以下の仕様について相談します。注意点・確認点があれば教えてください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;## 技術制約&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;- ${1:Ruby on Rails7}&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;## 仕様&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;- ${2:招待制ユーザー登録機能}&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;ライブラリ選定&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;prefix&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;sllib&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;body&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;以下の仕様を実現するためのライブラリの候補をあげてください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;それぞれ、公式URL・メリット・デメリットを教えてください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;## 技術制約&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;- ${1:NPM}&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;## 仕様&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;- ${2:フォーマッター}&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上で準備は完了です！&lt;/p>
+&lt;h2 id="使い方">使い方
+&lt;/h2>&lt;p>動画で使い方を説明します。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/github-copilot-chat-snippet/try-snippet.gif"
+width="1918"
+height="1008"
+loading="lazy"
+alt="GitHub Copilot Chatのプロンプトをスニペット化して、nvim-cmpを連携して便利に使う方法"
+class="gallery-image"
+data-flex-grow="190"
+data-flex-basis="456px"
+>&lt;/p>
+&lt;h2 id="まとめ">まとめ
+&lt;/h2>&lt;p>GitHub Copilot Chatとnvim-cmpを連携することで、プロンプト上でスニペットを活用できるようになります。これにより、設計や実装の相談が効率的に行えるようになります。プロンプトエンジニアリングの観点からも、非常に有用な手法です。ぜひ試してみてください。&lt;/p></description></item><item><title>Neovim hop.nvimで爆速移動</title><link>https://kseki.github.io/posts/hop-nvim/</link><pubDate>Tue, 16 Jul 2024 16:50:23 +0900</pubDate><guid>https://kseki.github.io/posts/hop-nvim/</guid><description>&lt;img src="https://kseki.github.io/posts/hop-nvim/hop-cover.png" alt="Featured image of post Neovim hop.nvimで爆速移動" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>この記事では、Neovimのhop.nvimプラグインについて説明します。hop.nvimはカーソル移動のプラグインで、できるだけ少ないキー操作で任意の場所にジャンプできるようになります。以下では、その設定方法と具体的な使用例について詳しく説明します。&lt;/p>
+&lt;div class="iframely-embed">&lt;div class="iframely-responsive" style="height: 140px; padding-bottom: 0;">&lt;a href="https://github.com/hadronized/hop.nvim" data-iframely-url="//iframely.net/f2fMy4b?card=small">&lt;/a>&lt;/div>&lt;/div>
+&lt;h2 id="設定">設定
+&lt;/h2>&lt;p>自分の設定例です。プラグイン管理がLazyの場合は、以下のように設定できます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;smoka7/hop.nvim&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">event&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;BufRead&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">version&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">opts&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">multi_windows&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">keys&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;leader&amp;gt;w&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;cmd&amp;gt;HopWord&amp;lt;CR&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">desc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hop Word&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;leader&amp;gt;l&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;cmd&amp;gt;HopLine&amp;lt;CR&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">desc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hop Line&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;leader&amp;gt;c&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;cmp&amp;gt;HopChar1&amp;lt;CR&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">desc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hop Char&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;leader&amp;gt;p&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;cmd&amp;gt;HopPattern&amp;lt;CR&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">desc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hop Pattern&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="s2">&amp;#34;f&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;cmd&amp;gt;HopChar1CurrentLineAC&amp;lt;CR&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="s2">&amp;#34;n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;v&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;o&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="n">desc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hop Char in Line (After Cursor)&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="s2">&amp;#34;F&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;cmd&amp;gt;HopChar1CurrentLineBC&amp;lt;CR&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="s2">&amp;#34;n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;v&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;o&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="n">desc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hop Char in Line (Before Cursor)&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;t&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&amp;lt;cmd&amp;gt;lua require&amp;#39;hop&amp;#39;.hint_char1({ direction = require&amp;#39;hop.hint&amp;#39;.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })&amp;lt;CR&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="s2">&amp;#34;n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;v&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;o&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">desc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hop Before Char in Line (After Cursor)&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;T&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&amp;lt;cmd&amp;gt;lua require&amp;#39;hop&amp;#39;.hint_char1({ direction = require&amp;#39;hop.hint&amp;#39;.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })&amp;lt;CR&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="s2">&amp;#34;n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;v&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;o&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">desc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hop After Char in Line (Before Cursor)&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="使い方">使い方
+&lt;/h2>&lt;h3 id="hopword-画面上の特定の単語の先頭にジャンプしたい時">HopWord: 画面上の特定の単語の先頭にジャンプしたい時
+&lt;/h3>&lt;p>8行目の&lt;code>keys&lt;/code>の上にカーソルがあります。そこから7行上の&lt;code>return&lt;/code>の先頭にカーソルをジャンプしたい時の例です。
+コマンド的には、&lt;code>&amp;lt;Space&amp;gt;w&lt;/code>, &lt;code>y&lt;/code>でジャンプしています。&lt;/p>
+&lt;p>ステップで説明すると以下です。&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>return&lt;/code>より11行下の&lt;code>mode&lt;/code>に目線を移す。&lt;/li>
+&lt;li>&lt;code>&amp;lt;Space&amp;gt;w&lt;/code>（HopWordコマンド実行キーマップ）をタイプ&lt;/li>
+&lt;li>目線にあるハイライトされた文字&lt;code>ng&lt;/code>をタイプして移動完了&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://kseki.github.io/posts/hop-nvim/hopword.gif"
+width="780"
+height="421"
+loading="lazy"
+alt="HopWordの使用例"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+>&lt;/p>
+&lt;h3 id="hopline-特定の行に直接ジャンプしたい時">HopLine: 特定の行に直接ジャンプしたい時
+&lt;/h3>&lt;p>現在、カーソルが8行目の&lt;code>keys&lt;/code>の上にあります。そこから7行上の&lt;code>return&lt;/code>の行にカーソルをジャンプしたい時の例です。
+コマンド的には、&lt;code>&amp;lt;Space&amp;gt;l&lt;/code>, &lt;code>y&lt;/code>でジャンプしています。&lt;/p>
+&lt;p>ステップで説明すると以下です。&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>keys&lt;/code>より7行下の&lt;code>return&lt;/code>に目線を移す。&lt;/li>
+&lt;li>&lt;code>&amp;lt;Space&amp;gt;l&lt;/code>（HopLineコマンド実行キーマップ）をタイプ&lt;/li>
+&lt;li>目線にあるハイライトされた文字&lt;code>y&lt;/code>をタイプして移動完了&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://kseki.github.io/posts/hop-nvim/hopline.gif"
+width="780"
+height="421"
+loading="lazy"
+alt="HopLineの使用例"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+>&lt;/p>
+&lt;h3 id="hopchar1-画面上の特定の文字にジャンプしたい時">HopChar1: 画面上の特定の文字にジャンプしたい時
+&lt;/h3>&lt;p>現在、カーソルが1行目の&lt;code>return&lt;/code>の上にあります。そこから18行下の&lt;code>Hop Before Char ...&lt;/code>の行の先頭にジャンプしたい時の例です。
+コマンド的には、&lt;code>&amp;lt;Space&amp;gt;c&lt;/code>, &lt;code>H&lt;/code>, &lt;code>&amp;lt;Enter&amp;gt;&lt;/code>, &lt;code>r&lt;/code>でジャンプしています。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/hop-nvim/hopchar1.gif"
+width="780"
+height="421"
+loading="lazy"
+alt="HopChar1の使用例"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+>&lt;/p>
+&lt;h3 id="hoppattern-画面上の特定のパターンにジャンプしたい時">HopPattern: 画面上の特定のパターンにジャンプしたい時
+&lt;/h3>&lt;p>現在、カーソルが1行目の&lt;code>return&lt;/code>の上にあります。そこから16行下の&lt;code>HintDirection&lt;/code>の&lt;code>D&lt;/code>の位置にジャンプしたときの例です。&lt;/p>
+&lt;p>ステップで説明すると以下です。&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>return&lt;/code>より16行下の&lt;code>HintDirection&lt;/code>の&lt;code>D&lt;/code>の位置に目線を移す。&lt;/li>
+&lt;li>&lt;code>&amp;lt;Space&amp;gt;p&lt;/code>（HopPatternコマンド実行キーマップ）をタイプ&lt;/li>
+&lt;li>ジャンプしたいパターン&lt;code>direaction&lt;/code>をタイプ&lt;/li>
+&lt;li>目線にあるハイライトされた文字&lt;code>s&lt;/code>をタイプして移動完了&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://kseki.github.io/posts/hop-nvim/hoppattern.gif"
+width="780"
+height="421"
+loading="lazy"
+alt="HopPatternの使用例"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+>&lt;/p>
+&lt;h2 id="まとめ">まとめ
+&lt;/h2>&lt;p>この記事では、Neovimのhop.nvimプラグインの設定方法と使用例について説明しました。hop.nvimは、少ないキー操作で任意の場所にジャンプすることを可能にする強力なカーソル移動ツールです。&lt;/p>
+&lt;p>HopWord, HopLine, HopChar1, そして HopPatternといった主要なコマンドを使用することで、効率的にコードをナビゲートできます。これらのコマンドは、特定の単語、行、文字、またはパターンにジャンプするためのものです。&lt;/p>
+&lt;p>さらに、hop.nvimにはこれら以外にも多くの機能と設定オプションがあります。例えば、異なるウィンドウ間でのジャンプや、カーソル位置に基づいたジャンプなどが可能です。詳細は&lt;a class="link" href="https://github.com/smoka7/hop.nvim" target="_blank" rel="noopener"
+>公式GitHubリポジトリ&lt;/a>を参照してください。&lt;/p>
+&lt;p>このプラグインを活用することで、あなたのコーディング体験はさらに向上するでしょう。&lt;/p>
+&lt;div class="amazon-widget">
+&lt;div class="amazon-widget-img">
+&lt;a href="https://www.amazon.co.jp/gp/product/B00HWLJI3U/tag=kseki0c-22" target="_blank">
+&lt;img src="https://m.media-amazon.com/images/I/71wWsTwuUlL._AC_SX522_.jpg" />
+&lt;/a>
+&lt;/div>
+&lt;div class="amazon-widget-info">
+&lt;a href="https://www.amazon.co.jp/gp/product/B00HWLJI3U/tag=kseki0c-22" target="_blank">
+&lt;span class="amazon-widget-title">
+実践Vim　思考のスピードで編集しよう！ (アスキー書籍)
+&lt;/span>
+&lt;/a>
+&lt;a href="https://www.amazon.co.jp/gp/product/B00HWLJI3U/tag=kseki0c-22" class="amazon-widget-button" target="_blank">Amazonで購入&lt;/a>
+&lt;/div>
+&lt;/div></description></item><item><title>NeovimでTabnineを使う方法</title><link>https://kseki.github.io/posts/cmp-tabnine-nvim/</link><pubDate>Tue, 02 Jul 2024 16:38:00 +0900</pubDate><guid>https://kseki.github.io/posts/cmp-tabnine-nvim/</guid><description>&lt;h2 id="tabnineとは">Tabnineとは
+&lt;/h2>&lt;p>Tabnineは、AIを活用したコード補完プラグインです。従来の補完機能よりも高度な機能を提供し、コード開発を効率化します。Tabnineは、GPT-3と呼ばれる強力なAIモデルを使用しています。このモデルは、大量のコードを学習し、その結果を元にコード補完を提供します。&lt;/p>
+&lt;p>主な機能は以下の通りです。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>コンテキストに応じた補完:&lt;/strong> Tabnineは、あなたが書いているコードの文脈を理解し、最も適切な補完候補を提案します。これは、あなたが何をしようとしているかをAIが理解し、それに基づいて最適なコードスニペットを提供することを意味します。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>コード生成:&lt;/strong> Tabnineは、関数やクラスの定義、テストコードなど、様々なコードを自動生成できます。これは、あなたが新しい関数を作成しようとしているとき、Tabnineがその関数のスケルトンを生成することを意味します。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>コード検索:&lt;/strong> Tabnineは、コード内の変数や関数の定義箇所を素早く検索できます。これは、あなたが特定の関数の定義を探しているとき、Tabnineがその関数の定義を素早く見つけることを意味します。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>マルチ言語対応:&lt;/strong> Tabnineは多くのプログラミング言語に対応しており、様々な言語間で補完やコード生成を行うことができます。これは、あなたがPythonでコードを書いているときでも、Javaでコードを書いているときでも、Tabnineが適切な補完を提供することを意味します。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="neovimにインストールする方法">Neovimにインストールする方法
+&lt;/h2>&lt;p>今回はhrsh7th/nvim-cmpのソースとしてにTabnineをインストールします。&lt;/p>
+&lt;p>プラグインを追加&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">return&lt;/span> &lt;span class="n">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;packer&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">startup&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">use&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;tzachar/cmp-tabnine&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">run&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;./install.sh&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">requires&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;hrsh7th/nvim-cmp&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>設定を追加&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="n">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;cmp_tabnine.config&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">setup&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">max_lines&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">max_num_results&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sort&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">run_on_every_keystroke&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">snippet_placeholder&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;..&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ignored_file_types&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">-- default is not to ignore&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">-- uncomment to ignore in lua:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">-- lua = true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">show_prediction_strength&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">min_percent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>cmpのソースとして追加&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="o">#&lt;/span> &lt;span class="err">表示する文字色を紫色に設定&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">vim.api&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">nvim_set_hl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;CmpItemKindTabNine&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="n">fg&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;#7A00FF&amp;#34;&lt;/span> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;cmp&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">setup&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">snippet&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">expand&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">luasnip.lsp_expand&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">args.body&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">end&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sources&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">cmp.config&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sources&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;copilot&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="c1">-- GitHub Copilot&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;cmp_tabnine&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="c1">-- Tabnine&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;luasnip&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="c1">-- snippet&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;buffer&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="c1">-- text within current buffer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;path&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="c1">-- file system paths&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">formatting&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">format&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">lspkind.cmp_format&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">maxwidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ellipsis_char&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;...&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">symbol_map&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">TabNine&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="まとめ">まとめ
+&lt;/h2>&lt;p>この記事では、NeovimでTabnineを設定し、使用する方法について説明しました。TabnineはAIを活用したコード補完プラグインで、コードの文脈を理解し、最も適切な補完候補を提案します。また、コード生成、コード検索、マルチ言語対応などの機能も提供します。&lt;/p>
+&lt;p>Tabnineを使用することで、コードの品質を向上させ、開発効率を大幅に改善できます。これにより、より複雑な問題に集中し、より創造的なソリューションを開発する時間が増えます。&lt;/p>
+&lt;p>今後もTabnineのようなツールを活用して、コーディングの効率と楽しさを最大限に引き出していきましょう。&lt;/p>
+&lt;h2 id="参考">参考
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/tzachar/cmp-tabnine" target="_blank" rel="noopener"
+>tzachar/cmp-tabnine: TabNine plugin for hrsh7th/nvim-cmp&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.tabnine.com/install/neovim/" target="_blank" rel="noopener"
+>Install Tabnine for Neovim | Tabnine AI code assistant&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>NeovimでGitHub Copilot Chatを使う方法</title><link>https://kseki.github.io/posts/github-copilot-chat-nvim/</link><pubDate>Tue, 09 Apr 2024 16:30:42 +0900</pubDate><guid>https://kseki.github.io/posts/github-copilot-chat-nvim/</guid><description>&lt;img src="https://kseki.github.io/posts/github-copilot-chat-nvim/copilot-chat-demo.jpg" alt="Featured image of post NeovimでGitHub Copilot Chatを使う方法" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>GitHub Copilot Chatは、開発者がコーディング中にリアルタイムで支援を受けることができるツールです。
+&lt;a class="link" href="https://github.com/github/copilot.vim" target="_blank" rel="noopener"
+>copilot.vim&lt;/a> を使えばNeovimでもGitHub Copilotは使えるのですが、まだChatには対応していません。
+Neovimエディタで利用することで、コードの自動補完やドキュメントの参照、コーディングの疑問点を解決するための対話が可能になります。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/CopilotC-Nvim/CopilotChat.nvim" target="_blank" rel="noopener"
+>CopilotChat.nvim&lt;/a> を使うことでChatを利用できるようになります。&lt;/p>
+&lt;h2 id="設定方法">設定方法
+&lt;/h2>&lt;h3 id="1-プラグインをインストールする">1. プラグインをインストールする
+&lt;/h3>&lt;p>まずプラグインをインストールする必要があります。お使いのプライグインマネージャーに応じて設定してください。
+自分の環境は &lt;a class="link" href="https://github.com/junegunn/vim-plug" target="_blank" rel="noopener"
+>vim-plug&lt;/a> なので下記を追加しました。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vim" data-lang="vim">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">call&lt;/span> &lt;span class="nx">plug&lt;/span>#&lt;span class="nx">begin&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Plug&lt;/span> &lt;span class="s1">&amp;#39;zbirenbaum/copilot.lua&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Plug&lt;/span> &lt;span class="s1">&amp;#39;nvim-lua/plenary.nvim&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Plug&lt;/span> &lt;span class="s1">&amp;#39;CopilotC-Nvim/CopilotChat.nvim&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> { &lt;span class="s1">&amp;#39;branch&amp;#39;&lt;/span>: &lt;span class="s1">&amp;#39;canary&amp;#39;&lt;/span> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">call&lt;/span> &lt;span class="nx">plug&lt;/span>#&lt;span class="nx">end&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">lua&lt;/span> &lt;span class="p">&amp;lt;&amp;lt;&lt;/span> &lt;span class="nx">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;CopilotChat&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>.&lt;span class="nx">setup&lt;/span> {}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>その後、 &lt;code>:PackerSync&lt;/code> コマンドを実行しインストール後にNeovimを再起動すると完了です。&lt;/p>
+&lt;h3 id="2-github-copilot-chatが日本語で回答するように設定する">2. GitHub Copilot Chatが日本語で回答するように設定する
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vim" data-lang="vim">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">lua&lt;/span> &lt;span class="p">&amp;lt;&amp;lt;&lt;/span> &lt;span class="nx">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;CopilotChat&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>.&lt;span class="nx">setup&lt;/span>&lt;span class="p">(&lt;/span>{
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">show_help&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;yes&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompts&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Explain&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_EXPLAIN アクティブな選択範囲の説明を段落形式で書いてください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Review&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_REVIEW 選択されたコードをレビューしてください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FixCode&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE このコードには問題があります。バグを修正したコードに書き直してください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Refactor&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE 明瞭性と可読性を向上させるために、次のコードをリファクタリングしてください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">BetterNamings&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE 選択されたコードの変数名や関数名を改善してください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Documentation&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE 選択範囲にドキュメントコメントを追加してください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Tests&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE コードのテストを生成してください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Wording&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE 次のテキストの文法と表現を改善してください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Summarize&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE 選択範囲の要約を書いてください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Spelling&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE 次のテキストのスペルミスを修正してください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FixDiagnostic&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;ファイル内の次の問題を支援してください:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">selection&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">select&lt;/span>.&lt;span class="nx">diagnostics&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Commit&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;変更のコミットメッセージをcommitizenの規約に従って日本語で書いてください。タイトルは最大50文字、メッセージは72文字で折り返してください。メッセージ全体をgitcommit言語のコードブロックで囲んでください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">selection&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">select&lt;/span>.&lt;span class="nx">gitdiff&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">CommitStaged&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;変更のコミットメッセージをcommitizenの規約に従って日本語で書いてください。タイトルは最大50文字、メッセージは72文字で折り返してください。メッセージ全体をgitcommit言語のコードブロックで囲んでください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">selection&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">source&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">local&lt;/span> &lt;span class="nx">select&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;CopilotChat.select&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">return&lt;/span> &lt;span class="nx">select&lt;/span>.&lt;span class="nx">gitdiff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">true&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">end&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>COPILOT_EXPLAIN&lt;/code> などはデフォルトでプロンプトの内容が定数化されています。(詳しくは、 &lt;a class="link" href="https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/prompts.lua" target="_blank" rel="noopener"
+>prompts.lua&lt;/a> を参照ください。)
+続けて日本語で説明してもらうようにプロンプトを追加しています。&lt;/p>
+&lt;h2 id="使い方">使い方
+&lt;/h2>&lt;p>使い方はいろいろありますが、今回は、 &lt;code>:CopilotChatTests&lt;/code> コマンドを使ってテストを作成してもらう方法を書きます。&lt;/p>
+&lt;ol>
+&lt;li>対象となるコードをヤンクする&lt;/li>
+&lt;li>コマンドモードで &lt;code>:CopilotChatTests&lt;/code> を入力するとChatが返ってくる&lt;/li>
+&lt;li>チャット画面で &lt;kbd>g&lt;/kbd> + &lt;kbd>y&lt;/kbd> をしてテストコードをヤンクする&lt;/li>
+&lt;li>テストファイルに &lt;kbd>p&lt;/kbd> でペースト&lt;/li>
+&lt;/ol>
+&lt;p>で完成です。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/github-copilot-chat-nvim/copilot-chat-demo.gif"
+width="1280"
+height="720"
+loading="lazy"
+alt="demo.gif"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;h2 id="まとめ">まとめ
+&lt;/h2>&lt;p>GitHub Copilot Chatは開発者にとって強力な支援ツールです。このツールを活用することで、開発の効率化とコーディングの質の向上が期待できます。&lt;/p>
+&lt;p>このポストは、NeovimでGitHub Copilot Chatを使う方法についての概要を提供しています。より詳細な情報やサポートが必要な場合は、公式ドキュメントやコミュニティフォーラムを参照してください。開発の旅において、GitHub Copilot Chatが有益なガイドとなることを願っています。&lt;/p>
+&lt;div class="amazon-widget">
+&lt;div class="amazon-widget-img">
+&lt;a href="https://www.amazon.co.jp/gp/product/B0BW4BKR5G/tag=kseki0c-22" target="_blank">
+&lt;img src="https://m.media-amazon.com/images/I/81z9ZVOfGkL._AC_SX522_.jpg" />
+&lt;/a>
+&lt;/div>
+&lt;div class="amazon-widget-info">
+&lt;a href="https://www.amazon.co.jp/gp/product/B0BW4BKR5G/tag=kseki0c-22" target="_blank">
+&lt;span class="amazon-widget-title">
+ChatGPT超実践活用法: 【GPT-4対応版】【code interpreter解説有】｢ビジネスシーン｣におけるマジで使える利用方法25選【使い方・入門・教科書・初心者・利用法】 ChatGPT・IT・テクノロジー (AI技術・テクノロジー・人工知能)
+&lt;/span>
+&lt;/a>
+&lt;a href="https://www.amazon.co.jp/gp/product/B0BW4BKR5G/tag=kseki0c-22" class="amazon-widget-button" target="_blank">Amazonで購入&lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;div class="amazon-widget">
+&lt;div class="amazon-widget-img">
+&lt;a href="https://www.amazon.co.jp/gp/product/4295018236/tag=kseki0c-22" target="_blank">
+&lt;img src="https://m.media-amazon.com/images/I/81UJ&amp;#43;mKvUYL._AC_SX522_.jpg" />
+&lt;/a>
+&lt;/div>
+&lt;div class="amazon-widget-info">
+&lt;a href="https://www.amazon.co.jp/gp/product/4295018236/tag=kseki0c-22" target="_blank">
+&lt;span class="amazon-widget-title">
+エンジニアのためのChatGPT活用入門 AIで作業負担を減らすためのアイデア集
+&lt;/span>
+&lt;/a>
+&lt;a href="https://www.amazon.co.jp/gp/product/4295018236/tag=kseki0c-22" class="amazon-widget-button" target="_blank">Amazonで購入&lt;/a>
+&lt;/div>
+&lt;/div></description></item><item><title>NeovimでALEを使ってDocker Compose上でRubocopを実行する</title><link>https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/</link><pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate><guid>https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/</guid><description>&lt;img src="https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/vim-ale-rubocop.png" alt="Featured image of post NeovimでALEを使ってDocker Compose上でRubocopを実行する" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>昨今の開発環境はほとんどのロジェクトでDocker Composeなどの仮想環境で構成されています。&lt;br>
+今回は、Neovim(Vim) + ALEを使ってDocker Compose上でRubocopを実行する方法を書きました。&lt;/p>
+&lt;h3 id="バージョン">バージョン
+&lt;/h3>&lt;ul>
+&lt;li>Neovim: v0.6.0&lt;/li>
+&lt;li>ALE: v3.1.0&lt;/li>
+&lt;li>Docker Compose: 1.24.0&lt;/li>
+&lt;/ul>
+&lt;h2 id="設定方法">設定方法
+&lt;/h2>&lt;p>前提として、ALEプラグインをインストール済みの状態であることとします。&lt;/p>
+&lt;p>まず、Railsのbinstubとして&lt;code>bin/rubocop&lt;/code>にDocker Compose上でRubocopを実行するスクリプトを作成します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ruby" data-lang="ruby">&lt;span class="line">&lt;span class="cl">&lt;span class="ch">#!/usr/bin/env ruby&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">require&lt;/span> &lt;span class="s1">&amp;#39;pathname&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">require&lt;/span> &lt;span class="s1">&amp;#39;fileutils&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kp">include&lt;/span> &lt;span class="no">FileUtils&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="no">APP_ROOT&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="no">Pathname&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">new&lt;/span> &lt;span class="no">File&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">expand_path&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;../../&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="bp">__FILE__&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chdir&lt;/span> &lt;span class="no">APP_ROOT&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rubocop_command&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;bundle exec rubocop &lt;/span>&lt;span class="si">#{&lt;/span>&lt;span class="no">ARGV&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">system&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;docker-compose exec -T app &lt;/span>&lt;span class="si">#{&lt;/span>&lt;span class="n">rubocop_command&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">end&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>ALEはRubocopの結果をJSON形式で受け取って処理します。その際、標準出力に余計な出力がないよう、&lt;code>docker-compose exec&lt;/code>コマンドに&lt;code>-T&lt;/code>オプションを指定しています。&lt;/p>
+&lt;h4 id="neovimの設定">Neovimの設定
+&lt;/h4>&lt;p>最後にNeovimの設定をします。&lt;br>
+開発環境はプロジェクトによって異なるので、僕は&lt;a class="link" href="https://github.com/thinca/vim-localrc" target="_blank" rel="noopener"
+>thinca/vim-localrc&lt;/a>を使って&lt;code>.local.vimrc&lt;/code>に設定をしています。&lt;/p>
+&lt;h4 id="1-実行コマンドにbinrubocopを指定">1. 実行コマンドに&lt;code>bin/rubocop&lt;/code>を指定
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vim" data-lang="vim">&lt;span class="line">&lt;span class="cl">&lt;span class="k">let&lt;/span> &lt;span class="nx">g&lt;/span>:&lt;span class="nx">ale_ruby_rubocop_executable&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;bin/rubocop&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>こちらは説明不要ですね。&lt;/p>
+&lt;h4 id="2-ファイル名のマッピング">2. ファイル名のマッピング
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vim" data-lang="vim">&lt;span class="line">&lt;span class="cl">&lt;span class="k">let&lt;/span> &lt;span class="nx">g&lt;/span>:&lt;span class="nx">ale_filename_mappings&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> \ &lt;span class="s1">&amp;#39;rubocop&amp;#39;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> \ [&lt;span class="s1">&amp;#39;/Users/kseki/rails-project&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;/opt&amp;#39;&lt;/span>]&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> \ ]&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> \}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>そのままだとローカルの絶対パスを&lt;code>bin/rubocop&lt;/code>コマンドの引数として渡してしまうが、実行するのはDocker上です。
+Docker上の絶対パスに変換してから渡すようにマッピング指定をします。
+&lt;code>['/Users/kseki/rails-project', '/opt']&lt;/code> の部分です。左はローカルのプロジェクトルートパス、右はDocker上のプロジェクトルートパスです。&lt;/p>
+&lt;h2 id="まとめ">まとめ
+&lt;/h2>&lt;p>Gistにまとめました！
+&lt;a class="link" href="https://gist.github.com/kseki/811a9c4bd9f7a1c6bcec00691007bcc9" target="_blank" rel="noopener"
+>Setting up &amp;ldquo;Rubocop&amp;rdquo; to run on &amp;ldquo;Docker compose&amp;rdquo; using &amp;ldquo;ALE&amp;rdquo;&lt;/a>&lt;/p>
+&lt;h2 id="参考">参考
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/dense-analysis/ale" target="_blank" rel="noopener"
+>dense-analysis/ale: Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://rymc.io/blog/2019/vim-ale-docker-per-project-linting/" target="_blank" rel="noopener"
+>Vim, ALE, Docker, and Per-Project Linting | Ryan McGrath&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

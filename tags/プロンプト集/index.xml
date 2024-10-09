@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>プロンプト集 on Klog</title><link>https://kseki.github.io/tags/%E3%83%97%E3%83%AD%E3%83%B3%E3%83%97%E3%83%88%E9%9B%86/</link><description>Recent content in プロンプト集 on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><copyright>kseki</copyright><lastBuildDate>Wed, 21 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://kseki.github.io/tags/%E3%83%97%E3%83%AD%E3%83%B3%E3%83%97%E3%83%88%E9%9B%86/index.xml" rel="self" type="application/rss+xml"/><item><title>東京都デジタルサービス局のAI活用事例集に見るChatGPTプロンプト例</title><link>https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/</link><pubDate>Tue, 09 Jul 2024 17:00:38 +0900</pubDate><guid>https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/</guid><description>&lt;img src="https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/cover.webp" alt="Featured image of post 東京都デジタルサービス局のAI活用事例集に見るChatGPTプロンプト例" />&lt;h2 id="はじめに">はじめに
+&lt;/h2>&lt;p>東京都デジタルサービス局が発行した「AI活用事例集」を読みました。
+AI技術がどのように行政の現場で活用されているのかを知ることができる非常に興味深い内容でした。この記事では、私が特に面白いと感じた事例をいくつか紹介し、それに対する感想を述べたいと思います。&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.digitalservice.metro.tokyo.lg.jp/documents/d/digitalservice/ai_prompt" target="_blank" rel="noopener"
+>都職員のアイデアが詰まった文章生成AI活用事例集|ICT導入・活用の推進|東京都デジタルサービス局&lt;/a>&lt;/p>
+&lt;h2 id="面白かった事例集">面白かった事例集
+&lt;/h2>&lt;h3 id="政策のアイデア案を出しリスクを確認する">政策のアイデア案を出しリスクを確認する
+&lt;/h3>&lt;p>この事例では、AIを活用して政策のアイデアを生成し、そのリスクを確認するプロセスが紹介されていました。AIは過去のデータや類似事例を参照しながら、政策のアイデアを出します。また、見落としがちなリスクを事前に把握できる点が非常に有用だと思いました。&lt;/p>
+&lt;p>リスクの洗い出しは抜け漏れが無いように実際の業務でもAIを使って洗い出しを行いたいと思いました。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/tokyo-ai1.png"
+width="3478"
+height="1822"
+loading="lazy"
+alt="tokyo ai 1"
+class="gallery-image"
+data-flex-grow="190"
+data-flex-basis="458px"
+>&lt;/p>
+&lt;h3 id="研修の理解度を確認するためのテスト問題を作成する">研修の理解度を確認するためのテスト問題を作成する
+&lt;/h3>&lt;p>AIを活用して研修の理解度を確認するためのテスト問題を自動生成する事例です。
+テスト問題を作成にあたって、指示・条件・ゴールを細かく指定していて、AI回答の回答が的確に出力されています。
+4択問題の間違った選択肢を考えるのは結構たいへんだと思うので良い使い方だと思いました。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/tokyo-ai2.png"
+width="3484"
+height="1962"
+loading="lazy"
+alt="tokyo ai 2"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;h3 id="適切なフレーズを提案してもらう">適切なフレーズを提案してもらう
+&lt;/h3>&lt;p>文章作成の際、適切なフレーズが見当たらないときや、既に思いついているが他のアイデアを探したいときに表現の提案をしてもらう事例です。&lt;/p>
+&lt;p>開発の場合も、文言の作成に迷うことが多々あるので活用したいと思いました。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/tokyo-ai3.png"
+width="3478"
+height="1884"
+loading="lazy"
+alt="tokyo ai 3"
+class="gallery-image"
+data-flex-grow="184"
+data-flex-basis="443px"
+>&lt;/p>
+&lt;h2 id="感想">感想
+&lt;/h2>&lt;p>「東京都デジタルサービス局のAI活用事例集」から活用事例を紹介しました。
+この資料では、活用事例だけではなく、プロンプトのコツや、AIを実際に利用した職員のアンケート結果も載っていて非常に有用な資料でした。この事例集は、他の自治体や企業にとっても参考になる内容が多く含まれており、今後のAI活用の可能性を示唆するものでした。是非読んでみてください！&lt;/p></description></item></channel></rss>

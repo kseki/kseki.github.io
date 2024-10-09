@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AI on Klog</title><link>https://kseki.github.io/categories/ai/</link><description>Recent content in AI on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><copyright>kseki</copyright><lastBuildDate>Wed, 21 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://kseki.github.io/categories/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>東京都デジタルサービス局のAI活用事例集に見るChatGPTプロンプト例</title><link>https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/</link><pubDate>Tue, 09 Jul 2024 17:00:38 +0900</pubDate><guid>https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/</guid><description>&lt;img src="https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/cover.webp" alt="Featured image of post 東京都デジタルサービス局のAI活用事例集に見るChatGPTプロンプト例" />&lt;h2 id="はじめに">はじめに
+&lt;/h2>&lt;p>東京都デジタルサービス局が発行した「AI活用事例集」を読みました。
+AI技術がどのように行政の現場で活用されているのかを知ることができる非常に興味深い内容でした。この記事では、私が特に面白いと感じた事例をいくつか紹介し、それに対する感想を述べたいと思います。&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.digitalservice.metro.tokyo.lg.jp/documents/d/digitalservice/ai_prompt" target="_blank" rel="noopener"
+>都職員のアイデアが詰まった文章生成AI活用事例集|ICT導入・活用の推進|東京都デジタルサービス局&lt;/a>&lt;/p>
+&lt;h2 id="面白かった事例集">面白かった事例集
+&lt;/h2>&lt;h3 id="政策のアイデア案を出しリスクを確認する">政策のアイデア案を出しリスクを確認する
+&lt;/h3>&lt;p>この事例では、AIを活用して政策のアイデアを生成し、そのリスクを確認するプロセスが紹介されていました。AIは過去のデータや類似事例を参照しながら、政策のアイデアを出します。また、見落としがちなリスクを事前に把握できる点が非常に有用だと思いました。&lt;/p>
+&lt;p>リスクの洗い出しは抜け漏れが無いように実際の業務でもAIを使って洗い出しを行いたいと思いました。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/tokyo-ai1.png"
+width="3478"
+height="1822"
+loading="lazy"
+alt="tokyo ai 1"
+class="gallery-image"
+data-flex-grow="190"
+data-flex-basis="458px"
+>&lt;/p>
+&lt;h3 id="研修の理解度を確認するためのテスト問題を作成する">研修の理解度を確認するためのテスト問題を作成する
+&lt;/h3>&lt;p>AIを活用して研修の理解度を確認するためのテスト問題を自動生成する事例です。
+テスト問題を作成にあたって、指示・条件・ゴールを細かく指定していて、AI回答の回答が的確に出力されています。
+4択問題の間違った選択肢を考えるのは結構たいへんだと思うので良い使い方だと思いました。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/tokyo-ai2.png"
+width="3484"
+height="1962"
+loading="lazy"
+alt="tokyo ai 2"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;h3 id="適切なフレーズを提案してもらう">適切なフレーズを提案してもらう
+&lt;/h3>&lt;p>文章作成の際、適切なフレーズが見当たらないときや、既に思いついているが他のアイデアを探したいときに表現の提案をしてもらう事例です。&lt;/p>
+&lt;p>開発の場合も、文言の作成に迷うことが多々あるので活用したいと思いました。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/tokyo-ai3.png"
+width="3478"
+height="1884"
+loading="lazy"
+alt="tokyo ai 3"
+class="gallery-image"
+data-flex-grow="184"
+data-flex-basis="443px"
+>&lt;/p>
+&lt;h2 id="感想">感想
+&lt;/h2>&lt;p>「東京都デジタルサービス局のAI活用事例集」から活用事例を紹介しました。
+この資料では、活用事例だけではなく、プロンプトのコツや、AIを実際に利用した職員のアンケート結果も載っていて非常に有用な資料でした。この事例集は、他の自治体や企業にとっても参考になる内容が多く含まれており、今後のAI活用の可能性を示唆するものでした。是非読んでみてください！&lt;/p></description></item><item><title>NeovimでTabnineを使う方法</title><link>https://kseki.github.io/posts/cmp-tabnine-nvim/</link><pubDate>Tue, 02 Jul 2024 16:38:00 +0900</pubDate><guid>https://kseki.github.io/posts/cmp-tabnine-nvim/</guid><description>&lt;h2 id="tabnineとは">Tabnineとは
+&lt;/h2>&lt;p>Tabnineは、AIを活用したコード補完プラグインです。従来の補完機能よりも高度な機能を提供し、コード開発を効率化します。Tabnineは、GPT-3と呼ばれる強力なAIモデルを使用しています。このモデルは、大量のコードを学習し、その結果を元にコード補完を提供します。&lt;/p>
+&lt;p>主な機能は以下の通りです。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>コンテキストに応じた補完:&lt;/strong> Tabnineは、あなたが書いているコードの文脈を理解し、最も適切な補完候補を提案します。これは、あなたが何をしようとしているかをAIが理解し、それに基づいて最適なコードスニペットを提供することを意味します。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>コード生成:&lt;/strong> Tabnineは、関数やクラスの定義、テストコードなど、様々なコードを自動生成できます。これは、あなたが新しい関数を作成しようとしているとき、Tabnineがその関数のスケルトンを生成することを意味します。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>コード検索:&lt;/strong> Tabnineは、コード内の変数や関数の定義箇所を素早く検索できます。これは、あなたが特定の関数の定義を探しているとき、Tabnineがその関数の定義を素早く見つけることを意味します。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>マルチ言語対応:&lt;/strong> Tabnineは多くのプログラミング言語に対応しており、様々な言語間で補完やコード生成を行うことができます。これは、あなたがPythonでコードを書いているときでも、Javaでコードを書いているときでも、Tabnineが適切な補完を提供することを意味します。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="neovimにインストールする方法">Neovimにインストールする方法
+&lt;/h2>&lt;p>今回はhrsh7th/nvim-cmpのソースとしてにTabnineをインストールします。&lt;/p>
+&lt;p>プラグインを追加&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">return&lt;/span> &lt;span class="n">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;packer&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">startup&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">use&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;tzachar/cmp-tabnine&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">run&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;./install.sh&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">requires&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;hrsh7th/nvim-cmp&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>設定を追加&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="n">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;cmp_tabnine.config&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">setup&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">max_lines&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">max_num_results&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sort&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">run_on_every_keystroke&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">snippet_placeholder&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;..&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ignored_file_types&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">-- default is not to ignore&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">-- uncomment to ignore in lua:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">-- lua = true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">show_prediction_strength&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">min_percent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>cmpのソースとして追加&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="o">#&lt;/span> &lt;span class="err">表示する文字色を紫色に設定&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">vim.api&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">nvim_set_hl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;CmpItemKindTabNine&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="n">fg&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;#7A00FF&amp;#34;&lt;/span> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;cmp&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">setup&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">snippet&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">expand&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">luasnip.lsp_expand&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">args.body&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">end&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sources&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">cmp.config&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sources&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;copilot&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="c1">-- GitHub Copilot&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;cmp_tabnine&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="c1">-- Tabnine&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;luasnip&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="c1">-- snippet&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;buffer&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="c1">-- text within current buffer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;path&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="c1">-- file system paths&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">formatting&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">format&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">lspkind.cmp_format&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">maxwidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ellipsis_char&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;...&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">symbol_map&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">TabNine&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="まとめ">まとめ
+&lt;/h2>&lt;p>この記事では、NeovimでTabnineを設定し、使用する方法について説明しました。TabnineはAIを活用したコード補完プラグインで、コードの文脈を理解し、最も適切な補完候補を提案します。また、コード生成、コード検索、マルチ言語対応などの機能も提供します。&lt;/p>
+&lt;p>Tabnineを使用することで、コードの品質を向上させ、開発効率を大幅に改善できます。これにより、より複雑な問題に集中し、より創造的なソリューションを開発する時間が増えます。&lt;/p>
+&lt;p>今後もTabnineのようなツールを活用して、コーディングの効率と楽しさを最大限に引き出していきましょう。&lt;/p>
+&lt;h2 id="参考">参考
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/tzachar/cmp-tabnine" target="_blank" rel="noopener"
+>tzachar/cmp-tabnine: TabNine plugin for hrsh7th/nvim-cmp&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.tabnine.com/install/neovim/" target="_blank" rel="noopener"
+>Install Tabnine for Neovim | Tabnine AI code assistant&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>NeovimでGitHub Copilot Chatを使う方法</title><link>https://kseki.github.io/posts/github-copilot-chat-nvim/</link><pubDate>Tue, 09 Apr 2024 16:30:42 +0900</pubDate><guid>https://kseki.github.io/posts/github-copilot-chat-nvim/</guid><description>&lt;img src="https://kseki.github.io/posts/github-copilot-chat-nvim/copilot-chat-demo.jpg" alt="Featured image of post NeovimでGitHub Copilot Chatを使う方法" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>GitHub Copilot Chatは、開発者がコーディング中にリアルタイムで支援を受けることができるツールです。
+&lt;a class="link" href="https://github.com/github/copilot.vim" target="_blank" rel="noopener"
+>copilot.vim&lt;/a> を使えばNeovimでもGitHub Copilotは使えるのですが、まだChatには対応していません。
+Neovimエディタで利用することで、コードの自動補完やドキュメントの参照、コーディングの疑問点を解決するための対話が可能になります。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/CopilotC-Nvim/CopilotChat.nvim" target="_blank" rel="noopener"
+>CopilotChat.nvim&lt;/a> を使うことでChatを利用できるようになります。&lt;/p>
+&lt;h2 id="設定方法">設定方法
+&lt;/h2>&lt;h3 id="1-プラグインをインストールする">1. プラグインをインストールする
+&lt;/h3>&lt;p>まずプラグインをインストールする必要があります。お使いのプライグインマネージャーに応じて設定してください。
+自分の環境は &lt;a class="link" href="https://github.com/junegunn/vim-plug" target="_blank" rel="noopener"
+>vim-plug&lt;/a> なので下記を追加しました。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vim" data-lang="vim">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">call&lt;/span> &lt;span class="nx">plug&lt;/span>#&lt;span class="nx">begin&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Plug&lt;/span> &lt;span class="s1">&amp;#39;zbirenbaum/copilot.lua&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Plug&lt;/span> &lt;span class="s1">&amp;#39;nvim-lua/plenary.nvim&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Plug&lt;/span> &lt;span class="s1">&amp;#39;CopilotC-Nvim/CopilotChat.nvim&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> { &lt;span class="s1">&amp;#39;branch&amp;#39;&lt;/span>: &lt;span class="s1">&amp;#39;canary&amp;#39;&lt;/span> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">call&lt;/span> &lt;span class="nx">plug&lt;/span>#&lt;span class="nx">end&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">lua&lt;/span> &lt;span class="p">&amp;lt;&amp;lt;&lt;/span> &lt;span class="nx">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;CopilotChat&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>.&lt;span class="nx">setup&lt;/span> {}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>その後、 &lt;code>:PackerSync&lt;/code> コマンドを実行しインストール後にNeovimを再起動すると完了です。&lt;/p>
+&lt;h3 id="2-github-copilot-chatが日本語で回答するように設定する">2. GitHub Copilot Chatが日本語で回答するように設定する
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vim" data-lang="vim">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">lua&lt;/span> &lt;span class="p">&amp;lt;&amp;lt;&lt;/span> &lt;span class="nx">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;CopilotChat&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>.&lt;span class="nx">setup&lt;/span>&lt;span class="p">(&lt;/span>{
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">show_help&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;yes&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompts&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Explain&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_EXPLAIN アクティブな選択範囲の説明を段落形式で書いてください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Review&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_REVIEW 選択されたコードをレビューしてください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FixCode&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE このコードには問題があります。バグを修正したコードに書き直してください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Refactor&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE 明瞭性と可読性を向上させるために、次のコードをリファクタリングしてください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">BetterNamings&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE 選択されたコードの変数名や関数名を改善してください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Documentation&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE 選択範囲にドキュメントコメントを追加してください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Tests&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE コードのテストを生成してください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Wording&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE 次のテキストの文法と表現を改善してください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Summarize&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE 選択範囲の要約を書いてください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Spelling&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE 次のテキストのスペルミスを修正してください。日本語で返答ください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FixDiagnostic&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;ファイル内の次の問題を支援してください:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">selection&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">select&lt;/span>.&lt;span class="nx">diagnostics&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Commit&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;変更のコミットメッセージをcommitizenの規約に従って日本語で書いてください。タイトルは最大50文字、メッセージは72文字で折り返してください。メッセージ全体をgitcommit言語のコードブロックで囲んでください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">selection&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">select&lt;/span>.&lt;span class="nx">gitdiff&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">CommitStaged&lt;/span> &lt;span class="p">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;変更のコミットメッセージをcommitizenの規約に従って日本語で書いてください。タイトルは最大50文字、メッセージは72文字で折り返してください。メッセージ全体をgitcommit言語のコードブロックで囲んでください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">selection&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">source&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">local&lt;/span> &lt;span class="nx">select&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;CopilotChat.select&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">return&lt;/span> &lt;span class="nx">select&lt;/span>.&lt;span class="nx">gitdiff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">true&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">end&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>COPILOT_EXPLAIN&lt;/code> などはデフォルトでプロンプトの内容が定数化されています。(詳しくは、 &lt;a class="link" href="https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/prompts.lua" target="_blank" rel="noopener"
+>prompts.lua&lt;/a> を参照ください。)
+続けて日本語で説明してもらうようにプロンプトを追加しています。&lt;/p>
+&lt;h2 id="使い方">使い方
+&lt;/h2>&lt;p>使い方はいろいろありますが、今回は、 &lt;code>:CopilotChatTests&lt;/code> コマンドを使ってテストを作成してもらう方法を書きます。&lt;/p>
+&lt;ol>
+&lt;li>対象となるコードをヤンクする&lt;/li>
+&lt;li>コマンドモードで &lt;code>:CopilotChatTests&lt;/code> を入力するとChatが返ってくる&lt;/li>
+&lt;li>チャット画面で &lt;kbd>g&lt;/kbd> + &lt;kbd>y&lt;/kbd> をしてテストコードをヤンクする&lt;/li>
+&lt;li>テストファイルに &lt;kbd>p&lt;/kbd> でペースト&lt;/li>
+&lt;/ol>
+&lt;p>で完成です。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/github-copilot-chat-nvim/copilot-chat-demo.gif"
+width="1280"
+height="720"
+loading="lazy"
+alt="demo.gif"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;h2 id="まとめ">まとめ
+&lt;/h2>&lt;p>GitHub Copilot Chatは開発者にとって強力な支援ツールです。このツールを活用することで、開発の効率化とコーディングの質の向上が期待できます。&lt;/p>
+&lt;p>このポストは、NeovimでGitHub Copilot Chatを使う方法についての概要を提供しています。より詳細な情報やサポートが必要な場合は、公式ドキュメントやコミュニティフォーラムを参照してください。開発の旅において、GitHub Copilot Chatが有益なガイドとなることを願っています。&lt;/p>
+&lt;div class="amazon-widget">
+&lt;div class="amazon-widget-img">
+&lt;a href="https://www.amazon.co.jp/gp/product/B0BW4BKR5G/tag=kseki0c-22" target="_blank">
+&lt;img src="https://m.media-amazon.com/images/I/81z9ZVOfGkL._AC_SX522_.jpg" />
+&lt;/a>
+&lt;/div>
+&lt;div class="amazon-widget-info">
+&lt;a href="https://www.amazon.co.jp/gp/product/B0BW4BKR5G/tag=kseki0c-22" target="_blank">
+&lt;span class="amazon-widget-title">
+ChatGPT超実践活用法: 【GPT-4対応版】【code interpreter解説有】｢ビジネスシーン｣におけるマジで使える利用方法25選【使い方・入門・教科書・初心者・利用法】 ChatGPT・IT・テクノロジー (AI技術・テクノロジー・人工知能)
+&lt;/span>
+&lt;/a>
+&lt;a href="https://www.amazon.co.jp/gp/product/B0BW4BKR5G/tag=kseki0c-22" class="amazon-widget-button" target="_blank">Amazonで購入&lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;div class="amazon-widget">
+&lt;div class="amazon-widget-img">
+&lt;a href="https://www.amazon.co.jp/gp/product/4295018236/tag=kseki0c-22" target="_blank">
+&lt;img src="https://m.media-amazon.com/images/I/81UJ&amp;#43;mKvUYL._AC_SX522_.jpg" />
+&lt;/a>
+&lt;/div>
+&lt;div class="amazon-widget-info">
+&lt;a href="https://www.amazon.co.jp/gp/product/4295018236/tag=kseki0c-22" target="_blank">
+&lt;span class="amazon-widget-title">
+エンジニアのためのChatGPT活用入門 AIで作業負担を減らすためのアイデア集
+&lt;/span>
+&lt;/a>
+&lt;a href="https://www.amazon.co.jp/gp/product/4295018236/tag=kseki0c-22" class="amazon-widget-button" target="_blank">Amazonで購入&lt;/a>
+&lt;/div>
+&lt;/div></description></item><item><title>AIコードレビューのCodeRabbitを導入してみた</title><link>https://kseki.github.io/posts/coderabbit/</link><pubDate>Fri, 16 Feb 2024 18:27:25 +0900</pubDate><guid>https://kseki.github.io/posts/coderabbit/</guid><description>&lt;img src="https://kseki.github.io/posts/coderabbit/coderabbit.png" alt="Featured image of post AIコードレビューのCodeRabbitを導入してみた" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>CodeRabbitというAIコードレビューサービスを試してみたので、良かったことなどをまとめました。&lt;/p>
+&lt;p>&lt;a class="link" href="https://coderabbit.ai/ja/" target="_blank" rel="noopener"
+>AIコードレビュー | CodeRabbit&lt;/a>&lt;/p>
+&lt;h2 id="良かったこと">良かったこと
+&lt;/h2>&lt;ul>
+&lt;li>コードの品質向上に貢献してくれる。指摘だけではなく、コード提案もしてくれる。ボタンクリックで適用できるので便利だ。&lt;/li>
+&lt;li>コードの可読性やパフォーマンスに関する問題を指摘してくれる。長年スルーしていた問題を改めて指摘してくれるので、コードのメンテナンス性が高まる。&lt;/li>
+&lt;li>指摘コメントに対して、コメントでお願いすれば自動でissue作成してくれる。&lt;/li>
+&lt;li>ロジックの不備や考慮漏れを指摘してくれる。バグやエラーを防ぐことができる。&lt;/li>
+&lt;li>コメントを返信したら、CodeRabbitも返信をくれる。分からないところを聞くことで勉強になる。&lt;/li>
+&lt;/ul>
+&lt;h2 id="悪かったこと">悪かったこと
+&lt;/h2>&lt;ul>
+&lt;li>複数ファイル同じような変更をした時、ファイル数分同じ指摘コメントがつく。重複したコメントは不要だと思った。（XXと同じって書いてあるといちいち読み込まなくて済むと思った）&lt;/li>
+&lt;/ul>
+&lt;h2 id="code-rabbitの費用対効果">Code Rabbitの費用対効果
+&lt;/h2>&lt;p>&lt;a class="link" href="https://coderabbit.ai/ja/#pricing" target="_blank" rel="noopener"
+>CodeRabbit価格設定&lt;/a>&lt;/p>
+&lt;p>現在3人で開発しているので月額を試算してみます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$15/月 \* 3人分 = $45/月 ⇒ 約6750円/月
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>もしレビュー専業の人を雇ったと仮定すると、&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">週4h * 4週 * 5000円/時間 = 6万円/月
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>単純に比較するとCodeRabbitは人間のコードレビュアーに比べて非常に安価です。指摘の質も良く、費用対効果は高いです。&lt;/p>
+&lt;h2 id="継続するか">継続するか
+&lt;/h2>&lt;ul>
+&lt;li>継続する！&lt;/li>
+&lt;li>将来もっと良いAIコードレビューサービスが出てくるかもしれないので契約は月額のまま。&lt;/li>
+&lt;li>半年後にもう一度振り返り予定。&lt;/li>
+&lt;/ul>
+&lt;p>CodeRabbitはAIコードレビューとして優秀なサービスだと思う。コードの品質向上やタスク管理に役立つ機能が多い。
+是非導入してみてはいかがでしょうか？&lt;/p></description></item></channel></rss>

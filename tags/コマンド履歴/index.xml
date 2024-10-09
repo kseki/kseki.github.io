@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>コマンド履歴 on Klog</title><link>https://kseki.github.io/tags/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%B1%A5%E6%AD%B4/</link><description>Recent content in コマンド履歴 on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><copyright>kseki</copyright><lastBuildDate>Tue, 08 Oct 2024 16:50:23 +0900</lastBuildDate><atom:link href="https://kseki.github.io/tags/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%B1%A5%E6%AD%B4/index.xml" rel="self" type="application/rss+xml"/><item><title>作業効率アップ！fzfコマンドでコマンド履歴を便利に検索</title><link>https://kseki.github.io/posts/history-fzf/</link><pubDate>Tue, 08 Oct 2024 16:50:23 +0900</pubDate><guid>https://kseki.github.io/posts/history-fzf/</guid><description>&lt;img src="https://kseki.github.io/posts/history-fzf/covor.webp" alt="Featured image of post 作業効率アップ！fzfコマンドでコマンド履歴を便利に検索" />&lt;h2 id="fzfでコマンド履歴を便利に検索">fzfでコマンド履歴を便利に検索
+&lt;/h2>&lt;p>コマンドラインでの作業を効率化するために、&lt;code>history&lt;/code>コマンドと&lt;code>fzf&lt;/code>を組み合わせる方法を紹介します。&lt;/p>
+&lt;h2 id="fzf">fzf
+&lt;/h2>&lt;p>&lt;a class="link" href="https://github.com/junegunn/fzf" target="_blank" rel="noopener"
+>fzf&lt;/a> は、コマンドラインでのインタラクティブな検索ツールです。fzfを使うことで、コマンドラインでの作業を効率化できます。fzfは、コマンドの出力をフィルタリングして表示できるため、目的のコマンドを素早く見つけることができます。&lt;/p>
+&lt;h3 id="fzfのインストール">fzfのインストール
+&lt;/h3>&lt;p>まず、&lt;code>fzf&lt;/code>をインストールします。Homebrewを使用している場合、以下のコマンドでインストールできます。&lt;/p>
+&lt;pre>&lt;code>brew install fzf
+&lt;/code>&lt;/pre>
+&lt;h3 id="パイプfzfで色々できます">パイプfzfで色々できます
+&lt;/h3>&lt;p>&lt;code>fzf&lt;/code>は他のコマンドと組み合わせることで、さらに便利に使うことができます。例えば、以下のように&lt;code>ls&lt;/code>コマンドの出力を&lt;code>fzf&lt;/code>でフィルタリングし、選択したディレクトリに移動できます。&lt;/p>
+&lt;pre>&lt;code>ls | fzf
+&lt;/code>&lt;/pre>
+&lt;p>また、以下のように&lt;code>cd&lt;/code>コマンドと組み合わせることで、選択したディレクトリに移動することも可能です。&lt;/p>
+&lt;pre>&lt;code>cd $(ls | fzf)
+&lt;/code>&lt;/pre>
+&lt;p>このように、&lt;code>fzf&lt;/code>をパイプで組み合わせることで、様々なコマンドの出力をインタラクティブにフィルタリングできます。&lt;/p>
+&lt;h2 id="history--fzf">history + fzf
+&lt;/h2>&lt;p>&lt;code>fzf&lt;/code>は、コマンドラインでのインタラクティブな検索ツールです。&lt;code>history&lt;/code>コマンドと組み合わせることで、過去に実行したコマンドを素早く検索して再利用できます。以下のコマンドを実行することで、&lt;code>history&lt;/code>の出力を&lt;code>fzf&lt;/code>でフィルタリングできます。&lt;/p>
+&lt;pre>&lt;code>history | fzf
+&lt;/code>&lt;/pre>
+&lt;p>このコマンドを実行すると、過去のコマンド履歴が表示され、インクリメンタルサーチで目的のコマンドを素早く見つけることができます。&lt;/p>
+&lt;h2 id="ショートカットキー">ショートカットキー
+&lt;/h2>&lt;p>&lt;code>fzf&lt;/code>をさらに便利に使うために、ショートカットキーを設定できます。例えば、&lt;code>Ctrl + r&lt;/code>キーを上書きして、&lt;code>history | fzf&lt;/code>を実行するように設定できます。以下の設定を&lt;code>.bashrc&lt;/code>や&lt;code>.zshrc&lt;/code>に追加してください。&lt;/p>
+&lt;pre>&lt;code>bind '&amp;quot;\C-r&amp;quot;: &amp;quot;history | fzf\n&amp;quot;'
+&lt;/code>&lt;/pre>
+&lt;p>この設定を追加することで、&lt;code>Ctrl + r&lt;/code>キーを押すと、&lt;code>history&lt;/code>コマンドの出力を&lt;code>fzf&lt;/code>でフィルタリングできるようになります。これにより、過去のコマンドを素早く検索して再利用できます。&lt;/p>
+&lt;p>以上の方法を使って、&lt;code>fzf&lt;/code>でコマンド履歴検索を便利にしましょう。コマンドラインでの作業効率が大幅に向上すること間違いなし！&lt;/p></description></item></channel></rss>

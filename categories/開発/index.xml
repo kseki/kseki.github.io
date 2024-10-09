@@ -1,0 +1,1087 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>開発 on Klog</title><link>https://kseki.github.io/categories/%E9%96%8B%E7%99%BA/</link><description>Recent content in 開発 on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><copyright>kseki</copyright><lastBuildDate>Tue, 08 Oct 2024 16:50:23 +0900</lastBuildDate><atom:link href="https://kseki.github.io/categories/%E9%96%8B%E7%99%BA/index.xml" rel="self" type="application/rss+xml"/><item><title>作業効率アップ！fzfコマンドでコマンド履歴を便利に検索</title><link>https://kseki.github.io/posts/history-fzf/</link><pubDate>Tue, 08 Oct 2024 16:50:23 +0900</pubDate><guid>https://kseki.github.io/posts/history-fzf/</guid><description>&lt;img src="https://kseki.github.io/posts/history-fzf/covor.webp" alt="Featured image of post 作業効率アップ！fzfコマンドでコマンド履歴を便利に検索" />&lt;h2 id="fzfでコマンド履歴を便利に検索">fzfでコマンド履歴を便利に検索
+&lt;/h2>&lt;p>コマンドラインでの作業を効率化するために、&lt;code>history&lt;/code>コマンドと&lt;code>fzf&lt;/code>を組み合わせる方法を紹介します。&lt;/p>
+&lt;h2 id="fzf">fzf
+&lt;/h2>&lt;p>&lt;a class="link" href="https://github.com/junegunn/fzf" target="_blank" rel="noopener"
+>fzf&lt;/a> は、コマンドラインでのインタラクティブな検索ツールです。fzfを使うことで、コマンドラインでの作業を効率化できます。fzfは、コマンドの出力をフィルタリングして表示できるため、目的のコマンドを素早く見つけることができます。&lt;/p>
+&lt;h3 id="fzfのインストール">fzfのインストール
+&lt;/h3>&lt;p>まず、&lt;code>fzf&lt;/code>をインストールします。Homebrewを使用している場合、以下のコマンドでインストールできます。&lt;/p>
+&lt;pre>&lt;code>brew install fzf
+&lt;/code>&lt;/pre>
+&lt;h3 id="パイプfzfで色々できます">パイプfzfで色々できます
+&lt;/h3>&lt;p>&lt;code>fzf&lt;/code>は他のコマンドと組み合わせることで、さらに便利に使うことができます。例えば、以下のように&lt;code>ls&lt;/code>コマンドの出力を&lt;code>fzf&lt;/code>でフィルタリングし、選択したディレクトリに移動できます。&lt;/p>
+&lt;pre>&lt;code>ls | fzf
+&lt;/code>&lt;/pre>
+&lt;p>また、以下のように&lt;code>cd&lt;/code>コマンドと組み合わせることで、選択したディレクトリに移動することも可能です。&lt;/p>
+&lt;pre>&lt;code>cd $(ls | fzf)
+&lt;/code>&lt;/pre>
+&lt;p>このように、&lt;code>fzf&lt;/code>をパイプで組み合わせることで、様々なコマンドの出力をインタラクティブにフィルタリングできます。&lt;/p>
+&lt;h2 id="history--fzf">history + fzf
+&lt;/h2>&lt;p>&lt;code>fzf&lt;/code>は、コマンドラインでのインタラクティブな検索ツールです。&lt;code>history&lt;/code>コマンドと組み合わせることで、過去に実行したコマンドを素早く検索して再利用できます。以下のコマンドを実行することで、&lt;code>history&lt;/code>の出力を&lt;code>fzf&lt;/code>でフィルタリングできます。&lt;/p>
+&lt;pre>&lt;code>history | fzf
+&lt;/code>&lt;/pre>
+&lt;p>このコマンドを実行すると、過去のコマンド履歴が表示され、インクリメンタルサーチで目的のコマンドを素早く見つけることができます。&lt;/p>
+&lt;h2 id="ショートカットキー">ショートカットキー
+&lt;/h2>&lt;p>&lt;code>fzf&lt;/code>をさらに便利に使うために、ショートカットキーを設定できます。例えば、&lt;code>Ctrl + r&lt;/code>キーを上書きして、&lt;code>history | fzf&lt;/code>を実行するように設定できます。以下の設定を&lt;code>.bashrc&lt;/code>や&lt;code>.zshrc&lt;/code>に追加してください。&lt;/p>
+&lt;pre>&lt;code>bind '&amp;quot;\C-r&amp;quot;: &amp;quot;history | fzf\n&amp;quot;'
+&lt;/code>&lt;/pre>
+&lt;p>この設定を追加することで、&lt;code>Ctrl + r&lt;/code>キーを押すと、&lt;code>history&lt;/code>コマンドの出力を&lt;code>fzf&lt;/code>でフィルタリングできるようになります。これにより、過去のコマンドを素早く検索して再利用できます。&lt;/p>
+&lt;p>以上の方法を使って、&lt;code>fzf&lt;/code>でコマンド履歴検索を便利にしましょう。コマンドラインでの作業効率が大幅に向上すること間違いなし！&lt;/p></description></item><item><title>NeovimでGitHub Copilot Chatでコミットメッセージを生成する方法</title><link>https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/</link><pubDate>Tue, 27 Aug 2024 17:16:17 +0900</pubDate><guid>https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/</guid><description>&lt;img src="https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/cover.webp" alt="Featured image of post NeovimでGitHub Copilot Chatでコミットメッセージを生成する方法" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>前回の &lt;a class="link" href="../github-copilot-chat-snippet/index.md" >GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法&lt;/a> では、スニペットを使ってGitHub Copilot Chatのプロンプトを効率よく使う方法を紹介しました。今回は、Gitのコミットメッセージを生成してクリップボードにコピーする方法を紹介します。&lt;/p>
+&lt;h2 id="設定方法">設定方法
+&lt;/h2>&lt;p>以下の環境を前提に話を進めます。別の環境の場合は適宜読み替えてください。&lt;/p>
+&lt;pre>&lt;code> $ sw_vers
+ProductName: macOS
+ProductVersion: 14.6.1
+BuildVersion: 23G93
+$ nvim -v
+NVIM v0.10.1
+Build type: Release
+LuaJIT 2.1.1723675123
+CopilotChat.nvim
+branch canary
+commit 1a92bb6
+&lt;/code>&lt;/pre>
+&lt;h3 id="copilotchatnvimの設定">CopilotChat.nvimの設定
+&lt;/h3>&lt;p>以下のようなプロンプトを変数定義しておきます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">local&lt;/span> &lt;span class="n">commit_staged_prompt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">[[
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">以下の条件を踏まえて変更に対するコミットメッセージを書いてください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- コミットメッセージのprefixは、commitizenの規約に従ってください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- コミットメッセージ本文は日本語で書いてください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- タイトルは最大50文字、変更理由を含めてください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- メッセージは72文字で折り返してください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- メッセージ全体をgitcommit言語のコードブロックで囲んでください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- ソースを見ても変更した理由がわからない時は、コミットメッセージを作る前に質問して、その回答も参考にコミットメッセージを生成してください。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>CopilotChat.nvimの設定ファイルに以下のように設定します。&lt;/p>
+&lt;ol>
+&lt;li>8行目にて、さっきのプロンプトを文字列結合して代入しています。&lt;/li>
+&lt;li>12~L17行目は、プロンプトの内容にコミットメッセージが含まれていた時にクリップボードにコピーするための設定です。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;CopilotC-Nvim/CopilotChat.nvim&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">branch&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;canary&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;CopilotChat&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">opts&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">prompts&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">CommitStaged&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">prompt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;/COPILOT_GENERATE&amp;#34;&lt;/span> &lt;span class="o">..&lt;/span> &lt;span class="n">commit_staged_prompt&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">selection&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">source&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">return&lt;/span> &lt;span class="n">select.gitdiff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">end&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">callback&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">local&lt;/span> &lt;span class="n">commit_message&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">response&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;```gitcommit(.-)```&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">if&lt;/span> &lt;span class="n">commit_message&lt;/span> &lt;span class="kr">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">vim.fn&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setreg&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;+&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">commit_message&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;c&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">end&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">end&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="使い方">使い方
+&lt;/h2>&lt;p>実際に使っている様子をGIFで紹介します。
+不要な変数を削除して、コミットメッセージを生成してクリップボードにコピーしています。
+コピーしたコミットメッセージを使って、 &lt;a class="link" href="https://github.com/jesseduffield/lazygit" target="_blank" rel="noopener"
+>LazyGit&lt;/a> にてコミットを行います。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/git-commit.gif"
+width="1018"
+height="592"
+loading="lazy"
+alt="GitHub Copilot Chatでコミットメッセージを生成する"
+class="gallery-image"
+data-flex-grow="171"
+data-flex-basis="412px"
+>&lt;/p>
+&lt;h2 id="一緒に読みたい記事">一緒に読みたい記事
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="../github-copilot-chat-snippet" >GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="../github-copilot-chat-nvim" >NeovimでGitHub Copilot Chatを使う方法&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法</title><link>https://kseki.github.io/posts/github-copilot-chat-snippet/</link><pubDate>Tue, 20 Aug 2024 16:11:47 +0900</pubDate><guid>https://kseki.github.io/posts/github-copilot-chat-snippet/</guid><description>&lt;img src="https://kseki.github.io/posts/github-copilot-chat-snippet/cover.webp" alt="Featured image of post GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>前回の &lt;a class="link" href="../github-copilot-chat-nvim" >NeovimでGitHub Copilot Chatを使う方法&lt;/a> では、GitHub Copilot ChatをNeovimで使う方法を紹介しました。今回は、プロンプトをスニペット化し、nvim-cmpと連携して使う方法を紹介します。&lt;/p>
+&lt;p>設計や実装の相談など、フォーマットは決まっているが中身が毎回変わるケースや、あらかじめプロンプトのフォーマットが決まっている場面ではスニペット化しておくと便利です。これにより、プロンプトエンジニアリングの効率が大幅に向上します。&lt;/p>
+&lt;h2 id="設定方法">設定方法
+&lt;/h2>&lt;p>以下の環境を前提に話を進めます。別の環境の場合は適宜読み替えてください。&lt;/p>
+&lt;pre>&lt;code> $ sw_vers
+ProductName: macOS
+ProductVersion: 14.6.1
+BuildVersion: 23G93
+$ nvim -v
+NVIM v0.10.1
+Build type: Release
+LuaJIT 2.1.1723675123
+nvim-cmp
+branch main
+commit ae644fe
+CopilotChat.nvim
+branch canary
+commit 1a92bb6
+nvim-snippets
+branch main
+commit 56b4052
+&lt;/code>&lt;/pre>
+&lt;h3 id="nvim-cmpの設定">nvim-cmpの設定
+&lt;/h3>&lt;p>nvim-cmpの設定を追加します。Copilot Chatのプロンプトがファイルタイプ &lt;code>copilot-chat&lt;/code> なので、このファイルタイプに対して補完用のソースを追加します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">local&lt;/span> &lt;span class="n">cmp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;cmp&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cmp.setup&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">filetype&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;copilot-chat&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sources&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;snippets&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;copilot&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;buffer&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="nvim-snippetsの設定">nvim-snippetsの設定
+&lt;/h3>&lt;p>以下の設定を追加します。&lt;/p>
+&lt;p>※自分は &lt;a class="link" href="https://github.com/garymjr/nvim-snippets" target="_blank" rel="noopener"
+>nvim-snippets&lt;/a> を使っていますが、他のスニペットプラグインを使っている場合はそのプラグインに合わせて設定してください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lua" data-lang="lua">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;garymjr/nvim-snippets&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">opts&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">opts&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">opts.search_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;~/.config/nvim/snippets&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">end&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">keys&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&amp;lt;Leader&amp;gt;cp&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">function&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">local&lt;/span> &lt;span class="n">filetype&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">vim.bo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">filetype&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">local&lt;/span> &lt;span class="n">path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">string.format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;~/.config/nvim/snippets/%s.json&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">filetype&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">vim.cmd&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;e &amp;#34;&lt;/span> &lt;span class="o">..&lt;/span> &lt;span class="n">path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">end&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">desc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Open snippets file&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>次に、&lt;code>~/.config/nvim/snippets/copilot-chat.json&lt;/code> にスニペットを追加します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;仕様相談&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;prefix&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;specon&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;body&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;以下の仕様について相談します。注意点・確認点があれば教えてください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;## 技術制約&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;- ${1:Ruby on Rails7}&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;## 仕様&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;- ${2:招待制ユーザー登録機能}&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;ライブラリ選定&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;prefix&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;sllib&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;body&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;以下の仕様を実現するためのライブラリの候補をあげてください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;それぞれ、公式URL・メリット・デメリットを教えてください。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;## 技術制約&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;- ${1:NPM}&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;## 仕様&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;- ${2:フォーマッター}&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上で準備は完了です！&lt;/p>
+&lt;h2 id="使い方">使い方
+&lt;/h2>&lt;p>動画で使い方を説明します。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/github-copilot-chat-snippet/try-snippet.gif"
+width="1918"
+height="1008"
+loading="lazy"
+alt="GitHub Copilot Chatのプロンプトをスニペット化して、nvim-cmpを連携して便利に使う方法"
+class="gallery-image"
+data-flex-grow="190"
+data-flex-basis="456px"
+>&lt;/p>
+&lt;h2 id="まとめ">まとめ
+&lt;/h2>&lt;p>GitHub Copilot Chatとnvim-cmpを連携することで、プロンプト上でスニペットを活用できるようになります。これにより、設計や実装の相談が効率的に行えるようになります。プロンプトエンジニアリングの観点からも、非常に有用な手法です。ぜひ試してみてください。&lt;/p></description></item><item><title>ローカルドメインとNginxで複数プロジェクト開発を便利に</title><link>https://kseki.github.io/posts/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%A8nginx%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%96%8B%E7%99%BA%E3%82%92%E4%BE%BF%E5%88%A9%E3%81%AB/</link><pubDate>Tue, 13 Aug 2024 16:14:17 +0900</pubDate><guid>https://kseki.github.io/posts/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%A8nginx%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%96%8B%E7%99%BA%E3%82%92%E4%BE%BF%E5%88%A9%E3%81%AB/</guid><description>&lt;img src="https://kseki.github.io/posts/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%A8nginx%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%96%8B%E7%99%BA%E3%82%92%E4%BE%BF%E5%88%A9%E3%81%AB/nginx.webp" alt="Featured image of post ローカルドメインとNginxで複数プロジェクト開発を便利に" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>複数のプロジェクトを同時に開発する際に、Nginxをリバースプロキシとして使用し、hostsファイルでローカルドメインを設定する方法を紹介します。&lt;/p>
+&lt;pre class="mermaid">graph TD;
+A[ブラウザ] -->|http://klog.local| B[Nginx]
+A -->|http://admin.hoge.local| B
+A -->|http://user.hoge.local| B
+B -->|http://localhost:1313| C[klogプロジェクト]
+B -->|http://localhost:3000| D[admin.hogeプロジェクト]
+B -->|http://localhost:3001| E[user.hogeプロジェクト]
+&lt;/pre>
+&lt;h2 id="複数プロジェクト開発の問題">複数プロジェクト開発の問題
+&lt;/h2>&lt;p>ローカル開発環境では通常、ブラウザに &lt;code>localhost:ポート番号&lt;/code> を入力してアクセスします。しかし、複数のプロジェクトを開発していると、ブラウザのアドレスバーに &lt;code>localhost&lt;/code> と入力した際に他のプロジェクトのパスがサジェストされてしまい、煩わしいことがあります。&lt;/p>
+&lt;p>※単にhostsファイルにドメインを設定するだけで上記問題は解決できます。大袈裟ではありますが、今回は勉強がてらNginxのリバースプロキシを設定しました。&lt;/p>
+&lt;h2 id="設定方法">設定方法
+&lt;/h2>&lt;p>以下の環境を前提に話を進めます。別の環境の場合は適宜読み替えてください。&lt;/p>
+&lt;pre>&lt;code>$ sw_vers
+ProductName: macOS
+ProductVersion: 14.5
+BuildVersion: 23F79
+$ brew -v
+Homebrew 4.3.15-52-ge590bca
+Homebrew/homebrew-cask (git revision 7adc70cd367; last commit 2024-08-04)
+$ nginx -v
+nginx version: nginx/1.27.0
+&lt;/code>&lt;/pre>
+&lt;h3 id="hostsファイルにローカルドメインを設定する">Hostsファイルにローカルドメインを設定する
+&lt;/h3>&lt;pre>&lt;code>sudo vim /etc/hosts
+&lt;/code>&lt;/pre>
+&lt;p>以下のように、127.0.0.1に対して対象としたいプロジェクト用のローカルドメインを設定します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># Host Database
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># localhost is used to configure the loopback interface
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># when the system is booting. Do not change this entry.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">127.0.0.1 localhost
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ # 技術ブログ
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ 127.0.0.1 klog.local
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ # hogeプロジェクト
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ 127.0.0.1 admin.hoge.local user.hoge.local
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="nginxのインストール">Nginxのインストール
+&lt;/h3>&lt;pre>&lt;code>brew install nginx
+&lt;/code>&lt;/pre>
+&lt;h3 id="nginxの起動">Nginxの起動
+&lt;/h3>&lt;pre>&lt;code>nginx
+&lt;/code>&lt;/pre>
+&lt;h3 id="nginxの設定">Nginxの設定
+&lt;/h3>&lt;p>Nginxの設定ファイルである &lt;code>/usr/local/etc/nginx/nginx.conf&lt;/code> を確認すると、 &lt;code>include servers/*&lt;/code> とあります。
+このディレクトリに設定ファイルを追加すれば読み込んでくれます。&lt;/p>
+&lt;pre>&lt;code>http {
+# ~ 省略 ~
+include servers/*;
+}
+&lt;/code>&lt;/pre>
+&lt;p>&lt;code>/usr/local/etc/nginx/servers/&lt;/code> に &lt;code>klog.conf&lt;/code> というファイルを作成し、以下の内容で保存します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ server {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ listen 80;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ server_name klog.local;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ location / {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_pass http://localhost:1313;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_http_version 1.1;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Upgrade $http_upgrade;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Connection &amp;#34;upgrade&amp;#34;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Real-IP $remote_addr;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Forwarded-Proto $scheme;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>hogeプロジェクトの分。&lt;code>hoge.conf&lt;/code> も追加します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ server {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ listen 80;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ server_name admin.hoge.local;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ location / {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_pass http://localhost:3000;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_http_version 1.1;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Upgrade $http_upgrade;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Connection &amp;#34;upgrade&amp;#34;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Real-IP $remote_addr;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Forwarded-Proto $scheme;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ server {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ listen 80;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ server_name user.hoge.local;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ location / {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_pass http://localhost:3001;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_http_version 1.1;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Upgrade $http_upgrade;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Connection &amp;#34;upgrade&amp;#34;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Real-IP $remote_addr;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ proxy_set_header X-Forwarded-Proto $scheme;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>設定ファイルが正しいかを確認します。以下のコマンドを実行し、エラーがなければOKです。&lt;/p>
+&lt;pre>&lt;code>nginx -t
+&lt;/code>&lt;/pre>
+&lt;p>設定を反映させるためにNginxをリロードします。&lt;/p>
+&lt;pre>&lt;code>nginx -s reload
+&lt;/code>&lt;/pre>
+&lt;h3 id="ブラウザでアクセスする">ブラウザでアクセスする
+&lt;/h3>&lt;p>設定が完了したら、ブラウザで &lt;code>http://kseki.local&lt;/code> にアクセスして動作を確認します。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%A8nginx%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%96%8B%E7%99%BA%E3%82%92%E4%BE%BF%E5%88%A9%E3%81%AB/1.webp"
+width="539"
+height="283"
+loading="lazy"
+alt="ブラウザにてローカルドメインでアクセス"
+class="gallery-image"
+data-flex-grow="190"
+data-flex-basis="457px"
+>&lt;/p>
+&lt;p>正常に表示されれば成功です！お疲れ様でした。&lt;/p>
+&lt;h2 id="注意点">注意点
+&lt;/h2>&lt;p>開発サーバーはポートを指定して起動すること。使用ポートを固定しないと、ポートが変わってしまった時に設定を変更する手間がかかります。&lt;/p>
+&lt;p>例えばHugoの場合、ファイル保存時にWebSocketを使って画面を更新しているので、ポート指定しないと自動更新されなくなってしまいます。&lt;/p>
+&lt;pre>&lt;code># Hugoの場合
+hugo server --port=1313 --liveReloadPort=80
+# Railsの場合
+bundle exec rails -b 30001
+&lt;/code>&lt;/pre>
+&lt;hr>
+&lt;p>以上で、Nginxを使用したローカルドメインの設定方法についての説明を終わります。これにより、複数のプロジェクトを効率的に開発できるようになります。&lt;/p></description></item><item><title>TypeScriptでフィッシャーイェーツのアルゴリズムを使って配列をシャッフルする方法</title><link>https://kseki.github.io/posts/shuffle-algorithm-by-typescript/</link><pubDate>Tue, 06 Aug 2024 16:33:05 +0900</pubDate><guid>https://kseki.github.io/posts/shuffle-algorithm-by-typescript/</guid><description>&lt;img src="https://kseki.github.io/posts/shuffle-algorithm-by-typescript/cover.webp" alt="Featured image of post TypeScriptでフィッシャーイェーツのアルゴリズムを使って配列をシャッフルする方法" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>先日、あるプロジェクトで配列の要素をランダムにシャッフルする必要がありました。TypeScript (5.5.4) には組み込みの &lt;code>shuffle&lt;/code> 関数がないため、自分で実装する必要がありました。この記事では、その際に調べたフィッシャーイェーツのシャッフルアルゴリズムについて解説します。&lt;/p>
+&lt;h2 id="rubyの配列シャッフル実装">Rubyの配列シャッフル実装
+&lt;/h2>&lt;p>RubyにはArryクラスに&lt;a class="link" href="https://github.com/ruby/ruby/blob/v3_3_4/array.rb#L16-L28" target="_blank" rel="noopener"
+>suffle&lt;/a>, &lt;a class="link" href="https://github.com/ruby/ruby/blob/v3_3_4/array.rb#L2-L14" target="_blank" rel="noopener"
+>suffle!&lt;/a> という関数があります。&lt;/p>
+&lt;p>これらの関数は、以下のC言語で書かれている&lt;a class="link" href="https://github.com/ruby/ruby/blob/v3_3_4/array.c#L6496C1-L6516C2" target="_blank" rel="noopener"
+>rb_ary_suffle_bang&lt;/a> 関数を呼び出しています。&lt;/p>
+&lt;p>この関数のアルゴリズムは&lt;a class="link" href="https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A3%E3%83%83%E3%82%B7%E3%83%A3%E3%83%BC%E2%80%93%E3%82%A4%E3%82%A7%E3%83%BC%E3%83%84%E3%81%AE%E3%82%B7%E3%83%A3%E3%83%83%E3%83%95%E3%83%AB" target="_blank" rel="noopener"
+>フィッシャーイェーツのシャッフル&lt;/a>と言われるものです。特徴は以下の通りです：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>ランダム性&lt;/strong>: 配列の各要素が等しい確率で任意の位置に移動する。&lt;/li>
+&lt;li>&lt;strong>インプレース&lt;/strong>: 配列の要素をその場でシャッフルし、追加のメモリをほとんど使用しない。&lt;/li>
+&lt;li>&lt;strong>時間計算量&lt;/strong>: O(n)の時間でシャッフルを完了する。&lt;/li>
+&lt;li>&lt;strong>安定性&lt;/strong>: 元の順序を保持しないため、安定なソートではない。&lt;/li>
+&lt;li>&lt;strong>シンプルな実装&lt;/strong>: アルゴリズムはシンプルで理解しやすい。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="k">static&lt;/span> &lt;span class="n">VALUE&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">rb_ary_shuffle_bang&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">rb_execution_context_t&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">ec&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">VALUE&lt;/span> &lt;span class="n">ary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">VALUE&lt;/span> &lt;span class="n">randgen&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">long&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">len&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">rb_ary_modify&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ary&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">len&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">RARRAY_LEN&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ary&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">RARRAY_PTR_USE&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ptr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">long&lt;/span> &lt;span class="n">j&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">RAND_UPTO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">VALUE&lt;/span> &lt;span class="n">tmp&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">len&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nf">RARRAY_LEN&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ary&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="n">ptr&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nf">RARRAY_CONST_PTR&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ary&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">rb_raise&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rb_eRuntimeError&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;modified during shuffle&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tmp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ptr&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ptr&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ptr&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ptr&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tmp&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span> &lt;span class="cm">/* WB: no new reference */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">ary&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="typescriptで配列シャッフル実装">TypeScriptで配列シャッフル実装
+&lt;/h2>&lt;p>この関数は、配列の要素をランダムにシャッフルし、元の配列を変更します。フィッシャーイェーツのアルゴリズムを使用しているため、効率的かつ簡単に実装できます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">shuffleArray&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">array&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">[])&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">array&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">floor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">i&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">[&lt;/span>&lt;span class="nx">array&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="nx">array&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">j&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">array&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">j&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="nx">array&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">array&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="おみくじの実装例">おみくじの実装例
+&lt;/h2>&lt;p>上記の関数を使っておみくじを実装してみました。&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.typescriptlang.org/play/?#code/MYewdgzgLgBBAWBXAZsgNgUwIICccEMBPGAXhgAp88iAuOKHASzAHMBtAXQEpSA&amp;#43;GAN4AoGDGQgcFTLEakYVAoQB0mVlHgwAtDACMAbhiz&amp;#43;ABgONNmnsNGjQkWACs5AWXzql6EBPKv3BMAAmIAC25DwAVBSyANS6XFx6IjZsCkRsjBwANPLUhGwOHBxyKbn5WTmK6YWJogC&amp;#43;STgYUIg4YBVEibWJQnbQMCGMANaIDrJkbEmiAOSA5JqAkCpTmZMwU4C0cgtLNiuA8Doby1N7W1OAUsqHNlOA1OZn0xe7i-uAb4r3R9tPm&amp;#43;fHb-sXX0czT0IOEIeuAICBMCoQCxyAgUOhsLlyANhqMuGxjNwgA" target="_blank" rel="noopener"
+>フィッシャーイェーツ関数でおみくじ | Playground Link&lt;/a>&lt;/p></description></item><item><title>便利なGitコマンドラインツールLazygit</title><link>https://kseki.github.io/posts/how_to_lazygit/</link><pubDate>Tue, 18 Jun 2024 16:21:07 +0900</pubDate><guid>https://kseki.github.io/posts/how_to_lazygit/</guid><description>&lt;img src="https://kseki.github.io/posts/how_to_lazygit/lazygit.png" alt="Featured image of post 便利なGitコマンドラインツールLazygit" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>Lazygitは、開発者の生産性を向上させるために設計された、コマンドラインツールです。このツールは、Gitの操作を簡単かつ効率的に行うことができるインターフェースを提供します。ステータスの確認、コミットの作成、ブランチの切り替えなどの一般的なGit操作を簡単に行うことができます。&lt;/p>
+&lt;h2 id="インストール方法">インストール方法
+&lt;/h2>&lt;p>MacOSユーザーは、Homebrewを使用してLazygitを簡単にインストールできます。ターミナルを開き、以下のコマンドを実行します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">brew install lazygit
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>※他のインストール方法は&lt;a class="link" href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#installation" target="_blank" rel="noopener"
+>こちら&lt;/a>&lt;/p>
+&lt;h2 id="チュートリアル">チュートリアル
+&lt;/h2>&lt;p>READMEに&lt;a class="link" href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#tutorials" target="_blank" rel="noopener"
+>チュートリアル&lt;/a>動画へのリンクがあるので一度やってみることをお勧めします！&lt;/p>
+&lt;h2 id="githubと連携して一連の開発作業のやり方">GitHubと連携して一連の開発作業のやり方
+&lt;/h2>&lt;p>Lazygitを使用してGitHubと連携し、開発作業を行うプロセスは以下の通りです。&lt;/p>
+&lt;h3 id="ブランチを作成">ブランチを作成
+&lt;/h3>&lt;p>リポジトリ内で新しいブランチを作成し、特定の機能や修正に取り組みます。
+ベースブランチの上にカーソルを合わせて &lt;kbd>c&lt;/kbd> を押すとダイアログが表示されるので、ブランチ名を入力して &lt;kbd>Enter&lt;/kbd> を押すだけです。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/how_to_lazygit/create-branch.gif"
+width="1920"
+height="1080"
+loading="lazy"
+alt="create branch"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;h3 id="ファイルを編集してコミット">ファイルを編集してコミット
+&lt;/h3>&lt;p>必要なファイルを編集し、変更をコミットします。Lazygitでは、変更をステージングし、コミットメッセージを入力することが容易です。
+コミットしたいディレクトリ、またはファイルにカーソルを合わせて &lt;kbd>Space&lt;/kbd> を押してステージング。 &lt;kbd>c&lt;/kbd> を押すとダイアログが表示されるのでコミットメッセージを入力して &lt;kbd>Enter&lt;/kbd> キーを押す。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/how_to_lazygit/add-commit.gif"
+width="1920"
+height="1080"
+loading="lazy"
+alt="add files and commit"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;h3 id="リモートリポジトリーにpushprの作成">リモートリポジトリーにpush、PRの作成
+&lt;/h3>&lt;p>コミットした変更をリモートリポジトリにpushします。GitHub上でPRを作成します。
+Pushしたいリポジトリにカーソルを合わせて &lt;kbd>P&lt;/kbd> を押し &lt;kbd>Enter&lt;/kbd> するだけです。（リモートリポジトリが存在する場合は &lt;kbd>p&lt;/kbd> でOKです。）
+Pushが終わったら、PR作成したいリポジトリにカーソルを合わせて&lt;code>o&lt;/code>を押すと、ブラウザでPR作成画面が表示されます。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/how_to_lazygit/push-and-open-pr.gif"
+width="1920"
+height="1080"
+loading="lazy"
+alt="push and open pr"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;p>他にも &lt;a class="link" href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#features" target="_blank" rel="noopener"
+>たくさんの機能&lt;/a> や &lt;a class="link" href="https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Command_Keybindings.md" target="_blank" rel="noopener"
+>カスタムコマンド&lt;/a> を追加出来ます！&lt;/p>
+&lt;h2 id="まとめ">まとめ
+&lt;/h2>&lt;p>Lazygitは、Gitの操作を簡単にし、開発者の作業を効率化する強力なツールです。その直感的なUIと豊富な機能により、開発プロセスがよりスムーズになります。この記事がLazygitの導入と利用の手助けになれば幸いです。&lt;/p>
+&lt;h2 id="参考">参考
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/jesseduffield/lazygit" target="_blank" rel="noopener"
+>jesseduffield/lazygit: simple terminal UI for git commands&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>PR毎にDiffカバレッジを計測する方法</title><link>https://kseki.github.io/posts/pr%E6%AF%8E%E3%81%ABdiff%E3%82%AB%E3%83%90%E3%83%AC%E3%83%83%E3%82%B8%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Tue, 02 Apr 2024 16:22:47 +0900</pubDate><guid>https://kseki.github.io/posts/pr%E6%AF%8E%E3%81%ABdiff%E3%82%AB%E3%83%90%E3%83%AC%E3%83%83%E3%82%B8%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;img src="https://kseki.github.io/posts/pr%E6%AF%8E%E3%81%ABdiff%E3%82%AB%E3%83%90%E3%83%AC%E3%83%83%E3%82%B8%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/undercover.png" alt="Featured image of post PR毎にDiffカバレッジを計測する方法" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>プログラミングにおいて、テストカバレッジはコードの品質を保証する重要な指標の1つです。特に、大規模なプロジェクトや多くの開発者が関わるプロジェクトでは、変更が頻繁に行われるため、新たなコードが既存のテストによって適切にカバーされているかを確認することが不可欠です。&lt;/p>
+&lt;p>このブログポストでは、&lt;a class="link" href="https://github.com/grodowski/undercover" target="_blank" rel="noopener"
+>undercover&lt;/a> gemを使用して、プルリクエスト（PR）毎にDiffカバレッジを計測し、継続的インテグレーション（CI）で監視する方法について解説します。&lt;/p>
+&lt;h2 id="背景">背景
+&lt;/h2>&lt;p>プロジェクトにアサインされた際、テストカバレッジの低さがバグの多さに直結していることに気づくことは珍しくありません。テストカバレッジを上げることは、バグを減らし、ソフトウェアの品質を向上させるために重要です。しかし、Simplecovだけでは、全体のテストカバレッジしか測定できず、変更点に対するカバレッジを把握できません。これでは、新たなコードが適切にテストされているかを確認することが困難です。&lt;/p>
+&lt;p>ここで役立つのが、undercover gemです。このgemを使用すると、PR毎に変更されたコードに対するテストカバレッジ、すなわちDiffカバレッジを計測できます。これにより、CIツール内での監視が可能になり、新しいコードが十分にテストされていることを保証できます。&lt;/p>
+&lt;p>Diffカバレッジを計測することの利点は、開発者が新しいコードに対するテストを怠らないように促すことです。また、レビュアーがコードレビューする際に、テストが適切に行われているかを確認するための指標としても機能します。さらに、テストカバレッジを徐々に上げることで、プロジェクト全体の品質を向上させることができます。&lt;/p>
+&lt;h2 id="設定方法">設定方法
+&lt;/h2>&lt;p>undercover gemを使ったDiffカバレッジの計測方法は以下の通りです。&lt;/p>
+&lt;p>Gemfileにundercoverを追加し、&lt;code>bundle install&lt;/code>を実行します。
+undercoverが対応しているのはLCOV形式なので、simplecov-lcovも一緒にインストールします。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ruby" data-lang="ruby">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Gemfile&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">group&lt;/span> &lt;span class="ss">:test&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">gem&lt;/span> &lt;span class="s1">&amp;#39;simplecov&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">require&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kp">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">gem&lt;/span> &lt;span class="s1">&amp;#39;simplecov-lcov&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">require&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kp">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">gem&lt;/span> &lt;span class="s1">&amp;#39;undercover&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">require&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kp">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">end&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>次にsimplecovの設定を追加します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ruby" data-lang="ruby">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># spec/rails_helper.rb&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">require&lt;/span> &lt;span class="s1">&amp;#39;simplecov&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">require&lt;/span> &lt;span class="s1">&amp;#39;simplecov-lcov&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="no">SimpleCov&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="no">Formatter&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="no">LcovFormatter&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">report_with_single_file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kp">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="no">SimpleCov&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">formatter&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="no">SimpleCov&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="no">Formatter&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="no">LcovFormatter&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="no">SimpleCov&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">start&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">require&lt;/span> &lt;span class="s1">&amp;#39;undercover&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>最後に、CIツール(今回はGitHub Actions)の設定ファイルに、PRが作成された際にundercoverを実行するステップを追加します。
+基本的にはフューチャーブランチでPRを作成するので、mainとのDiffカバレッジを取得するように設定します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># .github/workflows/test.yml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="l">~ 省略 ~&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Test&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bundle exec rspec&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Diff Coverage&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> git fetch origin main
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> undercover --compare origin/main&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>PRがマージされる前に、undercoverが生成するレポートを確認し、Diffカバレッジが十分であることを確認します。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/pr%E6%AF%8E%E3%81%ABdiff%E3%82%AB%E3%83%90%E3%83%AC%E3%83%83%E3%82%B8%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/undercover.png"
+width="1596"
+height="1128"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="339px"
+>&lt;/p>
+&lt;h2 id="まとめ">まとめ
+&lt;/h2>&lt;p>undercover gemを導入することで、PR毎に新たに追加または変更されたコードがどの程度テストによってカバーされているかを正確に把握できるようになりました。これにより、テスト漏れが発生するリスクを減らし、コードの品質を継続的に向上させることができます。また、開発者は自分のコードが十分にテストされているかを自己確認できるため、品質意識の向上にも寄与します。&lt;/p>
+&lt;h2 id="参考">参考
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/simplecov-ruby/simplecov/issues/886" target="_blank" rel="noopener"
+>Support for &amp;ldquo;diff coverage&amp;rdquo; · Issue #886 · simplecov-ruby/simplecov&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/grodowski/undercover" target="_blank" rel="noopener"
+>grodowski/undercover&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>AIコードレビューのCodeRabbitを導入してみた</title><link>https://kseki.github.io/posts/coderabbit/</link><pubDate>Fri, 16 Feb 2024 18:27:25 +0900</pubDate><guid>https://kseki.github.io/posts/coderabbit/</guid><description>&lt;img src="https://kseki.github.io/posts/coderabbit/coderabbit.png" alt="Featured image of post AIコードレビューのCodeRabbitを導入してみた" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>CodeRabbitというAIコードレビューサービスを試してみたので、良かったことなどをまとめました。&lt;/p>
+&lt;p>&lt;a class="link" href="https://coderabbit.ai/ja/" target="_blank" rel="noopener"
+>AIコードレビュー | CodeRabbit&lt;/a>&lt;/p>
+&lt;h2 id="良かったこと">良かったこと
+&lt;/h2>&lt;ul>
+&lt;li>コードの品質向上に貢献してくれる。指摘だけではなく、コード提案もしてくれる。ボタンクリックで適用できるので便利だ。&lt;/li>
+&lt;li>コードの可読性やパフォーマンスに関する問題を指摘してくれる。長年スルーしていた問題を改めて指摘してくれるので、コードのメンテナンス性が高まる。&lt;/li>
+&lt;li>指摘コメントに対して、コメントでお願いすれば自動でissue作成してくれる。&lt;/li>
+&lt;li>ロジックの不備や考慮漏れを指摘してくれる。バグやエラーを防ぐことができる。&lt;/li>
+&lt;li>コメントを返信したら、CodeRabbitも返信をくれる。分からないところを聞くことで勉強になる。&lt;/li>
+&lt;/ul>
+&lt;h2 id="悪かったこと">悪かったこと
+&lt;/h2>&lt;ul>
+&lt;li>複数ファイル同じような変更をした時、ファイル数分同じ指摘コメントがつく。重複したコメントは不要だと思った。（XXと同じって書いてあるといちいち読み込まなくて済むと思った）&lt;/li>
+&lt;/ul>
+&lt;h2 id="code-rabbitの費用対効果">Code Rabbitの費用対効果
+&lt;/h2>&lt;p>&lt;a class="link" href="https://coderabbit.ai/ja/#pricing" target="_blank" rel="noopener"
+>CodeRabbit価格設定&lt;/a>&lt;/p>
+&lt;p>現在3人で開発しているので月額を試算してみます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$15/月 \* 3人分 = $45/月 ⇒ 約6750円/月
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>もしレビュー専業の人を雇ったと仮定すると、&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">週4h * 4週 * 5000円/時間 = 6万円/月
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>単純に比較するとCodeRabbitは人間のコードレビュアーに比べて非常に安価です。指摘の質も良く、費用対効果は高いです。&lt;/p>
+&lt;h2 id="継続するか">継続するか
+&lt;/h2>&lt;ul>
+&lt;li>継続する！&lt;/li>
+&lt;li>将来もっと良いAIコードレビューサービスが出てくるかもしれないので契約は月額のまま。&lt;/li>
+&lt;li>半年後にもう一度振り返り予定。&lt;/li>
+&lt;/ul>
+&lt;p>CodeRabbitはAIコードレビューとして優秀なサービスだと思う。コードの品質向上やタスク管理に役立つ機能が多い。
+是非導入してみてはいかがでしょうか？&lt;/p></description></item><item><title>SSL証明書を自作せずに、Railsの開発環境でhttps接続する方法</title><link>https://kseki.github.io/posts/rails-ssl-connection-with-localhost-gem/</link><pubDate>Fri, 31 Dec 2021 00:00:00 +0000</pubDate><guid>https://kseki.github.io/posts/rails-ssl-connection-with-localhost-gem/</guid><description>&lt;h3 id="概要">概要
+&lt;/h3>&lt;p>https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。&lt;br>
+しかし、localhostというGemを使えばSSL証明書を自作せずにRailsの開発環境でhttps接続できます。&lt;br>
+今回のコードは&lt;a class="link" href="https://github.com/kseki/learning-localhost-gem" target="_blank" rel="noopener"
+>こちら&lt;/a>。&lt;/p>
+&lt;ul>
+&lt;li>Ruby: 3.0.2&lt;/li>
+&lt;li>Ruby on Rails: 7.0.0&lt;/li>
+&lt;li>Puma: 5.5.2&lt;/li>
+&lt;li>localhost: 1.1.9&lt;/li>
+&lt;/ul>
+&lt;h3 id="localhost-gemとは">localhost Gemとは
+&lt;/h3>&lt;div class="iframely-embed">&lt;div class="iframely-responsive" style="height: 140px; padding-bottom: 0;">&lt;a href="https://github.com/socketry/localhost" data-iframely-url="//iframely.net/r7DQH44?card=small">&lt;/a>&lt;/div>&lt;/div>
+&lt;p>&lt;a class="link" href="https://github.com/socketry/localhost" target="_blank" rel="noopener"
+>localhost Gem&lt;/a>とは、&lt;strong>Gemを追加するだけ&lt;/strong>で&lt;code>https://localhost:8080&lt;/code>のようにSSL接続できる便利なライブラリです。&lt;br>
+自動的に秘密鍵及び、自己証明書（オレオレ証明書）を作成してくれます。&lt;/p>
+&lt;h3 id="設定方法">設定方法
+&lt;/h3>&lt;p>開発環境だけlocalhost Gemを使いたいので、GemfileのdevelopmentグループブロックにGemを追加。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ruby" data-lang="ruby">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Gemfile&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">group&lt;/span> &lt;span class="ss">:development&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">gem&lt;/span> &lt;span class="s1">&amp;#39;localhost&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">end&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="実行">実行
+&lt;/h3>&lt;p>Pumaコマンドであれば、Gem追加だけでhttps接続ができます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ bundle &lt;span class="nb">exec&lt;/span> puma -b &lt;span class="s1">&amp;#39;ssl://localhost:9292&amp;#39;&lt;/span> config.ru
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Puma starting in single mode...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Puma version: 5.5.2 &lt;span class="o">(&lt;/span>ruby 3.0.2-p107&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Zawgyi&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Min threads: &lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Max threads: &lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Environment: development
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* PID: &lt;span class="m">14848&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Listening on ssl://127.0.0.1:9292?
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Listening on ssl://&lt;span class="o">[&lt;/span>::1&lt;span class="o">]&lt;/span>:9292?
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Use Ctrl-C to stop
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>ただ、これだとアプリケーションログは&lt;code>log/development.log&lt;/code>に出力されるので、別タブを開いて&lt;code>tail&lt;/code>コマンド等で参照するしかありません。
+&lt;code>rails server&lt;/code>で実行できた方が何かと便利です。&lt;/p>
+&lt;h3 id="rails-serverで動かす">Rails serverで動かす
+&lt;/h3>&lt;p>Pumaの設定ファイルにSSL接続の設定を追加します。&lt;br>
+Railsデフォルトの設定で3000番ポートは使われているので3001番ポートを指定します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ruby" data-lang="ruby">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># config/puma.rb&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">require&lt;/span> &lt;span class="s1">&amp;#39;localhost/authority&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">authority&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="no">Localhost&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="no">Authority&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">fetch&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ssl_bind&lt;/span> &lt;span class="s1">&amp;#39;127.0.0.1&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;3001&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="ss">key&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">authority&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">key_path&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="ss">cert&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">authority&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">certificate_path&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Railsコマンドで実行する。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ bundle &lt;span class="nb">exec&lt;/span> rails &lt;span class="nv">server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">=&lt;/span>&amp;gt; Booting &lt;span class="nv">Puma&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">=&lt;/span>&amp;gt; Rails 7.0.0 application starting in &lt;span class="nv">development&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">=&lt;/span>&amp;gt; Run &lt;span class="sb">`&lt;/span>bin/rails server --help&lt;span class="sb">`&lt;/span> &lt;span class="k">for&lt;/span> more startup options
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Puma starting in single mode...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Puma version: 5.5.2 &lt;span class="o">(&lt;/span>ruby 3.0.2-p107&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Zawgyi&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Min threads: &lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Max threads: &lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Environment: development
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* PID: &lt;span class="m">17087&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Listening on ssl://127.0.0.1:3001?cert&lt;span class="o">=&lt;/span>/Users/kseki/.localhost/localhost.crt&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">key&lt;/span>&lt;span class="o">=&lt;/span>/Users/kseki/.localhost/localhost.key&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">verify_mode&lt;/span>&lt;span class="o">=&lt;/span>none
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Listening on http://127.0.0.1:3000
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Listening on http://&lt;span class="o">[&lt;/span>::1&lt;span class="o">]&lt;/span>:3000
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Use Ctrl-C to stop
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>リスニングしているポートが２つあります。&lt;br>
+&lt;code>https://localhost:3001&lt;/code>にアクセスすると続けてアプリケーションログも出力されます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">Started GET &amp;#34;/&amp;#34; for 127.0.0.1 at 2021-12-31 23:20:45 +0900
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Processing by HomeController#index as HTML
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Rendering layout layouts/application.html.erb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Rendering home/index.html.erb within layouts/application
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Rendered home/index.html.erb within layouts/application (Duration: 0.0ms | Allocations: 15)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Rendered layout layouts/application.html.erb (Duration: 0.6ms | Allocations: 484)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Completed 200 OK in 1ms (Views: 1.0ms | Allocations: 733)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>当然&lt;code>http://localhost:3000&lt;/code>にアクセスしても動きます。&lt;/p>
+&lt;h3 id="ポート3000番で接続したい">ポート3000番で接続したい
+&lt;/h3>&lt;p>更にhttpsだけで接続するようにするにはPumaの設定を変更します。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>ssl_bind&lt;/code>メソッドの引数を&lt;code>3001&lt;/code>から&lt;code>3000&lt;/code>に変更&lt;/li>
+&lt;li>&lt;code>PORT&lt;/code>指定行をコメントアウト&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl"># config/puma.rb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- ssl_bind &amp;#39;127.0.0.1&amp;#39;, &amp;#39;3001&amp;#39;, {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+ ssl_bind &amp;#39;127.0.0.1&amp;#39;, &amp;#39;3000&amp;#39;, {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- port ENV.fetch(&amp;#34;PORT&amp;#34;) { 3000 }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+ # port ENV.fetch(&amp;#34;PORT&amp;#34;) { 3000 }
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ bundle &lt;span class="nb">exec&lt;/span> rails &lt;span class="nv">server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">=&lt;/span>&amp;gt; Booting &lt;span class="nv">Puma&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">=&lt;/span>&amp;gt; Rails 7.0.0 application starting in &lt;span class="nv">development&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">=&lt;/span>&amp;gt; Run &lt;span class="sb">`&lt;/span>bin/rails server --help&lt;span class="sb">`&lt;/span> &lt;span class="k">for&lt;/span> more startup options
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Puma starting in single mode...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Puma version: 5.5.2 &lt;span class="o">(&lt;/span>ruby 3.0.2-p107&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Zawgyi&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Min threads: &lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Max threads: &lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Environment: development
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* PID: &lt;span class="m">20097&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Listening on ssl://127.0.0.1:3000?cert&lt;span class="o">=&lt;/span>/Users/kseki/.localhost/localhost.crt&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">key&lt;/span>&lt;span class="o">=&lt;/span>/Users/kseki/.localhost/localhost.key&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">verify_mode&lt;/span>&lt;span class="o">=&lt;/span>none
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Use Ctrl-C to stop
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>https://localhost:3000&lt;/code>にアクセスすると続けてアプリケーションログが出力されます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">Started GET &amp;#34;/&amp;#34; for 127.0.0.1 at 2021-12-31 23:28:51 +0900
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Processing by HomeController#index as HTML
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Rendering layout layouts/application.html.erb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Rendering home/index.html.erb within layouts/application
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Rendered home/index.html.erb within layouts/application (Duration: 1.4ms | Allocations: 448)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Rendered layout layouts/application.html.erb (Duration: 4.6ms | Allocations: 1473)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Completed 200 OK in 12ms (Views: 8.2ms | Allocations: 4696)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="まとめ">まとめ
+&lt;/h3>&lt;p>&lt;a class="link" href="https://gist.github.com/kseki/bdd31b60f3ce1efff7846849687b26ea" target="_blank" rel="noopener"
+>Gist&lt;/a>に必要箇所だけまとめたので御覧ください。&lt;/p>
+&lt;h3 id="参考">参考
+&lt;/h3>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/socketry/localhost" target="_blank" rel="noopener"
+>socketry/localhost&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/socketry/localhost/blob/v1.1.9/lib/localhost/authority.rb" target="_blank" rel="noopener"
+>socketry/localhost: Localhost::Authority&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/puma/puma#self-signed-ssl-certificates-via-the-localhost-gem-for-development-use" target="_blank" rel="noopener"
+>puma/puma: Self-signed SSL certificates (via the localhost gem, for development use)&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.rubydoc.info/gems/puma/Puma%2FDSL:ssl_bind" target="_blank" rel="noopener"
+>Method: Puma::DSL#ssl_bind — Documentation for puma (5.5.2)&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;div class="amazon-widget">
+&lt;div class="amazon-widget-img">
+&lt;a href="https://www.amazon.co.jp/gp/product/4297114623/tag=kseki0c-22" target="_blank">
+&lt;img src="https://m.media-amazon.com/images/I/81yskupyNhL._AC_SX522_.jpg" />
+&lt;/a>
+&lt;/div>
+&lt;div class="amazon-widget-info">
+&lt;a href="https://www.amazon.co.jp/gp/product/4297114623/tag=kseki0c-22" target="_blank">
+&lt;span class="amazon-widget-title">
+パーフェクト Ruby on Rails 【増補改訂版】 (Perfect series)
+&lt;/span>
+&lt;/a>
+&lt;a href="https://www.amazon.co.jp/gp/product/4297114623/tag=kseki0c-22" class="amazon-widget-button" target="_blank">Amazonで購入&lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;div class="amazon-widget">
+&lt;div class="amazon-widget-img">
+&lt;a href="https://www.amazon.co.jp/gp/product/B0D1T41LWV/tag=kseki0c-22" target="_blank">
+&lt;img src="https://m.media-amazon.com/images/I/81IKSxc0d1L._AC_SX522_.jpg" />
+&lt;/a>
+&lt;/div>
+&lt;div class="amazon-widget-info">
+&lt;a href="https://www.amazon.co.jp/gp/product/B0D1T41LWV/tag=kseki0c-22" target="_blank">
+&lt;span class="amazon-widget-title">
+SSL/TLS実践入門──Webの安全性を支える暗号化技術の設計思想 WEB&amp;#43;DB PRESS plus
+&lt;/span>
+&lt;/a>
+&lt;a href="https://www.amazon.co.jp/gp/product/B0D1T41LWV/tag=kseki0c-22" class="amazon-widget-button" target="_blank">Amazonで購入&lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;/p></description></item></channel></rss>

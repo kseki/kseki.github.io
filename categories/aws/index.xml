@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AWS on Klog</title><link>https://kseki.github.io/categories/aws/</link><description>Recent content in AWS on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><copyright>kseki</copyright><lastBuildDate>Tue, 30 Jul 2024 16:40:32 +0900</lastBuildDate><atom:link href="https://kseki.github.io/categories/aws/index.xml" rel="self" type="application/rss+xml"/><item><title>AWS RDSスナップショットのマルチアカウント・マルチリージョン移行方法</title><link>https://kseki.github.io/posts/aws-rds-snapshot-migration/</link><pubDate>Tue, 30 Jul 2024 16:40:32 +0900</pubDate><guid>https://kseki.github.io/posts/aws-rds-snapshot-migration/</guid><description>&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/cover.webp" alt="Featured image of post AWS RDSスナップショットのマルチアカウント・マルチリージョン移行方法" />&lt;p>AWS環境で運用しているアプリケーションは、複数のアカウントや異なるリージョンで構築されることがあります。この記事では、そのような状況でAWS RDSのスナップショットを共有し、復元する方法を詳しく説明します。&lt;/p>
+&lt;h2 id="作業概要">作業概要
+&lt;/h2>&lt;p>以下のような複数アカウント・複数リージョン運用のケース。&lt;/p>
+&lt;ul>
+&lt;li>アカウントA: 東京リージョン&lt;/li>
+&lt;li>アカウントB: オレゴンリージョン&lt;/li>
+&lt;/ul>
+&lt;p>アカウントAの東京リージョンの暗号化しているRDSインスタンスのスナップショットを、アカウントBのオレゴンリージョンで復元したい。&lt;/p>
+&lt;h2 id="忙しい人の為の手順書">忙しい人の為の手順書
+&lt;/h2>&lt;p>&lt;strong>アカウントAにて&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>対象RDSインスタンスのスナップショットをとる&lt;/li>
+&lt;li>アカウントBと共有するカスタマー管理キーをマルチリージョンで作成する&lt;/li>
+&lt;li>上記のカスタマー管理キーのレプリカをオレゴンリージョンに作成する&lt;/li>
+&lt;li>スナップショットを手順2にて作成したカスタマー管理キーでオレゴンリージョンにコピーする&lt;/li>
+&lt;li>手順4でコピーしたスナップショットをアカウントBに共有する&lt;/li>
+&lt;li>3で作成したレプリカのカスタマー管理キーをアカウントBに共有する&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>アカウントBにて&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>オレゴンリージョンのRDS共有スナップショットを確認する&lt;/li>
+&lt;li>手順1の共有スナップショットをコピーする
+&lt;ul>
+&lt;li>共有スナップショットを復元できませんが、コピーすることで復元可能になります。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>手順2にてコピーしたスナップショットを復元する&lt;/li>
+&lt;/ol>
+&lt;h2 id="スナップショット移行の手順">スナップショット移行の手順
+&lt;/h2>&lt;h3 id="アカウントaで作業">アカウントAで作業
+&lt;/h3>&lt;h4 id="スナップショットの作成">スナップショットの作成
+&lt;/h4>&lt;p>アカウントAで対象となるRDSインスタンスのスナップショットを作成します。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-1.webp"
+width="751"
+height="550"
+loading="lazy"
+alt="スナップショットの作成"
+class="gallery-image"
+data-flex-grow="136"
+data-flex-basis="327px"
+>&lt;/p>
+&lt;h4 id="kmsカスタマー管理型のキーの作成">KMSカスタマー管理型のキーの作成
+&lt;/h4>&lt;p>アカウントAでアカウントBと共有するマルチリージョン対応のKMSキーを東京リージョンで作成します。&lt;/p>
+&lt;p>KMS &amp;gt; カスタマー管理型のキー &amp;gt; キーの作成
+&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-2.webp"
+width="771"
+height="850"
+loading="lazy"
+alt="カスタマー管理型のキー作成"
+class="gallery-image"
+data-flex-grow="90"
+data-flex-basis="217px"
+>&lt;/p>
+&lt;h4 id="kmsカスタマー管理型のキーのレプリカ作成">KMSカスタマー管理型のキーのレプリカ作成
+&lt;/h4>&lt;p>アカウントAにて、東京リージョンで作成したキーのレプリカをオレゴンリージョンで作成します。&lt;/p>
+&lt;p>KMS &amp;gt; カスタマー管理型のキー &amp;gt; キー ID: XXXXXXXXXXXXXXX
+&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-3-1.webp"
+width="796"
+height="414"
+loading="lazy"
+alt="カスタマー管理型のキー詳細"
+class="gallery-image"
+data-flex-grow="192"
+data-flex-basis="461px"
+>&lt;/p>
+&lt;p>関連するマルチリージョンキー &amp;gt; 新しいレプリカキーを作成&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-3-2.webp"
+width="745"
+height="298"
+loading="lazy"
+alt="新しいレプリカキーを作成"
+class="gallery-image"
+data-flex-grow="250"
+data-flex-basis="600px"
+>&lt;/p>
+&lt;p>&lt;strong>オレゴンリージョン&lt;/strong>を選択する。&lt;/p>
+&lt;h4 id="スナップショットのコピー">スナップショットのコピー
+&lt;/h4>&lt;p>アカウントAで作成したスナップショットを、手順2で作成したKMSキーを使用してオレゴンリージョンにコピーします。&lt;/p>
+&lt;p>RDS &amp;gt; スナップショット &amp;gt; スナップショットをコピー&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-4.webp"
+width="832"
+height="828"
+loading="lazy"
+alt="スナップショットのコピー"
+class="gallery-image"
+data-flex-grow="100"
+data-flex-basis="241px"
+>&lt;/p>
+&lt;p>AWS KMSキーに上で作成したキーを指定する。&lt;/p>
+&lt;h4 id="スナップショットの共有">スナップショットの共有
+&lt;/h4>&lt;p>アカウントAでコピーしたスナップショットをアカウントBと共有します。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-5.webp"
+width="839"
+height="707"
+loading="lazy"
+alt="スナップショットのアクセス許可"
+class="gallery-image"
+data-flex-grow="118"
+data-flex-basis="284px"
+>&lt;/p>
+&lt;p>AWSアカウントIDに、&lt;strong>アカウントBのID&lt;/strong>を入力する。&lt;/p>
+&lt;h4 id="kmsキーの共有">KMSキーの共有
+&lt;/h4>&lt;p>アカウントAで作成したレプリカのカスタマー管理キーをアカウントBに共有する。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-6.webp"
+width="634"
+height="376"
+loading="lazy"
+alt="カスタマー管理キーの共有"
+class="gallery-image"
+data-flex-grow="168"
+data-flex-basis="404px"
+>&lt;/p>
+&lt;p>&lt;strong>アカウントBのID&lt;/strong>を入力する。&lt;/p>
+&lt;h3 id="アカウントbで作業">アカウントBで作業
+&lt;/h3>&lt;h4 id="オレゴンリージョンのrds共有スナップショットの確認">オレゴンリージョンのRDS共有スナップショットの確認
+&lt;/h4>&lt;p>共有スナップショットが参照できるか確認します。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/B-1.webp"
+width="1160"
+height="374"
+loading="lazy"
+alt="共有スナップショット"
+class="gallery-image"
+data-flex-grow="310"
+data-flex-basis="744px"
+>&lt;/p>
+&lt;h4 id="共有スナップショットのコピー">共有スナップショットのコピー
+&lt;/h4>&lt;p>アカウントBで共有されたスナップショットをコピーします。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/B-2-1.webp"
+width="1166"
+height="365"
+loading="lazy"
+alt="共有スナップショット"
+class="gallery-image"
+data-flex-grow="319"
+data-flex-basis="766px"
+>&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/B-2-2.webp"
+width="766"
+height="542"
+loading="lazy"
+alt="共有スナップショット"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="339px"
+>&lt;/p>
+&lt;p>Amazonリソースネーム(ARN): 先ほど共有した&lt;strong>レプリカのカスタマー管理キーのARN&lt;/strong>を入力する。&lt;/p>
+&lt;h4 id="スナップショットのリストア">スナップショットのリストア
+&lt;/h4>&lt;p>アカウントBでコピーしたスナップショットをリストアします。&lt;/p>
+&lt;p>この手順により、AWS RDSのスナップショットを異なるアカウントとリージョン間で移行することが可能となります。&lt;/p>
+&lt;div class="amazon-widget">
+&lt;div class="amazon-widget-img">
+&lt;a href="https://www.amazon.co.jp/gp/product/4297104083/tag=kseki0c-22" target="_blank">
+&lt;img src="https://m.media-amazon.com/images/I/81z7uX1cs5L._AC_SX522_.jpg" />
+&lt;/a>
+&lt;/div>
+&lt;div class="amazon-widget-info">
+&lt;a href="https://www.amazon.co.jp/gp/product/4297104083/tag=kseki0c-22" target="_blank">
+&lt;span class="amazon-widget-title">
+失敗から学ぶRDBの正しい歩き方 (Software Design plus)
+&lt;/span>
+&lt;/a>
+&lt;a href="https://www.amazon.co.jp/gp/product/4297104083/tag=kseki0c-22" class="amazon-widget-button" target="_blank">Amazonで購入&lt;/a>
+&lt;/div>
+&lt;/div></description></item><item><title>AWS S3のファイルへのアクセスログをAthenaで確認する方法</title><link>https://kseki.github.io/posts/s3-access-log-with-athena/</link><pubDate>Tue, 25 Jun 2024 16:31:19 +0900</pubDate><guid>https://kseki.github.io/posts/s3-access-log-with-athena/</guid><description>&lt;img src="https://kseki.github.io/posts/s3-access-log-with-athena/aws-athena.webp" alt="Featured image of post AWS S3のファイルへのアクセスログをAthenaで確認する方法" />&lt;h2 id="概要">概要
+&lt;/h2>&lt;p>Amazon S3のファイルへのアクセスログをAmazon Athenaで確認する方法です。&lt;/p>
+&lt;h2 id="ステップ1-s3バケットのサーバーアクセスログを有効にする">ステップ1: S3バケットのサーバーアクセスログを有効にする
+&lt;/h2>&lt;p>まず、S3バケットでサーバーアクセスログを有効にする必要があります。これにより、アクセスされるたびにログが記録され、後で分析するために使用できます。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/s3-access-log-with-athena/athena-step1.png"
+width="755"
+height="818"
+loading="lazy"
+alt="edit s3 access log settings"
+class="gallery-image"
+data-flex-grow="92"
+data-flex-basis="221px"
+>&lt;/p>
+&lt;h2 id="ステップ2-amazon-athenaコンソールを開く">ステップ2: Amazon Athenaコンソールを開く
+&lt;/h2>&lt;p>次に、Amazon Athenaコンソールにアクセスし、クエリエディタを使用してデータベースとテーブルを作成します。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/s3-access-log-with-athena/athena-step2.png"
+width="897"
+height="557"
+loading="lazy"
+alt="athena query editor"
+class="gallery-image"
+data-flex-grow="161"
+data-flex-basis="386px"
+>&lt;/p>
+&lt;h2 id="ステップ3-データベースを作成する">ステップ3: データベースを作成する
+&lt;/h2>&lt;p>Athenaで新しいデータベースを作成し、アクセスログデータの格納場所として設定します。
+今回は、デフォルトで用意されている&lt;code>default&lt;/code>を使います。&lt;/p>
+&lt;h2 id="ステップ4-テーブルスキーマを作成する">ステップ4: テーブルスキーマを作成する
+&lt;/h2>&lt;p>アクセスログデータの構造を定義するテーブルスキーマを作成します。
+以下のクエリを実行します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">EXTERNAL&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="k">default&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">データベース名&lt;/span>&lt;span class="o">&amp;gt;`&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">bucketowner&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">bucket_name&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">requestdatetime&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">remoteip&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">requester&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">requestid&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="k">operation&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="k">key&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">request_uri&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">httpstatus&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">errorcode&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">bytessent&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">BIGINT&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">objectsize&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">BIGINT&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">totaltime&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">turnaroundtime&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">referrer&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">useragent&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">versionid&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">hostid&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">sigv&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">ciphersuite&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">authtype&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">endpoint&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">tlsversion&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">accesspointarn&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">aclrequired&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STRING&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">ROW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">FORMAT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">SERDE&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;org.apache.hadoop.hive.serde2.RegexSerDe&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">WITH&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">SERDEPROPERTIES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;input.regex&amp;#39;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;([^ ]*) ([^ ]*) \\[(.*?)\\] ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) (\&amp;#34;[^\&amp;#34;]*\&amp;#34;|-) (-|[0-9]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) (\&amp;#34;[^\&amp;#34;]*\&amp;#34;|-) ([^ ]*)(?: ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*))?.*$&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">STORED&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">AS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">INPUTFORMAT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;org.apache.hadoop.mapred.TextInputFormat&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">OUTPUTFORMAT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">LOCATION&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;s3://&amp;lt;S3バケット名&amp;gt;/&amp;lt;ディレクトリ&amp;gt;/&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="ステップ5-テーブルをプレビューする">ステップ5: テーブルをプレビューする
+&lt;/h2>&lt;p>作成したテーブルスキーマが正しく機能しているかを確認するために、テーブルのプレビューを行います。&lt;/p>
+&lt;p>&lt;img src="https://kseki.github.io/posts/s3-access-log-with-athena/athena-step5.png"
+width="572"
+height="447"
+loading="lazy"
+alt="preview table"
+class="gallery-image"
+data-flex-grow="127"
+data-flex-basis="307px"
+>&lt;/p>
+&lt;h2 id="ステップ6-クエリを実行する">ステップ6: クエリを実行する
+&lt;/h2>&lt;p>最後に、Athenaのクエリエディタを使用して、特定の条件に基づいてログデータをクエリします。例えば、特定のオブジェクトに対するDELETE操作や、特定のエラーコードを持つリクエストを検索できます。&lt;/p>
+&lt;details>
+&lt;summary>特定のオブジェクトの特定期間のGETログを見る&lt;/summary>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">default&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">データベース名&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">WHERE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">Key&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;prefix/images/picture.jpg&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">AND&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">operation&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;REST.GET.OBJECT&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">AND&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">parse_datetime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">requestdatetime&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;dd/MMM/yyyy:HH:mm:ss Z&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">BETWEEN&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">parse_datetime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;2024-06-18:07:00:00&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;yyyy-MM-dd:HH:mm:ss&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">AND&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">parse_datetime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;2024-06-18:08:00:00&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;yyyy-MM-dd:HH:mm:ss&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/details>
+&lt;h2 id="参考">参考
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/using-s3-access-logs-to-identify-requests.html" target="_blank" rel="noopener"
+>Amazon S3 アクセスログを使用したリクエストの識別 - Amazon Simple Storage Service&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;div class="amazon-widget">
+&lt;div class="amazon-widget-img">
+&lt;a href="https://www.amazon.co.jp/gp/product/4815607850/tag=kseki0c-22" target="_blank">
+&lt;img src="https://m.media-amazon.com/images/I/8163tHByzgL._AC_SX522_.jpg" />
+&lt;/a>
+&lt;/div>
+&lt;div class="amazon-widget-info">
+&lt;a href="https://www.amazon.co.jp/gp/product/4815607850/tag=kseki0c-22" target="_blank">
+&lt;span class="amazon-widget-title">
+AWSの基本・仕組み・重要用語が全部わかる教科書 (見るだけ図解)
+&lt;/span>
+&lt;/a>
+&lt;a href="https://www.amazon.co.jp/gp/product/4815607850/tag=kseki0c-22" class="amazon-widget-button" target="_blank">Amazonで購入&lt;/a>
+&lt;/div>
+&lt;/div></description></item></channel></rss>
