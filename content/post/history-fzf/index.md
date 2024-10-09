@@ -1,6 +1,6 @@
 ---
 title: 作業効率アップ！fzfコマンドでコマンド履歴を便利に検索
-description: fzfコマンドを使ってコマンド履歴を効率的に検索する方法を紹介します。
+description: fzfコマンドを使ってコマンド履歴を効率的に検索する方法を紹介します
 keywords:
   - コマンド履歴
   - fzf
@@ -18,7 +18,7 @@ tags:
   - コマンドラインツール
   - 効率化
 weight: 1
-draft: true
+draft: false
 ---
 
 ## fzfでコマンド履歴を便利に検索
