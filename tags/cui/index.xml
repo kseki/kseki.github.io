@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CUI on Klog</title><link>https://kseki.github.io/tags/cui/</link><description>Recent content in CUI on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Tue, 10 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://kseki.github.io/tags/cui/index.xml" rel="self" type="application/rss+xml"/><item><title>便利なGitコマンドラインツールLazygit</title><link>https://kseki.github.io/posts/how_to_lazygit/</link><pubDate>Tue, 18 Jun 2024 16:21:07 +0900</pubDate><guid>https://kseki.github.io/posts/how_to_lazygit/</guid><description>&lt;img src="https://kseki.github.io/posts/how_to_lazygit/lazygit.png" alt="Featured image of post 便利なGitコマンドラインツールLazygit" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;Lazygitは、開発者の生産性を向上させるために設計された、コマンドラインツールです。このツールは、Gitの操作を簡単かつ効率的に行うことができるインターフェースを提供します。ステータスの確認、コミットの作成、ブランチの切り替えなどの一般的なGit操作を簡単に行うことができます。&lt;/p&gt;
+&lt;h2 id="インストール方法"&gt;インストール方法
+&lt;/h2&gt;&lt;p&gt;MacOSユーザーは、Homebrewを使用してLazygitを簡単にインストールできます。ターミナルを開き、以下のコマンドを実行します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install lazygit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;※他のインストール方法は&lt;a class="link" href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#installation" target="_blank" rel="noopener"
+&gt;こちら&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="チュートリアル"&gt;チュートリアル
+&lt;/h2&gt;&lt;p&gt;READMEに&lt;a class="link" href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#tutorials" target="_blank" rel="noopener"
+&gt;チュートリアル&lt;/a&gt;動画へのリンクがあるので一度やってみることをお勧めします！&lt;/p&gt;
+&lt;h2 id="githubと連携して一連の開発作業のやり方"&gt;GitHubと連携して一連の開発作業のやり方
+&lt;/h2&gt;&lt;p&gt;Lazygitを使用してGitHubと連携し、開発作業を行うプロセスは以下の通りです。&lt;/p&gt;
+&lt;h3 id="ブランチを作成"&gt;ブランチを作成
+&lt;/h3&gt;&lt;p&gt;リポジトリ内で新しいブランチを作成し、特定の機能や修正に取り組みます。
+ベースブランチの上にカーソルを合わせて &lt;kbd&gt;c&lt;/kbd&gt; を押すとダイアログが表示されるので、ブランチ名を入力して &lt;kbd&gt;Enter&lt;/kbd&gt; を押すだけです。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/how_to_lazygit/create-branch.gif"
+width="1920"
+height="1080"
+loading="lazy"
+alt="create branch"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+&gt;&lt;/p&gt;
+&lt;h3 id="ファイルを編集してコミット"&gt;ファイルを編集してコミット
+&lt;/h3&gt;&lt;p&gt;必要なファイルを編集し、変更をコミットします。Lazygitでは、変更をステージングし、コミットメッセージを入力することが容易です。
+コミットしたいディレクトリ、またはファイルにカーソルを合わせて &lt;kbd&gt;Space&lt;/kbd&gt; を押してステージング。 &lt;kbd&gt;c&lt;/kbd&gt; を押すとダイアログが表示されるのでコミットメッセージを入力して &lt;kbd&gt;Enter&lt;/kbd&gt; キーを押す。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/how_to_lazygit/add-commit.gif"
+width="1920"
+height="1080"
+loading="lazy"
+alt="add files and commit"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+&gt;&lt;/p&gt;
+&lt;h3 id="リモートリポジトリーにpushprの作成"&gt;リモートリポジトリーにpush、PRの作成
+&lt;/h3&gt;&lt;p&gt;コミットした変更をリモートリポジトリにpushします。GitHub上でPRを作成します。
+Pushしたいリポジトリにカーソルを合わせて &lt;kbd&gt;P&lt;/kbd&gt; を押し &lt;kbd&gt;Enter&lt;/kbd&gt; するだけです。（リモートリポジトリが存在する場合は &lt;kbd&gt;p&lt;/kbd&gt; でOKです。）
+Pushが終わったら、PR作成したいリポジトリにカーソルを合わせて&lt;code&gt;o&lt;/code&gt;を押すと、ブラウザでPR作成画面が表示されます。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/how_to_lazygit/push-and-open-pr.gif"
+width="1920"
+height="1080"
+loading="lazy"
+alt="push and open pr"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+&gt;&lt;/p&gt;
+&lt;p&gt;他にも &lt;a class="link" href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#features" target="_blank" rel="noopener"
+&gt;たくさんの機能&lt;/a&gt; や &lt;a class="link" href="https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Command_Keybindings.md" target="_blank" rel="noopener"
+&gt;カスタムコマンド&lt;/a&gt; を追加出来ます！&lt;/p&gt;
+&lt;h2 id="まとめ"&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;Lazygitは、Gitの操作を簡単にし、開発者の作業を効率化する強力なツールです。その直感的なUIと豊富な機能により、開発プロセスがよりスムーズになります。この記事がLazygitの導入と利用の手助けになれば幸いです。&lt;/p&gt;
+&lt;h2 id="参考"&gt;参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/jesseduffield/lazygit" target="_blank" rel="noopener"
+&gt;jesseduffield/lazygit: simple terminal UI for git commands&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

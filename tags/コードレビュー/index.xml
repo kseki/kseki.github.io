@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>コードレビュー on Klog</title><link>https://kseki.github.io/tags/%E3%82%B3%E3%83%BC%E3%83%89%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC/</link><description>Recent content in コードレビュー on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Fri, 16 Feb 2024 18:27:25 +0900</lastBuildDate><atom:link href="https://kseki.github.io/tags/%E3%82%B3%E3%83%BC%E3%83%89%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC/index.xml" rel="self" type="application/rss+xml"/><item><title>AIコードレビューのCodeRabbitを導入してみた</title><link>https://kseki.github.io/posts/coderabbit/</link><pubDate>Fri, 16 Feb 2024 18:27:25 +0900</pubDate><guid>https://kseki.github.io/posts/coderabbit/</guid><description>&lt;img src="https://kseki.github.io/posts/coderabbit/coderabbit.png" alt="Featured image of post AIコードレビューのCodeRabbitを導入してみた" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;CodeRabbitというAIコードレビューサービスを試してみたので、良かったことなどをまとめました。&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://coderabbit.ai/ja/" target="_blank" rel="noopener"
+&gt;AIコードレビュー | CodeRabbit&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="良かったこと"&gt;良かったこと
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;コードの品質向上に貢献してくれる。指摘だけではなく、コード提案もしてくれる。ボタンクリックで適用できるので便利だ。&lt;/li&gt;
+&lt;li&gt;コードの可読性やパフォーマンスに関する問題を指摘してくれる。長年スルーしていた問題を改めて指摘してくれるので、コードのメンテナンス性が高まる。&lt;/li&gt;
+&lt;li&gt;指摘コメントに対して、コメントでお願いすれば自動でissue作成してくれる。&lt;/li&gt;
+&lt;li&gt;ロジックの不備や考慮漏れを指摘してくれる。バグやエラーを防ぐことができる。&lt;/li&gt;
+&lt;li&gt;コメントを返信したら、CodeRabbitも返信をくれる。分からないところを聞くことで勉強になる。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="悪かったこと"&gt;悪かったこと
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;複数ファイル同じような変更をした時、ファイル数分同じ指摘コメントがつく。重複したコメントは不要だと思った。（XXと同じって書いてあるといちいち読み込まなくて済むと思った）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="code-rabbitの費用対効果"&gt;Code Rabbitの費用対効果
+&lt;/h2&gt;&lt;p&gt;&lt;a class="link" href="https://coderabbit.ai/ja/#pricing" target="_blank" rel="noopener"
+&gt;CodeRabbit価格設定&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;現在3人で開発しているので月額を試算してみます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$15/月 \* 3人分 = $45/月 ⇒ 約6750円/月
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;もしレビュー専業の人を雇ったと仮定すると、&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;週4h * 4週 * 5000円/時間 = 6万円/月
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;単純に比較するとCodeRabbitは人間のコードレビュアーに比べて非常に安価です。指摘の質も良く、費用対効果は高いです。&lt;/p&gt;
+&lt;h2 id="継続するか"&gt;継続するか
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;継続する！&lt;/li&gt;
+&lt;li&gt;将来もっと良いAIコードレビューサービスが出てくるかもしれないので契約は月額のまま。&lt;/li&gt;
+&lt;li&gt;半年後にもう一度振り返り予定。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;CodeRabbitはAIコードレビューとして優秀なサービスだと思う。コードの品質向上やタスク管理に役立つ機能が多い。
+是非導入してみてはいかがでしょうか？&lt;/p&gt;</description></item></channel></rss>

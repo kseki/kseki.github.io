@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>開発環境 on Klog</title><link>https://kseki.github.io/tags/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83/</link><description>Recent content in 開発環境 on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Fri, 31 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://kseki.github.io/tags/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83/index.xml" rel="self" type="application/rss+xml"/><item><title>SSL証明書を自作せずに、Railsの開発環境でhttps接続する方法</title><link>https://kseki.github.io/posts/rails-ssl-connection-with-localhost-gem/</link><pubDate>Fri, 31 Dec 2021 00:00:00 +0000</pubDate><guid>https://kseki.github.io/posts/rails-ssl-connection-with-localhost-gem/</guid><description>&lt;h3 id="概要"&gt;概要
+&lt;/h3&gt;&lt;p&gt;https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。&lt;br&gt;
+しかし、localhostというGemを使えばSSL証明書を自作せずにRailsの開発環境でhttps接続できます。&lt;br&gt;
+今回のコードは&lt;a class="link" href="https://github.com/kseki/learning-localhost-gem" target="_blank" rel="noopener"
+&gt;こちら&lt;/a&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ruby: 3.0.2&lt;/li&gt;
+&lt;li&gt;Ruby on Rails: 7.0.0&lt;/li&gt;
+&lt;li&gt;Puma: 5.5.2&lt;/li&gt;
+&lt;li&gt;localhost: 1.1.9&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="localhost-gemとは"&gt;localhost Gemとは
+&lt;/h3&gt;&lt;div class="iframely-embed"&gt;&lt;div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"&gt;&lt;a href="https://github.com/socketry/localhost" data-iframely-url="//iframely.net/r7DQH44?card=small"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a class="link" href="https://github.com/socketry/localhost" target="_blank" rel="noopener"
+&gt;localhost Gem&lt;/a&gt;とは、&lt;strong&gt;Gemを追加するだけ&lt;/strong&gt;で&lt;code&gt;https://localhost:8080&lt;/code&gt;のようにSSL接続できる便利なライブラリです。&lt;br&gt;
+自動的に秘密鍵及び、自己証明書（オレオレ証明書）を作成してくれます。&lt;/p&gt;
+&lt;h3 id="設定方法"&gt;設定方法
+&lt;/h3&gt;&lt;p&gt;開発環境だけlocalhost Gemを使いたいので、GemfileのdevelopmentグループブロックにGemを追加。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-ruby" data-lang="ruby"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Gemfile&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;group&lt;/span&gt; &lt;span class="ss"&gt;:development&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;localhost&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="実行"&gt;実行
+&lt;/h3&gt;&lt;p&gt;Pumaコマンドであれば、Gem追加だけでhttps接続ができます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ bundle &lt;span class="nb"&gt;exec&lt;/span&gt; puma -b &lt;span class="s1"&gt;&amp;#39;ssl://localhost:9292&amp;#39;&lt;/span&gt; config.ru
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Puma starting in single mode...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Puma version: 5.5.2 &lt;span class="o"&gt;(&lt;/span&gt;ruby 3.0.2-p107&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Zawgyi&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Min threads: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Max threads: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Environment: development
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* PID: &lt;span class="m"&gt;14848&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Listening on ssl://127.0.0.1:9292?
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Listening on ssl://&lt;span class="o"&gt;[&lt;/span&gt;::1&lt;span class="o"&gt;]&lt;/span&gt;:9292?
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Use Ctrl-C to stop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;ただ、これだとアプリケーションログは&lt;code&gt;log/development.log&lt;/code&gt;に出力されるので、別タブを開いて&lt;code&gt;tail&lt;/code&gt;コマンド等で参照するしかありません。
+&lt;code&gt;rails server&lt;/code&gt;で実行できた方が何かと便利です。&lt;/p&gt;
+&lt;h3 id="rails-serverで動かす"&gt;Rails serverで動かす
+&lt;/h3&gt;&lt;p&gt;Pumaの設定ファイルにSSL接続の設定を追加します。&lt;br&gt;
+Railsデフォルトの設定で3000番ポートは使われているので3001番ポートを指定します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-ruby" data-lang="ruby"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# config/puma.rb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;localhost/authority&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;authority&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Localhost&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Authority&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fetch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;ssl_bind&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;127.0.0.1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;3001&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="ss"&gt;key&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;authority&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;key_path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="ss"&gt;cert&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;authority&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;certificate_path&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Railsコマンドで実行する。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ bundle &lt;span class="nb"&gt;exec&lt;/span&gt; rails &lt;span class="nv"&gt;server&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; Booting &lt;span class="nv"&gt;Puma&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; Rails 7.0.0 application starting in &lt;span class="nv"&gt;development&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; Run &lt;span class="sb"&gt;`&lt;/span&gt;bin/rails server --help&lt;span class="sb"&gt;`&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; more startup options
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Puma starting in single mode...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Puma version: 5.5.2 &lt;span class="o"&gt;(&lt;/span&gt;ruby 3.0.2-p107&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Zawgyi&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Min threads: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Max threads: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Environment: development
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* PID: &lt;span class="m"&gt;17087&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Listening on ssl://127.0.0.1:3001?cert&lt;span class="o"&gt;=&lt;/span&gt;/Users/kseki/.localhost/localhost.crt&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/Users/kseki/.localhost/localhost.key&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;verify_mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;none
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Listening on http://127.0.0.1:3000
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Listening on http://&lt;span class="o"&gt;[&lt;/span&gt;::1&lt;span class="o"&gt;]&lt;/span&gt;:3000
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Use Ctrl-C to stop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;リスニングしているポートが２つあります。&lt;br&gt;
+&lt;code&gt;https://localhost:3001&lt;/code&gt;にアクセスすると続けてアプリケーションログも出力されます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Started GET &amp;#34;/&amp;#34; for 127.0.0.1 at 2021-12-31 23:20:45 +0900
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Processing by HomeController#index as HTML
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendering layout layouts/application.html.erb
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendering home/index.html.erb within layouts/application
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendered home/index.html.erb within layouts/application (Duration: 0.0ms | Allocations: 15)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendered layout layouts/application.html.erb (Duration: 0.6ms | Allocations: 484)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Completed 200 OK in 1ms (Views: 1.0ms | Allocations: 733)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;当然&lt;code&gt;http://localhost:3000&lt;/code&gt;にアクセスしても動きます。&lt;/p&gt;
+&lt;h3 id="ポート3000番で接続したい"&gt;ポート3000番で接続したい
+&lt;/h3&gt;&lt;p&gt;更にhttpsだけで接続するようにするにはPumaの設定を変更します。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ssl_bind&lt;/code&gt;メソッドの引数を&lt;code&gt;3001&lt;/code&gt;から&lt;code&gt;3000&lt;/code&gt;に変更&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PORT&lt;/code&gt;指定行をコメントアウト&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-diff" data-lang="diff"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# config/puma.rb
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gd"&gt;- ssl_bind &amp;#39;127.0.0.1&amp;#39;, &amp;#39;3001&amp;#39;, {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ ssl_bind &amp;#39;127.0.0.1&amp;#39;, &amp;#39;3000&amp;#39;, {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gd"&gt;- port ENV.fetch(&amp;#34;PORT&amp;#34;) { 3000 }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ # port ENV.fetch(&amp;#34;PORT&amp;#34;) { 3000 }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ bundle &lt;span class="nb"&gt;exec&lt;/span&gt; rails &lt;span class="nv"&gt;server&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; Booting &lt;span class="nv"&gt;Puma&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; Rails 7.0.0 application starting in &lt;span class="nv"&gt;development&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; Run &lt;span class="sb"&gt;`&lt;/span&gt;bin/rails server --help&lt;span class="sb"&gt;`&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; more startup options
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Puma starting in single mode...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Puma version: 5.5.2 &lt;span class="o"&gt;(&lt;/span&gt;ruby 3.0.2-p107&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Zawgyi&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Min threads: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Max threads: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Environment: development
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* PID: &lt;span class="m"&gt;20097&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Listening on ssl://127.0.0.1:3000?cert&lt;span class="o"&gt;=&lt;/span&gt;/Users/kseki/.localhost/localhost.crt&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/Users/kseki/.localhost/localhost.key&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;verify_mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;none
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Use Ctrl-C to stop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;https://localhost:3000&lt;/code&gt;にアクセスすると続けてアプリケーションログが出力されます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Started GET &amp;#34;/&amp;#34; for 127.0.0.1 at 2021-12-31 23:28:51 +0900
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Processing by HomeController#index as HTML
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendering layout layouts/application.html.erb
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendering home/index.html.erb within layouts/application
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendered home/index.html.erb within layouts/application (Duration: 1.4ms | Allocations: 448)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendered layout layouts/application.html.erb (Duration: 4.6ms | Allocations: 1473)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Completed 200 OK in 12ms (Views: 8.2ms | Allocations: 4696)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="まとめ"&gt;まとめ
+&lt;/h3&gt;&lt;p&gt;&lt;a class="link" href="https://gist.github.com/kseki/bdd31b60f3ce1efff7846849687b26ea" target="_blank" rel="noopener"
+&gt;Gist&lt;/a&gt;に必要箇所だけまとめたので御覧ください。&lt;/p&gt;
+&lt;h3 id="参考"&gt;参考
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/socketry/localhost" target="_blank" rel="noopener"
+&gt;socketry/localhost&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/socketry/localhost/blob/v1.1.9/lib/localhost/authority.rb" target="_blank" rel="noopener"
+&gt;socketry/localhost: Localhost::Authority&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/puma/puma#self-signed-ssl-certificates-via-the-localhost-gem-for-development-use" target="_blank" rel="noopener"
+&gt;puma/puma: Self-signed SSL certificates (via the localhost gem, for development use)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://www.rubydoc.info/gems/puma/Puma%2FDSL:ssl_bind" target="_blank" rel="noopener"
+&gt;Method: Puma::DSL#ssl_bind — Documentation for puma (5.5.2)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;div class="amazon-widget"&gt;
+&lt;div class="amazon-widget-img"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4297114623/tag=kseki0c-22" target="_blank"&gt;
+&lt;img src="https://m.media-amazon.com/images/I/81yskupyNhL._AC_SX522_.jpg" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget-info"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4297114623/tag=kseki0c-22" target="_blank"&gt;
+&lt;span class="amazon-widget-title"&gt;
+パーフェクト Ruby on Rails 【増補改訂版】 (Perfect series)
+&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4297114623/tag=kseki0c-22" class="amazon-widget-button" target="_blank"&gt;Amazonで購入&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget"&gt;
+&lt;div class="amazon-widget-img"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/B0D1T41LWV/tag=kseki0c-22" target="_blank"&gt;
+&lt;img src="https://m.media-amazon.com/images/I/81IKSxc0d1L._AC_SX522_.jpg" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget-info"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/B0D1T41LWV/tag=kseki0c-22" target="_blank"&gt;
+&lt;span class="amazon-widget-title"&gt;
+SSL/TLS実践入門──Webの安全性を支える暗号化技術の設計思想 WEB&amp;#43;DB PRESS plus
+&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/B0D1T41LWV/tag=kseki0c-22" class="amazon-widget-button" target="_blank"&gt;Amazonで購入&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;</description></item></channel></rss>

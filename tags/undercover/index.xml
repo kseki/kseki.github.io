@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Undercover on Klog</title><link>https://kseki.github.io/tags/undercover/</link><description>Recent content in Undercover on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Tue, 02 Apr 2024 16:22:47 +0900</lastBuildDate><atom:link href="https://kseki.github.io/tags/undercover/index.xml" rel="self" type="application/rss+xml"/><item><title>PR毎にDiffカバレッジを計測する方法</title><link>https://kseki.github.io/posts/pr%E6%AF%8E%E3%81%ABdiff%E3%82%AB%E3%83%90%E3%83%AC%E3%83%83%E3%82%B8%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Tue, 02 Apr 2024 16:22:47 +0900</pubDate><guid>https://kseki.github.io/posts/pr%E6%AF%8E%E3%81%ABdiff%E3%82%AB%E3%83%90%E3%83%AC%E3%83%83%E3%82%B8%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;img src="https://kseki.github.io/posts/pr%E6%AF%8E%E3%81%ABdiff%E3%82%AB%E3%83%90%E3%83%AC%E3%83%83%E3%82%B8%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/undercover.png" alt="Featured image of post PR毎にDiffカバレッジを計測する方法" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;プログラミングにおいて、テストカバレッジはコードの品質を保証する重要な指標の1つです。特に、大規模なプロジェクトや多くの開発者が関わるプロジェクトでは、変更が頻繁に行われるため、新たなコードが既存のテストによって適切にカバーされているかを確認することが不可欠です。&lt;/p&gt;
+&lt;p&gt;このブログポストでは、&lt;a class="link" href="https://github.com/grodowski/undercover" target="_blank" rel="noopener"
+&gt;undercover&lt;/a&gt; gemを使用して、プルリクエスト（PR）毎にDiffカバレッジを計測し、継続的インテグレーション（CI）で監視する方法について解説します。&lt;/p&gt;
+&lt;h2 id="背景"&gt;背景
+&lt;/h2&gt;&lt;p&gt;プロジェクトにアサインされた際、テストカバレッジの低さがバグの多さに直結していることに気づくことは珍しくありません。テストカバレッジを上げることは、バグを減らし、ソフトウェアの品質を向上させるために重要です。しかし、Simplecovだけでは、全体のテストカバレッジしか測定できず、変更点に対するカバレッジを把握できません。これでは、新たなコードが適切にテストされているかを確認することが困難です。&lt;/p&gt;
+&lt;p&gt;ここで役立つのが、undercover gemです。このgemを使用すると、PR毎に変更されたコードに対するテストカバレッジ、すなわちDiffカバレッジを計測できます。これにより、CIツール内での監視が可能になり、新しいコードが十分にテストされていることを保証できます。&lt;/p&gt;
+&lt;p&gt;Diffカバレッジを計測することの利点は、開発者が新しいコードに対するテストを怠らないように促すことです。また、レビュアーがコードレビューする際に、テストが適切に行われているかを確認するための指標としても機能します。さらに、テストカバレッジを徐々に上げることで、プロジェクト全体の品質を向上させることができます。&lt;/p&gt;
+&lt;h2 id="設定方法"&gt;設定方法
+&lt;/h2&gt;&lt;p&gt;undercover gemを使ったDiffカバレッジの計測方法は以下の通りです。&lt;/p&gt;
+&lt;p&gt;Gemfileにundercoverを追加し、&lt;code&gt;bundle install&lt;/code&gt;を実行します。
+undercoverが対応しているのはLCOV形式なので、simplecov-lcovも一緒にインストールします。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-ruby" data-lang="ruby"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Gemfile&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;group&lt;/span&gt; &lt;span class="ss"&gt;:test&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;simplecov&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;require&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kp"&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;simplecov-lcov&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;require&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kp"&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;undercover&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;require&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kp"&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;次にsimplecovの設定を追加します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;span class="lnt"&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-ruby" data-lang="ruby"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# spec/rails_helper.rb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;simplecov&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;simplecov-lcov&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="no"&gt;SimpleCov&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Formatter&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;LcovFormatter&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;report_with_single_file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="no"&gt;SimpleCov&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;formatter&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;SimpleCov&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Formatter&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;LcovFormatter&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="no"&gt;SimpleCov&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;undercover&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;最後に、CIツール(今回はGitHub Actions)の設定ファイルに、PRが作成された際にundercoverを実行するステップを追加します。
+基本的にはフューチャーブランチでPRを作成するので、mainとのDiffカバレッジを取得するように設定します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c"&gt;# .github/workflows/test.yml&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;steps&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;~ 省略 ~&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;Test&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;bundle exec rspec&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;Diff Coverage&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="sd"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; git fetch origin main
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; undercover --compare origin/main&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;PRがマージされる前に、undercoverが生成するレポートを確認し、Diffカバレッジが十分であることを確認します。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/pr%E6%AF%8E%E3%81%ABdiff%E3%82%AB%E3%83%90%E3%83%AC%E3%83%83%E3%82%B8%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/undercover.png"
+width="1596"
+height="1128"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="339px"
+&gt;&lt;/p&gt;
+&lt;h2 id="まとめ"&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;undercover gemを導入することで、PR毎に新たに追加または変更されたコードがどの程度テストによってカバーされているかを正確に把握できるようになりました。これにより、テスト漏れが発生するリスクを減らし、コードの品質を継続的に向上させることができます。また、開発者は自分のコードが十分にテストされているかを自己確認できるため、品質意識の向上にも寄与します。&lt;/p&gt;
+&lt;h2 id="参考"&gt;参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/simplecov-ruby/simplecov/issues/886" target="_blank" rel="noopener"
+&gt;Support for &amp;ldquo;diff coverage&amp;rdquo; · Issue #886 · simplecov-ruby/simplecov&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/grodowski/undercover" target="_blank" rel="noopener"
+&gt;grodowski/undercover&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

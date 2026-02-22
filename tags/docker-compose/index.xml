@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker Compose on Klog</title><link>https://kseki.github.io/tags/docker-compose/</link><description>Recent content in Docker Compose on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Thu, 20 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://kseki.github.io/tags/docker-compose/index.xml" rel="self" type="application/rss+xml"/><item><title>NeovimでALEを使ってDocker Compose上でRubocopを実行する</title><link>https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/</link><pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate><guid>https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/</guid><description>&lt;img src="https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/vim-ale-rubocop.png" alt="Featured image of post NeovimでALEを使ってDocker Compose上でRubocopを実行する" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;昨今の開発環境はほとんどのロジェクトでDocker Composeなどの仮想環境で構成されています。&lt;br&gt;
+今回は、Neovim(Vim) + ALEを使ってDocker Compose上でRubocopを実行する方法を書きました。&lt;/p&gt;
+&lt;h3 id="バージョン"&gt;バージョン
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Neovim: v0.6.0&lt;/li&gt;
+&lt;li&gt;ALE: v3.1.0&lt;/li&gt;
+&lt;li&gt;Docker Compose: 1.24.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="設定方法"&gt;設定方法
+&lt;/h2&gt;&lt;p&gt;前提として、ALEプラグインをインストール済みの状態であることとします。&lt;/p&gt;
+&lt;p&gt;まず、Railsのbinstubとして&lt;code&gt;bin/rubocop&lt;/code&gt;にDocker Compose上でRubocopを実行するスクリプトを作成します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-ruby" data-lang="ruby"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="ch"&gt;#!/usr/bin/env ruby&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pathname&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;fileutils&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;FileUtils&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="no"&gt;APP_ROOT&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Pathname&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="no"&gt;File&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;expand_path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;../../&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;__FILE__&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;chdir&lt;/span&gt; &lt;span class="no"&gt;APP_ROOT&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;rubocop_command&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;bundle exec rubocop &lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="no"&gt;ARGV&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;system&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;docker-compose exec -T app &lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="n"&gt;rubocop_command&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#39;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;ALEはRubocopの結果をJSON形式で受け取って処理します。その際、標準出力に余計な出力がないよう、&lt;code&gt;docker-compose exec&lt;/code&gt;コマンドに&lt;code&gt;-T&lt;/code&gt;オプションを指定しています。&lt;/p&gt;
+&lt;h4 id="neovimの設定"&gt;Neovimの設定
+&lt;/h4&gt;&lt;p&gt;最後にNeovimの設定をします。&lt;br&gt;
+開発環境はプロジェクトによって異なるので、僕は&lt;a class="link" href="https://github.com/thinca/vim-localrc" target="_blank" rel="noopener"
+&gt;thinca/vim-localrc&lt;/a&gt;を使って&lt;code&gt;.local.vimrc&lt;/code&gt;に設定をしています。&lt;/p&gt;
+&lt;h4 id="1-実行コマンドにbinrubocopを指定"&gt;1. 実行コマンドに&lt;code&gt;bin/rubocop&lt;/code&gt;を指定
+&lt;/h4&gt;&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-vim" data-lang="vim"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;g&lt;/span&gt;:&lt;span class="nx"&gt;ale_ruby_rubocop_executable&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;bin/rubocop&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;こちらは説明不要ですね。&lt;/p&gt;
+&lt;h4 id="2-ファイル名のマッピング"&gt;2. ファイル名のマッピング
+&lt;/h4&gt;&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-vim" data-lang="vim"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;g&lt;/span&gt;:&lt;span class="nx"&gt;ale_filename_mappings&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; \ &lt;span class="s1"&gt;&amp;#39;rubocop&amp;#39;&lt;/span&gt;: [
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; \ [&lt;span class="s1"&gt;&amp;#39;/Users/kseki/rails-project&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/opt&amp;#39;&lt;/span&gt;]&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; \ ]&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; \}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;そのままだとローカルの絶対パスを&lt;code&gt;bin/rubocop&lt;/code&gt;コマンドの引数として渡してしまうが、実行するのはDocker上です。
+Docker上の絶対パスに変換してから渡すようにマッピング指定をします。
+&lt;code&gt;['/Users/kseki/rails-project', '/opt']&lt;/code&gt; の部分です。左はローカルのプロジェクトルートパス、右はDocker上のプロジェクトルートパスです。&lt;/p&gt;
+&lt;h2 id="まとめ"&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;Gistにまとめました！
+&lt;a class="link" href="https://gist.github.com/kseki/811a9c4bd9f7a1c6bcec00691007bcc9" target="_blank" rel="noopener"
+&gt;Setting up &amp;ldquo;Rubocop&amp;rdquo; to run on &amp;ldquo;Docker compose&amp;rdquo; using &amp;ldquo;ALE&amp;rdquo;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="参考"&gt;参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/dense-analysis/ale" target="_blank" rel="noopener"
+&gt;dense-analysis/ale: Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://rymc.io/blog/2019/vim-ale-docker-per-project-linting/" target="_blank" rel="noopener"
+&gt;Vim, ALE, Docker, and Per-Project Linting | Ryan McGrath&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

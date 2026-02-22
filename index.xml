@@ -1,0 +1,2098 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Klog</title><link>https://kseki.github.io/</link><description>Recent content on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Tue, 08 Oct 2024 16:50:23 +0900</lastBuildDate><atom:link href="https://kseki.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>作業効率アップ！fzfコマンドでコマンド履歴を便利に検索</title><link>https://kseki.github.io/posts/history-fzf/</link><pubDate>Tue, 08 Oct 2024 16:50:23 +0900</pubDate><guid>https://kseki.github.io/posts/history-fzf/</guid><description>&lt;img src="https://kseki.github.io/posts/history-fzf/covor.webp" alt="Featured image of post 作業効率アップ！fzfコマンドでコマンド履歴を便利に検索" /&gt;&lt;h2 id="fzfでコマンド履歴を便利に検索"&gt;fzfでコマンド履歴を便利に検索
+&lt;/h2&gt;&lt;p&gt;コマンドラインでの作業を効率化するために、&lt;code&gt;history&lt;/code&gt;コマンドと&lt;code&gt;fzf&lt;/code&gt;を組み合わせる方法を紹介します。&lt;/p&gt;
+&lt;h2 id="fzf"&gt;fzf
+&lt;/h2&gt;&lt;p&gt;&lt;a class="link" href="https://github.com/junegunn/fzf" target="_blank" rel="noopener"
+&gt;fzf&lt;/a&gt; は、コマンドラインでのインタラクティブな検索ツールです。fzfを使うことで、コマンドラインでの作業を効率化できます。fzfは、コマンドの出力をフィルタリングして表示できるため、目的のコマンドを素早く見つけることができます。&lt;/p&gt;
+&lt;h3 id="fzfのインストール"&gt;fzfのインストール
+&lt;/h3&gt;&lt;p&gt;まず、&lt;code&gt;fzf&lt;/code&gt;をインストールします。Homebrewを使用している場合、以下のコマンドでインストールできます。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;brew install fzf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="パイプfzfで色々できます"&gt;パイプfzfで色々できます
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;fzf&lt;/code&gt;は他のコマンドと組み合わせることで、さらに便利に使うことができます。例えば、以下のように&lt;code&gt;ls&lt;/code&gt;コマンドの出力を&lt;code&gt;fzf&lt;/code&gt;でフィルタリングし、選択したディレクトリに移動できます。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ls | fzf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;また、以下のように&lt;code&gt;cd&lt;/code&gt;コマンドと組み合わせることで、選択したディレクトリに移動することも可能です。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd $(ls | fzf)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;このように、&lt;code&gt;fzf&lt;/code&gt;をパイプで組み合わせることで、様々なコマンドの出力をインタラクティブにフィルタリングできます。&lt;/p&gt;
+&lt;h2 id="history--fzf"&gt;history + fzf
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;fzf&lt;/code&gt;は、コマンドラインでのインタラクティブな検索ツールです。&lt;code&gt;history&lt;/code&gt;コマンドと組み合わせることで、過去に実行したコマンドを素早く検索して再利用できます。以下のコマンドを実行することで、&lt;code&gt;history&lt;/code&gt;の出力を&lt;code&gt;fzf&lt;/code&gt;でフィルタリングできます。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;history | fzf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;このコマンドを実行すると、過去のコマンド履歴が表示され、インクリメンタルサーチで目的のコマンドを素早く見つけることができます。&lt;/p&gt;
+&lt;h2 id="ショートカットキー"&gt;ショートカットキー
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;fzf&lt;/code&gt;をさらに便利に使うために、ショートカットキーを設定できます。例えば、&lt;code&gt;Ctrl + r&lt;/code&gt;キーを上書きして、&lt;code&gt;history | fzf&lt;/code&gt;を実行するように設定できます。以下の設定を&lt;code&gt;.bashrc&lt;/code&gt;や&lt;code&gt;.zshrc&lt;/code&gt;に追加してください。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bind '&amp;quot;\C-r&amp;quot;: &amp;quot;history | fzf\n&amp;quot;'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;この設定を追加することで、&lt;code&gt;Ctrl + r&lt;/code&gt;キーを押すと、&lt;code&gt;history&lt;/code&gt;コマンドの出力を&lt;code&gt;fzf&lt;/code&gt;でフィルタリングできるようになります。これにより、過去のコマンドを素早く検索して再利用できます。&lt;/p&gt;
+&lt;p&gt;以上の方法を使って、&lt;code&gt;fzf&lt;/code&gt;でコマンド履歴検索を便利にしましょう。コマンドラインでの作業効率が大幅に向上すること間違いなし！&lt;/p&gt;</description></item><item><title>NeovimでGitHub Copilot Chatでコミットメッセージを生成する方法</title><link>https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/</link><pubDate>Tue, 27 Aug 2024 17:16:17 +0900</pubDate><guid>https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/</guid><description>&lt;img src="https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/cover.webp" alt="Featured image of post NeovimでGitHub Copilot Chatでコミットメッセージを生成する方法" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;前回の &lt;a class="link" href="../github-copilot-chat-snippet/index.md" &gt;GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法&lt;/a&gt; では、スニペットを使ってGitHub Copilot Chatのプロンプトを効率よく使う方法を紹介しました。今回は、Gitのコミットメッセージを生成してクリップボードにコピーする方法を紹介します。&lt;/p&gt;
+&lt;h2 id="設定方法"&gt;設定方法
+&lt;/h2&gt;&lt;p&gt;以下の環境を前提に話を進めます。別の環境の場合は適宜読み替えてください。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; $ sw_vers
+ProductName: macOS
+ProductVersion: 14.6.1
+BuildVersion: 23G93
+$ nvim -v
+NVIM v0.10.1
+Build type: Release
+LuaJIT 2.1.1723675123
+CopilotChat.nvim
+branch canary
+commit 1a92bb6
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="copilotchatnvimの設定"&gt;CopilotChat.nvimの設定
+&lt;/h3&gt;&lt;p&gt;以下のようなプロンプトを変数定義しておきます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;local&lt;/span&gt; &lt;span class="n"&gt;commit_staged_prompt&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;[[
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;以下の条件を踏まえて変更に対するコミットメッセージを書いてください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;- コミットメッセージのprefixは、commitizenの規約に従ってください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;- コミットメッセージ本文は日本語で書いてください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;- タイトルは最大50文字、変更理由を含めてください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;- メッセージは72文字で折り返してください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;- メッセージ全体をgitcommit言語のコードブロックで囲んでください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;- ソースを見ても変更した理由がわからない時は、コミットメッセージを作る前に質問して、その回答も参考にコミットメッセージを生成してください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;]]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;CopilotChat.nvimの設定ファイルに以下のように設定します。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;8行目にて、さっきのプロンプトを文字列結合して代入しています。&lt;/li&gt;
+&lt;li&gt;12~L17行目は、プロンプトの内容にコミットメッセージが含まれていた時にクリップボードにコピーするための設定です。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kr"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;CopilotC-Nvim/CopilotChat.nvim&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;branch&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;canary&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;cmd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;CopilotChat&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;opts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;prompts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;CommitStaged&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;prompt&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/COPILOT_GENERATE&amp;#34;&lt;/span&gt; &lt;span class="o"&gt;..&lt;/span&gt; &lt;span class="n"&gt;commit_staged_prompt&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;selection&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;return&lt;/span&gt; &lt;span class="n"&gt;select.gitdiff&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;callback&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kd"&gt;local&lt;/span&gt; &lt;span class="n"&gt;commit_message&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;```gitcommit(.-)```&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="n"&gt;commit_message&lt;/span&gt; &lt;span class="kr"&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;vim.fn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setreg&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;+&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;commit_message&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;c&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="使い方"&gt;使い方
+&lt;/h2&gt;&lt;p&gt;実際に使っている様子をGIFで紹介します。
+不要な変数を削除して、コミットメッセージを生成してクリップボードにコピーしています。
+コピーしたコミットメッセージを使って、 &lt;a class="link" href="https://github.com/jesseduffield/lazygit" target="_blank" rel="noopener"
+&gt;LazyGit&lt;/a&gt; にてコミットを行います。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/git-commit.gif"
+width="1018"
+height="592"
+loading="lazy"
+alt="GitHub Copilot Chatでコミットメッセージを生成する"
+class="gallery-image"
+data-flex-grow="171"
+data-flex-basis="412px"
+&gt;&lt;/p&gt;
+&lt;h2 id="一緒に読みたい記事"&gt;一緒に読みたい記事
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="../github-copilot-chat-snippet" &gt;GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="../github-copilot-chat-nvim" &gt;NeovimでGitHub Copilot Chatを使う方法&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法</title><link>https://kseki.github.io/posts/github-copilot-chat-snippet/</link><pubDate>Tue, 20 Aug 2024 16:11:47 +0900</pubDate><guid>https://kseki.github.io/posts/github-copilot-chat-snippet/</guid><description>&lt;img src="https://kseki.github.io/posts/github-copilot-chat-snippet/cover.webp" alt="Featured image of post GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;前回の &lt;a class="link" href="../github-copilot-chat-nvim" &gt;NeovimでGitHub Copilot Chatを使う方法&lt;/a&gt; では、GitHub Copilot ChatをNeovimで使う方法を紹介しました。今回は、プロンプトをスニペット化し、nvim-cmpと連携して使う方法を紹介します。&lt;/p&gt;
+&lt;p&gt;設計や実装の相談など、フォーマットは決まっているが中身が毎回変わるケースや、あらかじめプロンプトのフォーマットが決まっている場面ではスニペット化しておくと便利です。これにより、プロンプトエンジニアリングの効率が大幅に向上します。&lt;/p&gt;
+&lt;h2 id="設定方法"&gt;設定方法
+&lt;/h2&gt;&lt;p&gt;以下の環境を前提に話を進めます。別の環境の場合は適宜読み替えてください。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; $ sw_vers
+ProductName: macOS
+ProductVersion: 14.6.1
+BuildVersion: 23G93
+$ nvim -v
+NVIM v0.10.1
+Build type: Release
+LuaJIT 2.1.1723675123
+nvim-cmp
+branch main
+commit ae644fe
+CopilotChat.nvim
+branch canary
+commit 1a92bb6
+nvim-snippets
+branch main
+commit 56b4052
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="nvim-cmpの設定"&gt;nvim-cmpの設定
+&lt;/h3&gt;&lt;p&gt;nvim-cmpの設定を追加します。Copilot Chatのプロンプトがファイルタイプ &lt;code&gt;copilot-chat&lt;/code&gt; なので、このファイルタイプに対して補完用のソースを追加します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;span class="lnt"&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;local&lt;/span&gt; &lt;span class="n"&gt;cmp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;cmp&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;cmp.setup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filetype&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;copilot-chat&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;sources&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;snippets&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;copilot&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;buffer&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="nvim-snippetsの設定"&gt;nvim-snippetsの設定
+&lt;/h3&gt;&lt;p&gt;以下の設定を追加します。&lt;/p&gt;
+&lt;p&gt;※自分は &lt;a class="link" href="https://github.com/garymjr/nvim-snippets" target="_blank" rel="noopener"
+&gt;nvim-snippets&lt;/a&gt; を使っていますが、他のスニペットプラグインを使っている場合はそのプラグインに合わせて設定してください。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kr"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;garymjr/nvim-snippets&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;opts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;opts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;opts.search_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;~/.config/nvim/snippets&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;keys&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;Leader&amp;gt;cp&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kd"&gt;local&lt;/span&gt; &lt;span class="n"&gt;filetype&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;vim.bo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filetype&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kd"&gt;local&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;string.format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;~/.config/nvim/snippets/%s.json&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;filetype&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;vim.cmd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;e &amp;#34;&lt;/span&gt; &lt;span class="o"&gt;..&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;desc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Open snippets file&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;次に、&lt;code&gt;~/.config/nvim/snippets/copilot-chat.json&lt;/code&gt; にスニペットを追加します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-json" data-lang="json"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;仕様相談&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;prefix&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;specon&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;body&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;以下の仕様について相談します。注意点・確認点があれば教えてください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;## 技術制約&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;- ${1:Ruby on Rails7}&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;## 仕様&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;- ${2:招待制ユーザー登録機能}&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;ライブラリ選定&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;prefix&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;sllib&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;body&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;以下の仕様を実現するためのライブラリの候補をあげてください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;それぞれ、公式URL・メリット・デメリットを教えてください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;## 技術制約&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;- ${1:NPM}&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;## 仕様&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;- ${2:フォーマッター}&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;以上で準備は完了です！&lt;/p&gt;
+&lt;h2 id="使い方"&gt;使い方
+&lt;/h2&gt;&lt;p&gt;動画で使い方を説明します。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/github-copilot-chat-snippet/try-snippet.gif"
+width="1918"
+height="1008"
+loading="lazy"
+alt="GitHub Copilot Chatのプロンプトをスニペット化して、nvim-cmpを連携して便利に使う方法"
+class="gallery-image"
+data-flex-grow="190"
+data-flex-basis="456px"
+&gt;&lt;/p&gt;
+&lt;h2 id="まとめ"&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;GitHub Copilot Chatとnvim-cmpを連携することで、プロンプト上でスニペットを活用できるようになります。これにより、設計や実装の相談が効率的に行えるようになります。プロンプトエンジニアリングの観点からも、非常に有用な手法です。ぜひ試してみてください。&lt;/p&gt;</description></item><item><title>ローカルドメインとNginxで複数プロジェクト開発を便利に</title><link>https://kseki.github.io/posts/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%A8nginx%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%96%8B%E7%99%BA%E3%82%92%E4%BE%BF%E5%88%A9%E3%81%AB/</link><pubDate>Tue, 13 Aug 2024 16:14:17 +0900</pubDate><guid>https://kseki.github.io/posts/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%A8nginx%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%96%8B%E7%99%BA%E3%82%92%E4%BE%BF%E5%88%A9%E3%81%AB/</guid><description>&lt;img src="https://kseki.github.io/posts/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%A8nginx%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%96%8B%E7%99%BA%E3%82%92%E4%BE%BF%E5%88%A9%E3%81%AB/nginx.webp" alt="Featured image of post ローカルドメインとNginxで複数プロジェクト開発を便利に" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;複数のプロジェクトを同時に開発する際に、Nginxをリバースプロキシとして使用し、hostsファイルでローカルドメインを設定する方法を紹介します。&lt;/p&gt;
+&lt;pre class="mermaid"&gt;graph TD;
+A[ブラウザ] --&gt;|http://klog.local| B[Nginx]
+A --&gt;|http://admin.hoge.local| B
+A --&gt;|http://user.hoge.local| B
+B --&gt;|http://localhost:1313| C[klogプロジェクト]
+B --&gt;|http://localhost:3000| D[admin.hogeプロジェクト]
+B --&gt;|http://localhost:3001| E[user.hogeプロジェクト]
+&lt;/pre&gt;
+&lt;h2 id="複数プロジェクト開発の問題"&gt;複数プロジェクト開発の問題
+&lt;/h2&gt;&lt;p&gt;ローカル開発環境では通常、ブラウザに &lt;code&gt;localhost:ポート番号&lt;/code&gt; を入力してアクセスします。しかし、複数のプロジェクトを開発していると、ブラウザのアドレスバーに &lt;code&gt;localhost&lt;/code&gt; と入力した際に他のプロジェクトのパスがサジェストされてしまい、煩わしいことがあります。&lt;/p&gt;
+&lt;p&gt;※単にhostsファイルにドメインを設定するだけで上記問題は解決できます。大袈裟ではありますが、今回は勉強がてらNginxのリバースプロキシを設定しました。&lt;/p&gt;
+&lt;h2 id="設定方法"&gt;設定方法
+&lt;/h2&gt;&lt;p&gt;以下の環境を前提に話を進めます。別の環境の場合は適宜読み替えてください。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sw_vers
+ProductName: macOS
+ProductVersion: 14.5
+BuildVersion: 23F79
+$ brew -v
+Homebrew 4.3.15-52-ge590bca
+Homebrew/homebrew-cask (git revision 7adc70cd367; last commit 2024-08-04)
+$ nginx -v
+nginx version: nginx/1.27.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="hostsファイルにローカルドメインを設定する"&gt;Hostsファイルにローカルドメインを設定する
+&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;sudo vim /etc/hosts
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以下のように、127.0.0.1に対して対象としたいプロジェクト用のローカルドメインを設定します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-diff" data-lang="diff"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;##
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Host Database
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;#
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# localhost is used to configure the loopback interface
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# when the system is booting. Do not change this entry.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;##
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;127.0.0.1 localhost
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ # 技術ブログ
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ 127.0.0.1 klog.local
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ # hogeプロジェクト
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ 127.0.0.1 admin.hoge.local user.hoge.local
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="nginxのインストール"&gt;Nginxのインストール
+&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;brew install nginx
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="nginxの起動"&gt;Nginxの起動
+&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;nginx
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="nginxの設定"&gt;Nginxの設定
+&lt;/h3&gt;&lt;p&gt;Nginxの設定ファイルである &lt;code&gt;/usr/local/etc/nginx/nginx.conf&lt;/code&gt; を確認すると、 &lt;code&gt;include servers/*&lt;/code&gt; とあります。
+このディレクトリに設定ファイルを追加すれば読み込んでくれます。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;http {
+# ~ 省略 ~
+include servers/*;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;/usr/local/etc/nginx/servers/&lt;/code&gt; に &lt;code&gt;klog.conf&lt;/code&gt; というファイルを作成し、以下の内容で保存します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-diff" data-lang="diff"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ server {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ listen 80;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ server_name klog.local;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ location / {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_pass http://localhost:1313;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_http_version 1.1;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header Upgrade $http_upgrade;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header Connection &amp;#34;upgrade&amp;#34;;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header Host $host;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header X-Real-IP $remote_addr;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header X-Forwarded-Proto $scheme;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;hogeプロジェクトの分。&lt;code&gt;hoge.conf&lt;/code&gt; も追加します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-diff" data-lang="diff"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ server {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ listen 80;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ server_name admin.hoge.local;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ location / {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_pass http://localhost:3000;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_http_version 1.1;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header Upgrade $http_upgrade;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header Connection &amp;#34;upgrade&amp;#34;;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header Host $host;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header X-Real-IP $remote_addr;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header X-Forwarded-Proto $scheme;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ server {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ listen 80;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ server_name user.hoge.local;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ location / {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_pass http://localhost:3001;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_http_version 1.1;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header Upgrade $http_upgrade;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header Connection &amp;#34;upgrade&amp;#34;;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header Host $host;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header X-Real-IP $remote_addr;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ proxy_set_header X-Forwarded-Proto $scheme;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;設定ファイルが正しいかを確認します。以下のコマンドを実行し、エラーがなければOKです。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nginx -t
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;設定を反映させるためにNginxをリロードします。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nginx -s reload
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="ブラウザでアクセスする"&gt;ブラウザでアクセスする
+&lt;/h3&gt;&lt;p&gt;設定が完了したら、ブラウザで &lt;code&gt;http://kseki.local&lt;/code&gt; にアクセスして動作を確認します。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%A8nginx%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%96%8B%E7%99%BA%E3%82%92%E4%BE%BF%E5%88%A9%E3%81%AB/1.webp"
+width="539"
+height="283"
+loading="lazy"
+alt="ブラウザにてローカルドメインでアクセス"
+class="gallery-image"
+data-flex-grow="190"
+data-flex-basis="457px"
+&gt;&lt;/p&gt;
+&lt;p&gt;正常に表示されれば成功です！お疲れ様でした。&lt;/p&gt;
+&lt;h2 id="注意点"&gt;注意点
+&lt;/h2&gt;&lt;p&gt;開発サーバーはポートを指定して起動すること。使用ポートを固定しないと、ポートが変わってしまった時に設定を変更する手間がかかります。&lt;/p&gt;
+&lt;p&gt;例えばHugoの場合、ファイル保存時にWebSocketを使って画面を更新しているので、ポート指定しないと自動更新されなくなってしまいます。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Hugoの場合
+hugo server --port=1313 --liveReloadPort=80
+# Railsの場合
+bundle exec rails -b 30001
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;p&gt;以上で、Nginxを使用したローカルドメインの設定方法についての説明を終わります。これにより、複数のプロジェクトを効率的に開発できるようになります。&lt;/p&gt;</description></item><item><title>TypeScriptでフィッシャーイェーツのアルゴリズムを使って配列をシャッフルする方法</title><link>https://kseki.github.io/posts/shuffle-algorithm-by-typescript/</link><pubDate>Tue, 06 Aug 2024 16:33:05 +0900</pubDate><guid>https://kseki.github.io/posts/shuffle-algorithm-by-typescript/</guid><description>&lt;img src="https://kseki.github.io/posts/shuffle-algorithm-by-typescript/cover.webp" alt="Featured image of post TypeScriptでフィッシャーイェーツのアルゴリズムを使って配列をシャッフルする方法" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;先日、あるプロジェクトで配列の要素をランダムにシャッフルする必要がありました。TypeScript (5.5.4) には組み込みの &lt;code&gt;shuffle&lt;/code&gt; 関数がないため、自分で実装する必要がありました。この記事では、その際に調べたフィッシャーイェーツのシャッフルアルゴリズムについて解説します。&lt;/p&gt;
+&lt;h2 id="rubyの配列シャッフル実装"&gt;Rubyの配列シャッフル実装
+&lt;/h2&gt;&lt;p&gt;RubyにはArryクラスに&lt;a class="link" href="https://github.com/ruby/ruby/blob/v3_3_4/array.rb#L16-L28" target="_blank" rel="noopener"
+&gt;suffle&lt;/a&gt;, &lt;a class="link" href="https://github.com/ruby/ruby/blob/v3_3_4/array.rb#L2-L14" target="_blank" rel="noopener"
+&gt;suffle!&lt;/a&gt; という関数があります。&lt;/p&gt;
+&lt;p&gt;これらの関数は、以下のC言語で書かれている&lt;a class="link" href="https://github.com/ruby/ruby/blob/v3_3_4/array.c#L6496C1-L6516C2" target="_blank" rel="noopener"
+&gt;rb_ary_suffle_bang&lt;/a&gt; 関数を呼び出しています。&lt;/p&gt;
+&lt;p&gt;この関数のアルゴリズムは&lt;a class="link" href="https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A3%E3%83%83%E3%82%B7%E3%83%A3%E3%83%BC%E2%80%93%E3%82%A4%E3%82%A7%E3%83%BC%E3%83%84%E3%81%AE%E3%82%B7%E3%83%A3%E3%83%83%E3%83%95%E3%83%AB" target="_blank" rel="noopener"
+&gt;フィッシャーイェーツのシャッフル&lt;/a&gt;と言われるものです。特徴は以下の通りです：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;ランダム性&lt;/strong&gt;: 配列の各要素が等しい確率で任意の位置に移動する。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;インプレース&lt;/strong&gt;: 配列の要素をその場でシャッフルし、追加のメモリをほとんど使用しない。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;時間計算量&lt;/strong&gt;: O(n)の時間でシャッフルを完了する。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;安定性&lt;/strong&gt;: 元の順序を保持しないため、安定なソートではない。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;シンプルな実装&lt;/strong&gt;: アルゴリズムはシンプルで理解しやすい。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="n"&gt;VALUE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nf"&gt;rb_ary_shuffle_bang&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;rb_execution_context_t&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;ec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;VALUE&lt;/span&gt; &lt;span class="n"&gt;ary&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;VALUE&lt;/span&gt; &lt;span class="n"&gt;randgen&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;rb_ary_modify&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ary&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nf"&gt;RARRAY_LEN&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ary&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;RARRAY_PTR_USE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ary&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ptr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nf"&gt;RAND_UPTO&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;VALUE&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;len&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nf"&gt;RARRAY_LEN&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ary&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;ptr&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nf"&gt;RARRAY_CONST_PTR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ary&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;rb_raise&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rb_eRuntimeError&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#34;modified during shuffle&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;tmp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ptr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;ptr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ptr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;ptr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;});&lt;/span&gt; &lt;span class="cm"&gt;/* WB: no new reference */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;ary&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="typescriptで配列シャッフル実装"&gt;TypeScriptで配列シャッフル実装
+&lt;/h2&gt;&lt;p&gt;この関数は、配列の要素をランダムにシャッフルし、元の配列を変更します。フィッシャーイェーツのアルゴリズムを使用しているため、効率的かつ簡単に実装できます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-tsx" data-lang="tsx"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;shuffleArray&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;array&lt;/span&gt;: &lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;array&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;length&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;Math&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;floor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;Math&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;random&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="nx"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;j&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="nx"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;array&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="おみくじの実装例"&gt;おみくじの実装例
+&lt;/h2&gt;&lt;p&gt;上記の関数を使っておみくじを実装してみました。&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.typescriptlang.org/play/?#code/MYewdgzgLgBBAWBXAZsgNgUwIICccEMBPGAXhgAp88iAuOKHASzAHMBtAXQEpSA&amp;#43;GAN4AoGDGQgcFTLEakYVAoQB0mVlHgwAtDACMAbhiz&amp;#43;ABgONNmnsNGjQkWACs5AWXzql6EBPKv3BMAAmIAC25DwAVBSyANS6XFx6IjZsCkRsjBwANPLUhGwOHBxyKbn5WTmK6YWJogC&amp;#43;STgYUIg4YBVEibWJQnbQMCGMANaIDrJkbEmiAOSA5JqAkCpTmZMwU4C0cgtLNiuA8Doby1N7W1OAUsqHNlOA1OZn0xe7i-uAb4r3R9tPm&amp;#43;fHb-sXX0czT0IOEIeuAICBMCoQCxyAgUOhsLlyANhqMuGxjNwgA" target="_blank" rel="noopener"
+&gt;フィッシャーイェーツ関数でおみくじ | Playground Link&lt;/a&gt;&lt;/p&gt;</description></item><item><title>AWS RDSスナップショットのマルチアカウント・マルチリージョン移行方法</title><link>https://kseki.github.io/posts/aws-rds-snapshot-migration/</link><pubDate>Tue, 30 Jul 2024 16:40:32 +0900</pubDate><guid>https://kseki.github.io/posts/aws-rds-snapshot-migration/</guid><description>&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/cover.webp" alt="Featured image of post AWS RDSスナップショットのマルチアカウント・マルチリージョン移行方法" /&gt;&lt;p&gt;AWS環境で運用しているアプリケーションは、複数のアカウントや異なるリージョンで構築されることがあります。この記事では、そのような状況でAWS RDSのスナップショットを共有し、復元する方法を詳しく説明します。&lt;/p&gt;
+&lt;h2 id="作業概要"&gt;作業概要
+&lt;/h2&gt;&lt;p&gt;以下のような複数アカウント・複数リージョン運用のケース。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;アカウントA: 東京リージョン&lt;/li&gt;
+&lt;li&gt;アカウントB: オレゴンリージョン&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;アカウントAの東京リージョンの暗号化しているRDSインスタンスのスナップショットを、アカウントBのオレゴンリージョンで復元したい。&lt;/p&gt;
+&lt;h2 id="忙しい人の為の手順書"&gt;忙しい人の為の手順書
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;アカウントAにて&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;対象RDSインスタンスのスナップショットをとる&lt;/li&gt;
+&lt;li&gt;アカウントBと共有するカスタマー管理キーをマルチリージョンで作成する&lt;/li&gt;
+&lt;li&gt;上記のカスタマー管理キーのレプリカをオレゴンリージョンに作成する&lt;/li&gt;
+&lt;li&gt;スナップショットを手順2にて作成したカスタマー管理キーでオレゴンリージョンにコピーする&lt;/li&gt;
+&lt;li&gt;手順4でコピーしたスナップショットをアカウントBに共有する&lt;/li&gt;
+&lt;li&gt;3で作成したレプリカのカスタマー管理キーをアカウントBに共有する&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;アカウントBにて&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;オレゴンリージョンのRDS共有スナップショットを確認する&lt;/li&gt;
+&lt;li&gt;手順1の共有スナップショットをコピーする
+&lt;ul&gt;
+&lt;li&gt;共有スナップショットを復元できませんが、コピーすることで復元可能になります。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;手順2にてコピーしたスナップショットを復元する&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="スナップショット移行の手順"&gt;スナップショット移行の手順
+&lt;/h2&gt;&lt;h3 id="アカウントaで作業"&gt;アカウントAで作業
+&lt;/h3&gt;&lt;h4 id="スナップショットの作成"&gt;スナップショットの作成
+&lt;/h4&gt;&lt;p&gt;アカウントAで対象となるRDSインスタンスのスナップショットを作成します。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-1.webp"
+width="751"
+height="550"
+loading="lazy"
+alt="スナップショットの作成"
+class="gallery-image"
+data-flex-grow="136"
+data-flex-basis="327px"
+&gt;&lt;/p&gt;
+&lt;h4 id="kmsカスタマー管理型のキーの作成"&gt;KMSカスタマー管理型のキーの作成
+&lt;/h4&gt;&lt;p&gt;アカウントAでアカウントBと共有するマルチリージョン対応のKMSキーを東京リージョンで作成します。&lt;/p&gt;
+&lt;p&gt;KMS &amp;gt; カスタマー管理型のキー &amp;gt; キーの作成
+&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-2.webp"
+width="771"
+height="850"
+loading="lazy"
+alt="カスタマー管理型のキー作成"
+class="gallery-image"
+data-flex-grow="90"
+data-flex-basis="217px"
+&gt;&lt;/p&gt;
+&lt;h4 id="kmsカスタマー管理型のキーのレプリカ作成"&gt;KMSカスタマー管理型のキーのレプリカ作成
+&lt;/h4&gt;&lt;p&gt;アカウントAにて、東京リージョンで作成したキーのレプリカをオレゴンリージョンで作成します。&lt;/p&gt;
+&lt;p&gt;KMS &amp;gt; カスタマー管理型のキー &amp;gt; キー ID: XXXXXXXXXXXXXXX
+&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-3-1.webp"
+width="796"
+height="414"
+loading="lazy"
+alt="カスタマー管理型のキー詳細"
+class="gallery-image"
+data-flex-grow="192"
+data-flex-basis="461px"
+&gt;&lt;/p&gt;
+&lt;p&gt;関連するマルチリージョンキー &amp;gt; 新しいレプリカキーを作成&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-3-2.webp"
+width="745"
+height="298"
+loading="lazy"
+alt="新しいレプリカキーを作成"
+class="gallery-image"
+data-flex-grow="250"
+data-flex-basis="600px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;オレゴンリージョン&lt;/strong&gt;を選択する。&lt;/p&gt;
+&lt;h4 id="スナップショットのコピー"&gt;スナップショットのコピー
+&lt;/h4&gt;&lt;p&gt;アカウントAで作成したスナップショットを、手順2で作成したKMSキーを使用してオレゴンリージョンにコピーします。&lt;/p&gt;
+&lt;p&gt;RDS &amp;gt; スナップショット &amp;gt; スナップショットをコピー&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-4.webp"
+width="832"
+height="828"
+loading="lazy"
+alt="スナップショットのコピー"
+class="gallery-image"
+data-flex-grow="100"
+data-flex-basis="241px"
+&gt;&lt;/p&gt;
+&lt;p&gt;AWS KMSキーに上で作成したキーを指定する。&lt;/p&gt;
+&lt;h4 id="スナップショットの共有"&gt;スナップショットの共有
+&lt;/h4&gt;&lt;p&gt;アカウントAでコピーしたスナップショットをアカウントBと共有します。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-5.webp"
+width="839"
+height="707"
+loading="lazy"
+alt="スナップショットのアクセス許可"
+class="gallery-image"
+data-flex-grow="118"
+data-flex-basis="284px"
+&gt;&lt;/p&gt;
+&lt;p&gt;AWSアカウントIDに、&lt;strong&gt;アカウントBのID&lt;/strong&gt;を入力する。&lt;/p&gt;
+&lt;h4 id="kmsキーの共有"&gt;KMSキーの共有
+&lt;/h4&gt;&lt;p&gt;アカウントAで作成したレプリカのカスタマー管理キーをアカウントBに共有する。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-6.webp"
+width="634"
+height="376"
+loading="lazy"
+alt="カスタマー管理キーの共有"
+class="gallery-image"
+data-flex-grow="168"
+data-flex-basis="404px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;アカウントBのID&lt;/strong&gt;を入力する。&lt;/p&gt;
+&lt;h3 id="アカウントbで作業"&gt;アカウントBで作業
+&lt;/h3&gt;&lt;h4 id="オレゴンリージョンのrds共有スナップショットの確認"&gt;オレゴンリージョンのRDS共有スナップショットの確認
+&lt;/h4&gt;&lt;p&gt;共有スナップショットが参照できるか確認します。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/B-1.webp"
+width="1160"
+height="374"
+loading="lazy"
+alt="共有スナップショット"
+class="gallery-image"
+data-flex-grow="310"
+data-flex-basis="744px"
+&gt;&lt;/p&gt;
+&lt;h4 id="共有スナップショットのコピー"&gt;共有スナップショットのコピー
+&lt;/h4&gt;&lt;p&gt;アカウントBで共有されたスナップショットをコピーします。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/B-2-1.webp"
+width="1166"
+height="365"
+loading="lazy"
+alt="共有スナップショット"
+class="gallery-image"
+data-flex-grow="319"
+data-flex-basis="766px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/B-2-2.webp"
+width="766"
+height="542"
+loading="lazy"
+alt="共有スナップショット"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="339px"
+&gt;&lt;/p&gt;
+&lt;p&gt;Amazonリソースネーム(ARN): 先ほど共有した&lt;strong&gt;レプリカのカスタマー管理キーのARN&lt;/strong&gt;を入力する。&lt;/p&gt;
+&lt;h4 id="スナップショットのリストア"&gt;スナップショットのリストア
+&lt;/h4&gt;&lt;p&gt;アカウントBでコピーしたスナップショットをリストアします。&lt;/p&gt;
+&lt;p&gt;この手順により、AWS RDSのスナップショットを異なるアカウントとリージョン間で移行することが可能となります。&lt;/p&gt;
+&lt;div class="amazon-widget"&gt;
+&lt;div class="amazon-widget-img"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4297104083/tag=kseki0c-22" target="_blank"&gt;
+&lt;img src="https://m.media-amazon.com/images/I/81z7uX1cs5L._AC_SX522_.jpg" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget-info"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4297104083/tag=kseki0c-22" target="_blank"&gt;
+&lt;span class="amazon-widget-title"&gt;
+失敗から学ぶRDBの正しい歩き方 (Software Design plus)
+&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4297104083/tag=kseki0c-22" class="amazon-widget-button" target="_blank"&gt;Amazonで購入&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>Neovim hop.nvimで爆速移動</title><link>https://kseki.github.io/posts/hop-nvim/</link><pubDate>Tue, 16 Jul 2024 16:50:23 +0900</pubDate><guid>https://kseki.github.io/posts/hop-nvim/</guid><description>&lt;img src="https://kseki.github.io/posts/hop-nvim/hop-cover.png" alt="Featured image of post Neovim hop.nvimで爆速移動" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;この記事では、Neovimのhop.nvimプラグインについて説明します。hop.nvimはカーソル移動のプラグインで、できるだけ少ないキー操作で任意の場所にジャンプできるようになります。以下では、その設定方法と具体的な使用例について詳しく説明します。&lt;/p&gt;
+&lt;div class="iframely-embed"&gt;&lt;div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"&gt;&lt;a href="https://github.com/hadronized/hop.nvim" data-iframely-url="//iframely.net/f2fMy4b?card=small"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id="設定"&gt;設定
+&lt;/h2&gt;&lt;p&gt;自分の設定例です。プラグイン管理がLazyの場合は、以下のように設定できます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kr"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;smoka7/hop.nvim&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;event&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;BufRead&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;version&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;*&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;opts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;multi_windows&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;keys&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;leader&amp;gt;w&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;cmd&amp;gt;HopWord&amp;lt;CR&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;n&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;desc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Hop Word&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;leader&amp;gt;l&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;cmd&amp;gt;HopLine&amp;lt;CR&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;n&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;desc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Hop Line&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;leader&amp;gt;c&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;cmp&amp;gt;HopChar1&amp;lt;CR&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;n&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;desc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Hop Char&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;leader&amp;gt;p&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;cmd&amp;gt;HopPattern&amp;lt;CR&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;n&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;desc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Hop Pattern&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;f&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;cmd&amp;gt;HopChar1CurrentLineAC&amp;lt;CR&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;n&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;v&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;o&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="n"&gt;desc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Hop Char in Line (After Cursor)&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;F&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;cmd&amp;gt;HopChar1CurrentLineBC&amp;lt;CR&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;n&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;v&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;o&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="n"&gt;desc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Hop Char in Line (Before Cursor)&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;t&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;cmd&amp;gt;lua require&amp;#39;hop&amp;#39;.hint_char1({ direction = require&amp;#39;hop.hint&amp;#39;.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })&amp;lt;CR&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;n&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;v&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;o&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;desc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Hop Before Char in Line (After Cursor)&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;T&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;cmd&amp;gt;lua require&amp;#39;hop&amp;#39;.hint_char1({ direction = require&amp;#39;hop.hint&amp;#39;.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })&amp;lt;CR&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;n&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;v&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;o&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;desc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Hop After Char in Line (Before Cursor)&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="使い方"&gt;使い方
+&lt;/h2&gt;&lt;h3 id="hopword-画面上の特定の単語の先頭にジャンプしたい時"&gt;HopWord: 画面上の特定の単語の先頭にジャンプしたい時
+&lt;/h3&gt;&lt;p&gt;8行目の&lt;code&gt;keys&lt;/code&gt;の上にカーソルがあります。そこから7行上の&lt;code&gt;return&lt;/code&gt;の先頭にカーソルをジャンプしたい時の例です。
+コマンド的には、&lt;code&gt;&amp;lt;Space&amp;gt;w&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt;でジャンプしています。&lt;/p&gt;
+&lt;p&gt;ステップで説明すると以下です。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;return&lt;/code&gt;より11行下の&lt;code&gt;mode&lt;/code&gt;に目線を移す。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;Space&amp;gt;w&lt;/code&gt;（HopWordコマンド実行キーマップ）をタイプ&lt;/li&gt;
+&lt;li&gt;目線にあるハイライトされた文字&lt;code&gt;ng&lt;/code&gt;をタイプして移動完了&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/hop-nvim/hopword.gif"
+width="780"
+height="421"
+loading="lazy"
+alt="HopWordの使用例"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+&gt;&lt;/p&gt;
+&lt;h3 id="hopline-特定の行に直接ジャンプしたい時"&gt;HopLine: 特定の行に直接ジャンプしたい時
+&lt;/h3&gt;&lt;p&gt;現在、カーソルが8行目の&lt;code&gt;keys&lt;/code&gt;の上にあります。そこから7行上の&lt;code&gt;return&lt;/code&gt;の行にカーソルをジャンプしたい時の例です。
+コマンド的には、&lt;code&gt;&amp;lt;Space&amp;gt;l&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt;でジャンプしています。&lt;/p&gt;
+&lt;p&gt;ステップで説明すると以下です。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;keys&lt;/code&gt;より7行下の&lt;code&gt;return&lt;/code&gt;に目線を移す。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;Space&amp;gt;l&lt;/code&gt;（HopLineコマンド実行キーマップ）をタイプ&lt;/li&gt;
+&lt;li&gt;目線にあるハイライトされた文字&lt;code&gt;y&lt;/code&gt;をタイプして移動完了&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/hop-nvim/hopline.gif"
+width="780"
+height="421"
+loading="lazy"
+alt="HopLineの使用例"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+&gt;&lt;/p&gt;
+&lt;h3 id="hopchar1-画面上の特定の文字にジャンプしたい時"&gt;HopChar1: 画面上の特定の文字にジャンプしたい時
+&lt;/h3&gt;&lt;p&gt;現在、カーソルが1行目の&lt;code&gt;return&lt;/code&gt;の上にあります。そこから18行下の&lt;code&gt;Hop Before Char ...&lt;/code&gt;の行の先頭にジャンプしたい時の例です。
+コマンド的には、&lt;code&gt;&amp;lt;Space&amp;gt;c&lt;/code&gt;, &lt;code&gt;H&lt;/code&gt;, &lt;code&gt;&amp;lt;Enter&amp;gt;&lt;/code&gt;, &lt;code&gt;r&lt;/code&gt;でジャンプしています。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/hop-nvim/hopchar1.gif"
+width="780"
+height="421"
+loading="lazy"
+alt="HopChar1の使用例"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+&gt;&lt;/p&gt;
+&lt;h3 id="hoppattern-画面上の特定のパターンにジャンプしたい時"&gt;HopPattern: 画面上の特定のパターンにジャンプしたい時
+&lt;/h3&gt;&lt;p&gt;現在、カーソルが1行目の&lt;code&gt;return&lt;/code&gt;の上にあります。そこから16行下の&lt;code&gt;HintDirection&lt;/code&gt;の&lt;code&gt;D&lt;/code&gt;の位置にジャンプしたときの例です。&lt;/p&gt;
+&lt;p&gt;ステップで説明すると以下です。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;return&lt;/code&gt;より16行下の&lt;code&gt;HintDirection&lt;/code&gt;の&lt;code&gt;D&lt;/code&gt;の位置に目線を移す。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;Space&amp;gt;p&lt;/code&gt;（HopPatternコマンド実行キーマップ）をタイプ&lt;/li&gt;
+&lt;li&gt;ジャンプしたいパターン&lt;code&gt;direaction&lt;/code&gt;をタイプ&lt;/li&gt;
+&lt;li&gt;目線にあるハイライトされた文字&lt;code&gt;s&lt;/code&gt;をタイプして移動完了&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/hop-nvim/hoppattern.gif"
+width="780"
+height="421"
+loading="lazy"
+alt="HopPatternの使用例"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+&gt;&lt;/p&gt;
+&lt;h2 id="まとめ"&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;この記事では、Neovimのhop.nvimプラグインの設定方法と使用例について説明しました。hop.nvimは、少ないキー操作で任意の場所にジャンプすることを可能にする強力なカーソル移動ツールです。&lt;/p&gt;
+&lt;p&gt;HopWord, HopLine, HopChar1, そして HopPatternといった主要なコマンドを使用することで、効率的にコードをナビゲートできます。これらのコマンドは、特定の単語、行、文字、またはパターンにジャンプするためのものです。&lt;/p&gt;
+&lt;p&gt;さらに、hop.nvimにはこれら以外にも多くの機能と設定オプションがあります。例えば、異なるウィンドウ間でのジャンプや、カーソル位置に基づいたジャンプなどが可能です。詳細は&lt;a class="link" href="https://github.com/smoka7/hop.nvim" target="_blank" rel="noopener"
+&gt;公式GitHubリポジトリ&lt;/a&gt;を参照してください。&lt;/p&gt;
+&lt;p&gt;このプラグインを活用することで、あなたのコーディング体験はさらに向上するでしょう。&lt;/p&gt;
+&lt;div class="amazon-widget"&gt;
+&lt;div class="amazon-widget-img"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/B00HWLJI3U/tag=kseki0c-22" target="_blank"&gt;
+&lt;img src="https://m.media-amazon.com/images/I/71wWsTwuUlL._AC_SX522_.jpg" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget-info"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/B00HWLJI3U/tag=kseki0c-22" target="_blank"&gt;
+&lt;span class="amazon-widget-title"&gt;
+実践Vim　思考のスピードで編集しよう！ (アスキー書籍)
+&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/B00HWLJI3U/tag=kseki0c-22" class="amazon-widget-button" target="_blank"&gt;Amazonで購入&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>東京都デジタルサービス局のAI活用事例集に見るChatGPTプロンプト例</title><link>https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/</link><pubDate>Tue, 09 Jul 2024 17:00:38 +0900</pubDate><guid>https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/</guid><description>&lt;img src="https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/cover.webp" alt="Featured image of post 東京都デジタルサービス局のAI活用事例集に見るChatGPTプロンプト例" /&gt;&lt;h2 id="はじめに"&gt;はじめに
+&lt;/h2&gt;&lt;p&gt;東京都デジタルサービス局が発行した「AI活用事例集」を読みました。
+AI技術がどのように行政の現場で活用されているのかを知ることができる非常に興味深い内容でした。この記事では、私が特に面白いと感じた事例をいくつか紹介し、それに対する感想を述べたいと思います。&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.digitalservice.metro.tokyo.lg.jp/documents/d/digitalservice/ai_prompt" target="_blank" rel="noopener"
+&gt;都職員のアイデアが詰まった文章生成AI活用事例集|ICT導入・活用の推進|東京都デジタルサービス局&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="面白かった事例集"&gt;面白かった事例集
+&lt;/h2&gt;&lt;h3 id="政策のアイデア案を出しリスクを確認する"&gt;政策のアイデア案を出しリスクを確認する
+&lt;/h3&gt;&lt;p&gt;この事例では、AIを活用して政策のアイデアを生成し、そのリスクを確認するプロセスが紹介されていました。AIは過去のデータや類似事例を参照しながら、政策のアイデアを出します。また、見落としがちなリスクを事前に把握できる点が非常に有用だと思いました。&lt;/p&gt;
+&lt;p&gt;リスクの洗い出しは抜け漏れが無いように実際の業務でもAIを使って洗い出しを行いたいと思いました。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/tokyo-ai1.png"
+width="3478"
+height="1822"
+loading="lazy"
+alt="tokyo ai 1"
+class="gallery-image"
+data-flex-grow="190"
+data-flex-basis="458px"
+&gt;&lt;/p&gt;
+&lt;h3 id="研修の理解度を確認するためのテスト問題を作成する"&gt;研修の理解度を確認するためのテスト問題を作成する
+&lt;/h3&gt;&lt;p&gt;AIを活用して研修の理解度を確認するためのテスト問題を自動生成する事例です。
+テスト問題を作成にあたって、指示・条件・ゴールを細かく指定していて、AI回答の回答が的確に出力されています。
+4択問題の間違った選択肢を考えるのは結構たいへんだと思うので良い使い方だと思いました。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/tokyo-ai2.png"
+width="3484"
+height="1962"
+loading="lazy"
+alt="tokyo ai 2"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+&gt;&lt;/p&gt;
+&lt;h3 id="適切なフレーズを提案してもらう"&gt;適切なフレーズを提案してもらう
+&lt;/h3&gt;&lt;p&gt;文章作成の際、適切なフレーズが見当たらないときや、既に思いついているが他のアイデアを探したいときに表現の提案をしてもらう事例です。&lt;/p&gt;
+&lt;p&gt;開発の場合も、文言の作成に迷うことが多々あるので活用したいと思いました。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/tokyo-metropolitan-governments-ai-use-case/tokyo-ai3.png"
+width="3478"
+height="1884"
+loading="lazy"
+alt="tokyo ai 3"
+class="gallery-image"
+data-flex-grow="184"
+data-flex-basis="443px"
+&gt;&lt;/p&gt;
+&lt;h2 id="感想"&gt;感想
+&lt;/h2&gt;&lt;p&gt;「東京都デジタルサービス局のAI活用事例集」から活用事例を紹介しました。
+この資料では、活用事例だけではなく、プロンプトのコツや、AIを実際に利用した職員のアンケート結果も載っていて非常に有用な資料でした。この事例集は、他の自治体や企業にとっても参考になる内容が多く含まれており、今後のAI活用の可能性を示唆するものでした。是非読んでみてください！&lt;/p&gt;</description></item><item><title>NeovimでTabnineを使う方法</title><link>https://kseki.github.io/posts/cmp-tabnine-nvim/</link><pubDate>Tue, 02 Jul 2024 16:38:00 +0900</pubDate><guid>https://kseki.github.io/posts/cmp-tabnine-nvim/</guid><description>&lt;h2 id="tabnineとは"&gt;Tabnineとは
+&lt;/h2&gt;&lt;p&gt;Tabnineは、AIを活用したコード補完プラグインです。従来の補完機能よりも高度な機能を提供し、コード開発を効率化します。Tabnineは、GPT-3と呼ばれる強力なAIモデルを使用しています。このモデルは、大量のコードを学習し、その結果を元にコード補完を提供します。&lt;/p&gt;
+&lt;p&gt;主な機能は以下の通りです。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;コンテキストに応じた補完:&lt;/strong&gt; Tabnineは、あなたが書いているコードの文脈を理解し、最も適切な補完候補を提案します。これは、あなたが何をしようとしているかをAIが理解し、それに基づいて最適なコードスニペットを提供することを意味します。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;コード生成:&lt;/strong&gt; Tabnineは、関数やクラスの定義、テストコードなど、様々なコードを自動生成できます。これは、あなたが新しい関数を作成しようとしているとき、Tabnineがその関数のスケルトンを生成することを意味します。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;コード検索:&lt;/strong&gt; Tabnineは、コード内の変数や関数の定義箇所を素早く検索できます。これは、あなたが特定の関数の定義を探しているとき、Tabnineがその関数の定義を素早く見つけることを意味します。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;マルチ言語対応:&lt;/strong&gt; Tabnineは多くのプログラミング言語に対応しており、様々な言語間で補完やコード生成を行うことができます。これは、あなたがPythonでコードを書いているときでも、Javaでコードを書いているときでも、Tabnineが適切な補完を提供することを意味します。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="neovimにインストールする方法"&gt;Neovimにインストールする方法
+&lt;/h2&gt;&lt;p&gt;今回はhrsh7th/nvim-cmpのソースとしてにTabnineをインストールします。&lt;/p&gt;
+&lt;p&gt;プラグインを追加&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kr"&gt;return&lt;/span&gt; &lt;span class="n"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;packer&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;startup&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;use&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s1"&gt;&amp;#39;tzachar/cmp-tabnine&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;./install.sh&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;requires&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;hrsh7th/nvim-cmp&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;設定を追加&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cmp_tabnine.config&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;max_lines&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;max_num_results&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;sort&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;run_on_every_keystroke&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;snippet_placeholder&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;..&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;ignored_file_types&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;-- default is not to ignore&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;-- uncomment to ignore in lua:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;-- lua = true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;show_prediction_strength&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;min_percent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;cmpのソースとして追加&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="err"&gt;表示する文字色を紫色に設定&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;vim.api&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nvim_set_hl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;CmpItemKindTabNine&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;fg&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;#7A00FF&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cmp&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;snippet&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;expand&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;luasnip.lsp_expand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args.body&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;sources&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cmp.config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sources&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;copilot&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="c1"&gt;-- GitHub Copilot&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;cmp_tabnine&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="c1"&gt;-- Tabnine&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;luasnip&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="c1"&gt;-- snippet&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;buffer&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="c1"&gt;-- text within current buffer&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;path&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="c1"&gt;-- file system paths&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;formatting&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;format&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;lspkind.cmp_format&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;maxwidth&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;ellipsis_char&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;...&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;symbol_map&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;TabNine&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="まとめ"&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;この記事では、NeovimでTabnineを設定し、使用する方法について説明しました。TabnineはAIを活用したコード補完プラグインで、コードの文脈を理解し、最も適切な補完候補を提案します。また、コード生成、コード検索、マルチ言語対応などの機能も提供します。&lt;/p&gt;
+&lt;p&gt;Tabnineを使用することで、コードの品質を向上させ、開発効率を大幅に改善できます。これにより、より複雑な問題に集中し、より創造的なソリューションを開発する時間が増えます。&lt;/p&gt;
+&lt;p&gt;今後もTabnineのようなツールを活用して、コーディングの効率と楽しさを最大限に引き出していきましょう。&lt;/p&gt;
+&lt;h2 id="参考"&gt;参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/tzachar/cmp-tabnine" target="_blank" rel="noopener"
+&gt;tzachar/cmp-tabnine: TabNine plugin for hrsh7th/nvim-cmp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://www.tabnine.com/install/neovim/" target="_blank" rel="noopener"
+&gt;Install Tabnine for Neovim | Tabnine AI code assistant&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>AWS S3のファイルへのアクセスログをAthenaで確認する方法</title><link>https://kseki.github.io/posts/s3-access-log-with-athena/</link><pubDate>Tue, 25 Jun 2024 16:31:19 +0900</pubDate><guid>https://kseki.github.io/posts/s3-access-log-with-athena/</guid><description>&lt;img src="https://kseki.github.io/posts/s3-access-log-with-athena/aws-athena.webp" alt="Featured image of post AWS S3のファイルへのアクセスログをAthenaで確認する方法" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;Amazon S3のファイルへのアクセスログをAmazon Athenaで確認する方法です。&lt;/p&gt;
+&lt;h2 id="ステップ1-s3バケットのサーバーアクセスログを有効にする"&gt;ステップ1: S3バケットのサーバーアクセスログを有効にする
+&lt;/h2&gt;&lt;p&gt;まず、S3バケットでサーバーアクセスログを有効にする必要があります。これにより、アクセスされるたびにログが記録され、後で分析するために使用できます。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/s3-access-log-with-athena/athena-step1.png"
+width="755"
+height="818"
+loading="lazy"
+alt="edit s3 access log settings"
+class="gallery-image"
+data-flex-grow="92"
+data-flex-basis="221px"
+&gt;&lt;/p&gt;
+&lt;h2 id="ステップ2-amazon-athenaコンソールを開く"&gt;ステップ2: Amazon Athenaコンソールを開く
+&lt;/h2&gt;&lt;p&gt;次に、Amazon Athenaコンソールにアクセスし、クエリエディタを使用してデータベースとテーブルを作成します。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/s3-access-log-with-athena/athena-step2.png"
+width="897"
+height="557"
+loading="lazy"
+alt="athena query editor"
+class="gallery-image"
+data-flex-grow="161"
+data-flex-basis="386px"
+&gt;&lt;/p&gt;
+&lt;h2 id="ステップ3-データベースを作成する"&gt;ステップ3: データベースを作成する
+&lt;/h2&gt;&lt;p&gt;Athenaで新しいデータベースを作成し、アクセスログデータの格納場所として設定します。
+今回は、デフォルトで用意されている&lt;code&gt;default&lt;/code&gt;を使います。&lt;/p&gt;
+&lt;h2 id="ステップ4-テーブルスキーマを作成する"&gt;ステップ4: テーブルスキーマを作成する
+&lt;/h2&gt;&lt;p&gt;アクセスログデータの構造を定義するテーブルスキーマを作成します。
+以下のクエリを実行します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;span class="lnt"&gt;33
+&lt;/span&gt;&lt;span class="lnt"&gt;34
+&lt;/span&gt;&lt;span class="lnt"&gt;35
+&lt;/span&gt;&lt;span class="lnt"&gt;36
+&lt;/span&gt;&lt;span class="lnt"&gt;37
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sql" data-lang="sql"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;EXTERNAL&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;TABLE&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="err"&gt;データベース名&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;`&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;bucketowner&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;bucket_name&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;requestdatetime&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;remoteip&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;requester&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;requestid&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="k"&gt;operation&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="k"&gt;key&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;request_uri&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;httpstatus&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;errorcode&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;bytessent&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;BIGINT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;objectsize&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;BIGINT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;totaltime&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;turnaroundtime&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;referrer&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;useragent&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;versionid&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;hostid&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;sigv&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;ciphersuite&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;authtype&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;endpoint&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;tlsversion&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;accesspointarn&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;aclrequired&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;STRING&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;ROW&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;FORMAT&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;SERDE&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;org.apache.hadoop.hive.serde2.RegexSerDe&amp;#39;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;WITH&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;SERDEPROPERTIES&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;input.regex&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;([^ ]*) ([^ ]*) \\[(.*?)\\] ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) (\&amp;#34;[^\&amp;#34;]*\&amp;#34;|-) (-|[0-9]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) (\&amp;#34;[^\&amp;#34;]*\&amp;#34;|-) ([^ ]*)(?: ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*))?.*$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;STORED&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;AS&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;INPUTFORMAT&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;org.apache.hadoop.mapred.TextInputFormat&amp;#39;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;OUTPUTFORMAT&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat&amp;#39;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;LOCATION&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;s3://&amp;lt;S3バケット名&amp;gt;/&amp;lt;ディレクトリ&amp;gt;/&amp;#39;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="ステップ5-テーブルをプレビューする"&gt;ステップ5: テーブルをプレビューする
+&lt;/h2&gt;&lt;p&gt;作成したテーブルスキーマが正しく機能しているかを確認するために、テーブルのプレビューを行います。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/s3-access-log-with-athena/athena-step5.png"
+width="572"
+height="447"
+loading="lazy"
+alt="preview table"
+class="gallery-image"
+data-flex-grow="127"
+data-flex-basis="307px"
+&gt;&lt;/p&gt;
+&lt;h2 id="ステップ6-クエリを実行する"&gt;ステップ6: クエリを実行する
+&lt;/h2&gt;&lt;p&gt;最後に、Athenaのクエリエディタを使用して、特定の条件に基づいてログデータをクエリします。例えば、特定のオブジェクトに対するDELETE操作や、特定のエラーコードを持つリクエストを検索できます。&lt;/p&gt;
+&lt;details&gt;
+&lt;summary&gt;特定のオブジェクトの特定期間のGETログを見る&lt;/summary&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sql" data-lang="sql"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;FROM&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="err"&gt;データベース名&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;WHERE&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;Key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;prefix/images/picture.jpg&amp;#39;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;AND&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;operation&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;REST.GET.OBJECT&amp;#39;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;AND&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;parse_datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;requestdatetime&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;dd/MMM/yyyy:HH:mm:ss Z&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;BETWEEN&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;parse_datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;2024-06-18:07:00:00&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;yyyy-MM-dd:HH:mm:ss&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;AND&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;parse_datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;2024-06-18:08:00:00&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;yyyy-MM-dd:HH:mm:ss&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;h2 id="参考"&gt;参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/using-s3-access-logs-to-identify-requests.html" target="_blank" rel="noopener"
+&gt;Amazon S3 アクセスログを使用したリクエストの識別 - Amazon Simple Storage Service&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="amazon-widget"&gt;
+&lt;div class="amazon-widget-img"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4815607850/tag=kseki0c-22" target="_blank"&gt;
+&lt;img src="https://m.media-amazon.com/images/I/8163tHByzgL._AC_SX522_.jpg" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget-info"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4815607850/tag=kseki0c-22" target="_blank"&gt;
+&lt;span class="amazon-widget-title"&gt;
+AWSの基本・仕組み・重要用語が全部わかる教科書 (見るだけ図解)
+&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4815607850/tag=kseki0c-22" class="amazon-widget-button" target="_blank"&gt;Amazonで購入&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>便利なGitコマンドラインツールLazygit</title><link>https://kseki.github.io/posts/how_to_lazygit/</link><pubDate>Tue, 18 Jun 2024 16:21:07 +0900</pubDate><guid>https://kseki.github.io/posts/how_to_lazygit/</guid><description>&lt;img src="https://kseki.github.io/posts/how_to_lazygit/lazygit.png" alt="Featured image of post 便利なGitコマンドラインツールLazygit" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;Lazygitは、開発者の生産性を向上させるために設計された、コマンドラインツールです。このツールは、Gitの操作を簡単かつ効率的に行うことができるインターフェースを提供します。ステータスの確認、コミットの作成、ブランチの切り替えなどの一般的なGit操作を簡単に行うことができます。&lt;/p&gt;
+&lt;h2 id="インストール方法"&gt;インストール方法
+&lt;/h2&gt;&lt;p&gt;MacOSユーザーは、Homebrewを使用してLazygitを簡単にインストールできます。ターミナルを開き、以下のコマンドを実行します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install lazygit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;※他のインストール方法は&lt;a class="link" href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#installation" target="_blank" rel="noopener"
+&gt;こちら&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="チュートリアル"&gt;チュートリアル
+&lt;/h2&gt;&lt;p&gt;READMEに&lt;a class="link" href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#tutorials" target="_blank" rel="noopener"
+&gt;チュートリアル&lt;/a&gt;動画へのリンクがあるので一度やってみることをお勧めします！&lt;/p&gt;
+&lt;h2 id="githubと連携して一連の開発作業のやり方"&gt;GitHubと連携して一連の開発作業のやり方
+&lt;/h2&gt;&lt;p&gt;Lazygitを使用してGitHubと連携し、開発作業を行うプロセスは以下の通りです。&lt;/p&gt;
+&lt;h3 id="ブランチを作成"&gt;ブランチを作成
+&lt;/h3&gt;&lt;p&gt;リポジトリ内で新しいブランチを作成し、特定の機能や修正に取り組みます。
+ベースブランチの上にカーソルを合わせて &lt;kbd&gt;c&lt;/kbd&gt; を押すとダイアログが表示されるので、ブランチ名を入力して &lt;kbd&gt;Enter&lt;/kbd&gt; を押すだけです。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/how_to_lazygit/create-branch.gif"
+width="1920"
+height="1080"
+loading="lazy"
+alt="create branch"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+&gt;&lt;/p&gt;
+&lt;h3 id="ファイルを編集してコミット"&gt;ファイルを編集してコミット
+&lt;/h3&gt;&lt;p&gt;必要なファイルを編集し、変更をコミットします。Lazygitでは、変更をステージングし、コミットメッセージを入力することが容易です。
+コミットしたいディレクトリ、またはファイルにカーソルを合わせて &lt;kbd&gt;Space&lt;/kbd&gt; を押してステージング。 &lt;kbd&gt;c&lt;/kbd&gt; を押すとダイアログが表示されるのでコミットメッセージを入力して &lt;kbd&gt;Enter&lt;/kbd&gt; キーを押す。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/how_to_lazygit/add-commit.gif"
+width="1920"
+height="1080"
+loading="lazy"
+alt="add files and commit"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+&gt;&lt;/p&gt;
+&lt;h3 id="リモートリポジトリーにpushprの作成"&gt;リモートリポジトリーにpush、PRの作成
+&lt;/h3&gt;&lt;p&gt;コミットした変更をリモートリポジトリにpushします。GitHub上でPRを作成します。
+Pushしたいリポジトリにカーソルを合わせて &lt;kbd&gt;P&lt;/kbd&gt; を押し &lt;kbd&gt;Enter&lt;/kbd&gt; するだけです。（リモートリポジトリが存在する場合は &lt;kbd&gt;p&lt;/kbd&gt; でOKです。）
+Pushが終わったら、PR作成したいリポジトリにカーソルを合わせて&lt;code&gt;o&lt;/code&gt;を押すと、ブラウザでPR作成画面が表示されます。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/how_to_lazygit/push-and-open-pr.gif"
+width="1920"
+height="1080"
+loading="lazy"
+alt="push and open pr"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+&gt;&lt;/p&gt;
+&lt;p&gt;他にも &lt;a class="link" href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#features" target="_blank" rel="noopener"
+&gt;たくさんの機能&lt;/a&gt; や &lt;a class="link" href="https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Command_Keybindings.md" target="_blank" rel="noopener"
+&gt;カスタムコマンド&lt;/a&gt; を追加出来ます！&lt;/p&gt;
+&lt;h2 id="まとめ"&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;Lazygitは、Gitの操作を簡単にし、開発者の作業を効率化する強力なツールです。その直感的なUIと豊富な機能により、開発プロセスがよりスムーズになります。この記事がLazygitの導入と利用の手助けになれば幸いです。&lt;/p&gt;
+&lt;h2 id="参考"&gt;参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/jesseduffield/lazygit" target="_blank" rel="noopener"
+&gt;jesseduffield/lazygit: simple terminal UI for git commands&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>NeovimでGitHub Copilot Chatを使う方法</title><link>https://kseki.github.io/posts/github-copilot-chat-nvim/</link><pubDate>Tue, 09 Apr 2024 16:30:42 +0900</pubDate><guid>https://kseki.github.io/posts/github-copilot-chat-nvim/</guid><description>&lt;img src="https://kseki.github.io/posts/github-copilot-chat-nvim/copilot-chat-demo.jpg" alt="Featured image of post NeovimでGitHub Copilot Chatを使う方法" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;GitHub Copilot Chatは、開発者がコーディング中にリアルタイムで支援を受けることができるツールです。
+&lt;a class="link" href="https://github.com/github/copilot.vim" target="_blank" rel="noopener"
+&gt;copilot.vim&lt;/a&gt; を使えばNeovimでもGitHub Copilotは使えるのですが、まだChatには対応していません。
+Neovimエディタで利用することで、コードの自動補完やドキュメントの参照、コーディングの疑問点を解決するための対話が可能になります。&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://github.com/CopilotC-Nvim/CopilotChat.nvim" target="_blank" rel="noopener"
+&gt;CopilotChat.nvim&lt;/a&gt; を使うことでChatを利用できるようになります。&lt;/p&gt;
+&lt;h2 id="設定方法"&gt;設定方法
+&lt;/h2&gt;&lt;h3 id="1-プラグインをインストールする"&gt;1. プラグインをインストールする
+&lt;/h3&gt;&lt;p&gt;まずプラグインをインストールする必要があります。お使いのプライグインマネージャーに応じて設定してください。
+自分の環境は &lt;a class="link" href="https://github.com/junegunn/vim-plug" target="_blank" rel="noopener"
+&gt;vim-plug&lt;/a&gt; なので下記を追加しました。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;span class="lnt"&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-vim" data-lang="vim"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;call&lt;/span&gt; &lt;span class="nx"&gt;plug&lt;/span&gt;#&lt;span class="nx"&gt;begin&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;Plug&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;zbirenbaum/copilot.lua&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;Plug&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;nvim-lua/plenary.nvim&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;Plug&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;CopilotC-Nvim/CopilotChat.nvim&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; { &lt;span class="s1"&gt;&amp;#39;branch&amp;#39;&lt;/span&gt;: &lt;span class="s1"&gt;&amp;#39;canary&amp;#39;&lt;/span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;call&lt;/span&gt; &lt;span class="nx"&gt;plug&lt;/span&gt;#&lt;span class="nx"&gt;end&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;lua&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;CopilotChat&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;.&lt;span class="nx"&gt;setup&lt;/span&gt; {}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;その後、 &lt;code&gt;:PackerSync&lt;/code&gt; コマンドを実行しインストール後にNeovimを再起動すると完了です。&lt;/p&gt;
+&lt;h3 id="2-github-copilot-chatが日本語で回答するように設定する"&gt;2. GitHub Copilot Chatが日本語で回答するように設定する
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;span class="lnt"&gt;33
+&lt;/span&gt;&lt;span class="lnt"&gt;34
+&lt;/span&gt;&lt;span class="lnt"&gt;35
+&lt;/span&gt;&lt;span class="lnt"&gt;36
+&lt;/span&gt;&lt;span class="lnt"&gt;37
+&lt;/span&gt;&lt;span class="lnt"&gt;38
+&lt;/span&gt;&lt;span class="lnt"&gt;39
+&lt;/span&gt;&lt;span class="lnt"&gt;40
+&lt;/span&gt;&lt;span class="lnt"&gt;41
+&lt;/span&gt;&lt;span class="lnt"&gt;42
+&lt;/span&gt;&lt;span class="lnt"&gt;43
+&lt;/span&gt;&lt;span class="lnt"&gt;44
+&lt;/span&gt;&lt;span class="lnt"&gt;45
+&lt;/span&gt;&lt;span class="lnt"&gt;46
+&lt;/span&gt;&lt;span class="lnt"&gt;47
+&lt;/span&gt;&lt;span class="lnt"&gt;48
+&lt;/span&gt;&lt;span class="lnt"&gt;49
+&lt;/span&gt;&lt;span class="lnt"&gt;50
+&lt;/span&gt;&lt;span class="lnt"&gt;51
+&lt;/span&gt;&lt;span class="lnt"&gt;52
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-vim" data-lang="vim"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;lua&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;CopilotChat&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;.&lt;span class="nx"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;show_help&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;yes&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompts&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;Explain&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/COPILOT_EXPLAIN アクティブな選択範囲の説明を段落形式で書いてください。日本語で返答ください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;Review&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/COPILOT_REVIEW 選択されたコードをレビューしてください。日本語で返答ください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;FixCode&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/COPILOT_GENERATE このコードには問題があります。バグを修正したコードに書き直してください。日本語で返答ください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;Refactor&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/COPILOT_GENERATE 明瞭性と可読性を向上させるために、次のコードをリファクタリングしてください。日本語で返答ください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;BetterNamings&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/COPILOT_GENERATE 選択されたコードの変数名や関数名を改善してください。日本語で返答ください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;Documentation&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/COPILOT_GENERATE 選択範囲にドキュメントコメントを追加してください。日本語で返答ください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;Tests&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/COPILOT_GENERATE コードのテストを生成してください。日本語で返答ください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;Wording&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/COPILOT_GENERATE 次のテキストの文法と表現を改善してください。日本語で返答ください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;Summarize&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/COPILOT_GENERATE 選択範囲の要約を書いてください。日本語で返答ください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;Spelling&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/COPILOT_GENERATE 次のテキストのスペルミスを修正してください。日本語で返答ください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;FixDiagnostic&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;ファイル内の次の問題を支援してください:&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;selection&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;select&lt;/span&gt;.&lt;span class="nx"&gt;diagnostics&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;Commit&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;変更のコミットメッセージをcommitizenの規約に従って日本語で書いてください。タイトルは最大50文字、メッセージは72文字で折り返してください。メッセージ全体をgitcommit言語のコードブロックで囲んでください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;selection&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;select&lt;/span&gt;.&lt;span class="nx"&gt;gitdiff&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;CommitStaged&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;prompt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;変更のコミットメッセージをcommitizenの規約に従って日本語で書いてください。タイトルは最大50文字、メッセージは72文字で折り返してください。メッセージ全体をgitcommit言語のコードブロックで囲んでください。&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;selection&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;source&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;local&lt;/span&gt; &lt;span class="nx"&gt;select&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;CopilotChat.select&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;select&lt;/span&gt;.&lt;span class="nx"&gt;gitdiff&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;source&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;true&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;COPILOT_EXPLAIN&lt;/code&gt; などはデフォルトでプロンプトの内容が定数化されています。(詳しくは、 &lt;a class="link" href="https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/prompts.lua" target="_blank" rel="noopener"
+&gt;prompts.lua&lt;/a&gt; を参照ください。)
+続けて日本語で説明してもらうようにプロンプトを追加しています。&lt;/p&gt;
+&lt;h2 id="使い方"&gt;使い方
+&lt;/h2&gt;&lt;p&gt;使い方はいろいろありますが、今回は、 &lt;code&gt;:CopilotChatTests&lt;/code&gt; コマンドを使ってテストを作成してもらう方法を書きます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;対象となるコードをヤンクする&lt;/li&gt;
+&lt;li&gt;コマンドモードで &lt;code&gt;:CopilotChatTests&lt;/code&gt; を入力するとChatが返ってくる&lt;/li&gt;
+&lt;li&gt;チャット画面で &lt;kbd&gt;g&lt;/kbd&gt; + &lt;kbd&gt;y&lt;/kbd&gt; をしてテストコードをヤンクする&lt;/li&gt;
+&lt;li&gt;テストファイルに &lt;kbd&gt;p&lt;/kbd&gt; でペースト&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;で完成です。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/github-copilot-chat-nvim/copilot-chat-demo.gif"
+width="1280"
+height="720"
+loading="lazy"
+alt="demo.gif"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+&gt;&lt;/p&gt;
+&lt;h2 id="まとめ"&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;GitHub Copilot Chatは開発者にとって強力な支援ツールです。このツールを活用することで、開発の効率化とコーディングの質の向上が期待できます。&lt;/p&gt;
+&lt;p&gt;このポストは、NeovimでGitHub Copilot Chatを使う方法についての概要を提供しています。より詳細な情報やサポートが必要な場合は、公式ドキュメントやコミュニティフォーラムを参照してください。開発の旅において、GitHub Copilot Chatが有益なガイドとなることを願っています。&lt;/p&gt;
+&lt;div class="amazon-widget"&gt;
+&lt;div class="amazon-widget-img"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/B0BW4BKR5G/tag=kseki0c-22" target="_blank"&gt;
+&lt;img src="https://m.media-amazon.com/images/I/81z9ZVOfGkL._AC_SX522_.jpg" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget-info"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/B0BW4BKR5G/tag=kseki0c-22" target="_blank"&gt;
+&lt;span class="amazon-widget-title"&gt;
+ChatGPT超実践活用法: 【GPT-4対応版】【code interpreter解説有】｢ビジネスシーン｣におけるマジで使える利用方法25選【使い方・入門・教科書・初心者・利用法】 ChatGPT・IT・テクノロジー (AI技術・テクノロジー・人工知能)
+&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/B0BW4BKR5G/tag=kseki0c-22" class="amazon-widget-button" target="_blank"&gt;Amazonで購入&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget"&gt;
+&lt;div class="amazon-widget-img"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4295018236/tag=kseki0c-22" target="_blank"&gt;
+&lt;img src="https://m.media-amazon.com/images/I/81UJ&amp;#43;mKvUYL._AC_SX522_.jpg" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget-info"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4295018236/tag=kseki0c-22" target="_blank"&gt;
+&lt;span class="amazon-widget-title"&gt;
+エンジニアのためのChatGPT活用入門 AIで作業負担を減らすためのアイデア集
+&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4295018236/tag=kseki0c-22" class="amazon-widget-button" target="_blank"&gt;Amazonで購入&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>PR毎にDiffカバレッジを計測する方法</title><link>https://kseki.github.io/posts/pr%E6%AF%8E%E3%81%ABdiff%E3%82%AB%E3%83%90%E3%83%AC%E3%83%83%E3%82%B8%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Tue, 02 Apr 2024 16:22:47 +0900</pubDate><guid>https://kseki.github.io/posts/pr%E6%AF%8E%E3%81%ABdiff%E3%82%AB%E3%83%90%E3%83%AC%E3%83%83%E3%82%B8%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;img src="https://kseki.github.io/posts/pr%E6%AF%8E%E3%81%ABdiff%E3%82%AB%E3%83%90%E3%83%AC%E3%83%83%E3%82%B8%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/undercover.png" alt="Featured image of post PR毎にDiffカバレッジを計測する方法" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;プログラミングにおいて、テストカバレッジはコードの品質を保証する重要な指標の1つです。特に、大規模なプロジェクトや多くの開発者が関わるプロジェクトでは、変更が頻繁に行われるため、新たなコードが既存のテストによって適切にカバーされているかを確認することが不可欠です。&lt;/p&gt;
+&lt;p&gt;このブログポストでは、&lt;a class="link" href="https://github.com/grodowski/undercover" target="_blank" rel="noopener"
+&gt;undercover&lt;/a&gt; gemを使用して、プルリクエスト（PR）毎にDiffカバレッジを計測し、継続的インテグレーション（CI）で監視する方法について解説します。&lt;/p&gt;
+&lt;h2 id="背景"&gt;背景
+&lt;/h2&gt;&lt;p&gt;プロジェクトにアサインされた際、テストカバレッジの低さがバグの多さに直結していることに気づくことは珍しくありません。テストカバレッジを上げることは、バグを減らし、ソフトウェアの品質を向上させるために重要です。しかし、Simplecovだけでは、全体のテストカバレッジしか測定できず、変更点に対するカバレッジを把握できません。これでは、新たなコードが適切にテストされているかを確認することが困難です。&lt;/p&gt;
+&lt;p&gt;ここで役立つのが、undercover gemです。このgemを使用すると、PR毎に変更されたコードに対するテストカバレッジ、すなわちDiffカバレッジを計測できます。これにより、CIツール内での監視が可能になり、新しいコードが十分にテストされていることを保証できます。&lt;/p&gt;
+&lt;p&gt;Diffカバレッジを計測することの利点は、開発者が新しいコードに対するテストを怠らないように促すことです。また、レビュアーがコードレビューする際に、テストが適切に行われているかを確認するための指標としても機能します。さらに、テストカバレッジを徐々に上げることで、プロジェクト全体の品質を向上させることができます。&lt;/p&gt;
+&lt;h2 id="設定方法"&gt;設定方法
+&lt;/h2&gt;&lt;p&gt;undercover gemを使ったDiffカバレッジの計測方法は以下の通りです。&lt;/p&gt;
+&lt;p&gt;Gemfileにundercoverを追加し、&lt;code&gt;bundle install&lt;/code&gt;を実行します。
+undercoverが対応しているのはLCOV形式なので、simplecov-lcovも一緒にインストールします。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-ruby" data-lang="ruby"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Gemfile&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;group&lt;/span&gt; &lt;span class="ss"&gt;:test&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;simplecov&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;require&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kp"&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;simplecov-lcov&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;require&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kp"&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;undercover&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;require&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kp"&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;次にsimplecovの設定を追加します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;span class="lnt"&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-ruby" data-lang="ruby"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# spec/rails_helper.rb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;simplecov&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;simplecov-lcov&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="no"&gt;SimpleCov&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Formatter&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;LcovFormatter&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;report_with_single_file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="no"&gt;SimpleCov&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;formatter&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;SimpleCov&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Formatter&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;LcovFormatter&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="no"&gt;SimpleCov&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;undercover&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;最後に、CIツール(今回はGitHub Actions)の設定ファイルに、PRが作成された際にundercoverを実行するステップを追加します。
+基本的にはフューチャーブランチでPRを作成するので、mainとのDiffカバレッジを取得するように設定します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c"&gt;# .github/workflows/test.yml&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;steps&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;~ 省略 ~&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;Test&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;bundle exec rspec&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;Diff Coverage&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="sd"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; git fetch origin main
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; undercover --compare origin/main&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;PRがマージされる前に、undercoverが生成するレポートを確認し、Diffカバレッジが十分であることを確認します。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/pr%E6%AF%8E%E3%81%ABdiff%E3%82%AB%E3%83%90%E3%83%AC%E3%83%83%E3%82%B8%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/undercover.png"
+width="1596"
+height="1128"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="339px"
+&gt;&lt;/p&gt;
+&lt;h2 id="まとめ"&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;undercover gemを導入することで、PR毎に新たに追加または変更されたコードがどの程度テストによってカバーされているかを正確に把握できるようになりました。これにより、テスト漏れが発生するリスクを減らし、コードの品質を継続的に向上させることができます。また、開発者は自分のコードが十分にテストされているかを自己確認できるため、品質意識の向上にも寄与します。&lt;/p&gt;
+&lt;h2 id="参考"&gt;参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/simplecov-ruby/simplecov/issues/886" target="_blank" rel="noopener"
+&gt;Support for &amp;ldquo;diff coverage&amp;rdquo; · Issue #886 · simplecov-ruby/simplecov&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/grodowski/undercover" target="_blank" rel="noopener"
+&gt;grodowski/undercover&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>AIコードレビューのCodeRabbitを導入してみた</title><link>https://kseki.github.io/posts/coderabbit/</link><pubDate>Fri, 16 Feb 2024 18:27:25 +0900</pubDate><guid>https://kseki.github.io/posts/coderabbit/</guid><description>&lt;img src="https://kseki.github.io/posts/coderabbit/coderabbit.png" alt="Featured image of post AIコードレビューのCodeRabbitを導入してみた" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;CodeRabbitというAIコードレビューサービスを試してみたので、良かったことなどをまとめました。&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://coderabbit.ai/ja/" target="_blank" rel="noopener"
+&gt;AIコードレビュー | CodeRabbit&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="良かったこと"&gt;良かったこと
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;コードの品質向上に貢献してくれる。指摘だけではなく、コード提案もしてくれる。ボタンクリックで適用できるので便利だ。&lt;/li&gt;
+&lt;li&gt;コードの可読性やパフォーマンスに関する問題を指摘してくれる。長年スルーしていた問題を改めて指摘してくれるので、コードのメンテナンス性が高まる。&lt;/li&gt;
+&lt;li&gt;指摘コメントに対して、コメントでお願いすれば自動でissue作成してくれる。&lt;/li&gt;
+&lt;li&gt;ロジックの不備や考慮漏れを指摘してくれる。バグやエラーを防ぐことができる。&lt;/li&gt;
+&lt;li&gt;コメントを返信したら、CodeRabbitも返信をくれる。分からないところを聞くことで勉強になる。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="悪かったこと"&gt;悪かったこと
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;複数ファイル同じような変更をした時、ファイル数分同じ指摘コメントがつく。重複したコメントは不要だと思った。（XXと同じって書いてあるといちいち読み込まなくて済むと思った）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="code-rabbitの費用対効果"&gt;Code Rabbitの費用対効果
+&lt;/h2&gt;&lt;p&gt;&lt;a class="link" href="https://coderabbit.ai/ja/#pricing" target="_blank" rel="noopener"
+&gt;CodeRabbit価格設定&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;現在3人で開発しているので月額を試算してみます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$15/月 \* 3人分 = $45/月 ⇒ 約6750円/月
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;もしレビュー専業の人を雇ったと仮定すると、&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;週4h * 4週 * 5000円/時間 = 6万円/月
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;単純に比較するとCodeRabbitは人間のコードレビュアーに比べて非常に安価です。指摘の質も良く、費用対効果は高いです。&lt;/p&gt;
+&lt;h2 id="継続するか"&gt;継続するか
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;継続する！&lt;/li&gt;
+&lt;li&gt;将来もっと良いAIコードレビューサービスが出てくるかもしれないので契約は月額のまま。&lt;/li&gt;
+&lt;li&gt;半年後にもう一度振り返り予定。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;CodeRabbitはAIコードレビューとして優秀なサービスだと思う。コードの品質向上やタスク管理に役立つ機能が多い。
+是非導入してみてはいかがでしょうか？&lt;/p&gt;</description></item><item><title>日本語入力が効率的になるというSSKを試してみた</title><link>https://kseki.github.io/posts/hello-world/</link><pubDate>Sat, 05 Mar 2022 23:04:37 +0900</pubDate><guid>https://kseki.github.io/posts/hello-world/</guid><description>&lt;h2 id="skkとは"&gt;SKKとは
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;SKK（エスケイケイ、Simple Kana to Kanji conversion program）&lt;/li&gt;
+&lt;li&gt;Emacs上で動く、日本語入力システムの1つである&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;引用: &lt;a class="link" href="https://ja.wikipedia.org/wiki/SKK" target="_blank" rel="noopener"
+&gt;SKK - Wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="既存imeの問題点"&gt;既存IMEの問題点
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;形態素解析に基づいた自動変換で、文節を間違っていた場合にはカーソルキーで文節を変更する必要がある。その為、余計なキータイプが発生する。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="skkの特徴"&gt;SKKの特徴
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;かな漢字変換において形態素解析に基づいた変換を行わない。かなと漢字の境界をユーザが指定する。&lt;/li&gt;
+&lt;li&gt;ホームポジションを崩さず入力&lt;/li&gt;
+&lt;li&gt;シームレスな辞書登録&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;引用: &lt;a class="link" href="https://ja.wikipedia.org/wiki/SKK" target="_blank" rel="noopener"
+&gt;SKK - Wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="aquaskk"&gt;AquaSKK
+&lt;/h2&gt;&lt;p&gt;今回試したのは、AquaSKKというMacOSでもつかえるSKKベースのアプリケーションです。&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://github.com/codefirst/aquaskk/releases" target="_blank" rel="noopener"
+&gt;Releases · codefirst/aquaskk&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="skkの使い方"&gt;SKKの使い方
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;基本的にローマ字入力→ひらがなが一文字ずつ確定入力される(エンターいらず)&lt;/li&gt;
+&lt;li&gt;漢字変換するには、一文字目を大文字入力する必要がある
+&lt;ul&gt;
+&lt;li&gt;送りがななしのケース例： &lt;code&gt;Kanji&lt;/code&gt;と入力し、スペースキーで候補選択、次のキータイプ or エンターキーで確定する&lt;/li&gt;
+&lt;li&gt;送りがなありのケース例： &lt;code&gt;OkuRigana&lt;/code&gt;と入力し、スペースキーで候補選択、次のキータイプ or エンターキーで確定する&lt;/li&gt;
+&lt;li&gt;候補の漢字が無いケース: 自動的に辞書登録モードになる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;カタカナ入力するには、一文字目を大文字入力し、qキーを押す必要がある
+&lt;ul&gt;
+&lt;li&gt;例： &lt;code&gt;Katakana&lt;/code&gt;と入力し、qキー入力でカタカナになり、同時に確定する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="良い所"&gt;良い所
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;キータイプ数が減る&lt;/li&gt;
+&lt;li&gt;エンターキーを本来の目的のみで使える&lt;/li&gt;
+&lt;li&gt;即辞書登録できるのは良い&lt;/li&gt;
+&lt;li&gt;慣れると手書きと同じ感覚で使えるらしい&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="悪い所"&gt;悪い所
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;今までの癖を抜くため相当な慣れが必要&lt;/li&gt;
+&lt;li&gt;シフトキー多用するので小指が疲れる&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>NeovimでALEを使ってDocker Compose上でRubocopを実行する</title><link>https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/</link><pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate><guid>https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/</guid><description>&lt;img src="https://kseki.github.io/posts/ale-vim-rubocop-on-docker-compose/vim-ale-rubocop.png" alt="Featured image of post NeovimでALEを使ってDocker Compose上でRubocopを実行する" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;昨今の開発環境はほとんどのロジェクトでDocker Composeなどの仮想環境で構成されています。&lt;br&gt;
+今回は、Neovim(Vim) + ALEを使ってDocker Compose上でRubocopを実行する方法を書きました。&lt;/p&gt;
+&lt;h3 id="バージョン"&gt;バージョン
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Neovim: v0.6.0&lt;/li&gt;
+&lt;li&gt;ALE: v3.1.0&lt;/li&gt;
+&lt;li&gt;Docker Compose: 1.24.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="設定方法"&gt;設定方法
+&lt;/h2&gt;&lt;p&gt;前提として、ALEプラグインをインストール済みの状態であることとします。&lt;/p&gt;
+&lt;p&gt;まず、Railsのbinstubとして&lt;code&gt;bin/rubocop&lt;/code&gt;にDocker Compose上でRubocopを実行するスクリプトを作成します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-ruby" data-lang="ruby"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="ch"&gt;#!/usr/bin/env ruby&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pathname&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;fileutils&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;FileUtils&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="no"&gt;APP_ROOT&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Pathname&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="no"&gt;File&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;expand_path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;../../&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;__FILE__&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;chdir&lt;/span&gt; &lt;span class="no"&gt;APP_ROOT&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;rubocop_command&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;bundle exec rubocop &lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="no"&gt;ARGV&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;system&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;docker-compose exec -T app &lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="n"&gt;rubocop_command&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#39;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;ALEはRubocopの結果をJSON形式で受け取って処理します。その際、標準出力に余計な出力がないよう、&lt;code&gt;docker-compose exec&lt;/code&gt;コマンドに&lt;code&gt;-T&lt;/code&gt;オプションを指定しています。&lt;/p&gt;
+&lt;h4 id="neovimの設定"&gt;Neovimの設定
+&lt;/h4&gt;&lt;p&gt;最後にNeovimの設定をします。&lt;br&gt;
+開発環境はプロジェクトによって異なるので、僕は&lt;a class="link" href="https://github.com/thinca/vim-localrc" target="_blank" rel="noopener"
+&gt;thinca/vim-localrc&lt;/a&gt;を使って&lt;code&gt;.local.vimrc&lt;/code&gt;に設定をしています。&lt;/p&gt;
+&lt;h4 id="1-実行コマンドにbinrubocopを指定"&gt;1. 実行コマンドに&lt;code&gt;bin/rubocop&lt;/code&gt;を指定
+&lt;/h4&gt;&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-vim" data-lang="vim"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;g&lt;/span&gt;:&lt;span class="nx"&gt;ale_ruby_rubocop_executable&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;bin/rubocop&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;こちらは説明不要ですね。&lt;/p&gt;
+&lt;h4 id="2-ファイル名のマッピング"&gt;2. ファイル名のマッピング
+&lt;/h4&gt;&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-vim" data-lang="vim"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;g&lt;/span&gt;:&lt;span class="nx"&gt;ale_filename_mappings&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; \ &lt;span class="s1"&gt;&amp;#39;rubocop&amp;#39;&lt;/span&gt;: [
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; \ [&lt;span class="s1"&gt;&amp;#39;/Users/kseki/rails-project&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/opt&amp;#39;&lt;/span&gt;]&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; \ ]&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; \}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;そのままだとローカルの絶対パスを&lt;code&gt;bin/rubocop&lt;/code&gt;コマンドの引数として渡してしまうが、実行するのはDocker上です。
+Docker上の絶対パスに変換してから渡すようにマッピング指定をします。
+&lt;code&gt;['/Users/kseki/rails-project', '/opt']&lt;/code&gt; の部分です。左はローカルのプロジェクトルートパス、右はDocker上のプロジェクトルートパスです。&lt;/p&gt;
+&lt;h2 id="まとめ"&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;Gistにまとめました！
+&lt;a class="link" href="https://gist.github.com/kseki/811a9c4bd9f7a1c6bcec00691007bcc9" target="_blank" rel="noopener"
+&gt;Setting up &amp;ldquo;Rubocop&amp;rdquo; to run on &amp;ldquo;Docker compose&amp;rdquo; using &amp;ldquo;ALE&amp;rdquo;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="参考"&gt;参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/dense-analysis/ale" target="_blank" rel="noopener"
+&gt;dense-analysis/ale: Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://rymc.io/blog/2019/vim-ale-docker-per-project-linting/" target="_blank" rel="noopener"
+&gt;Vim, ALE, Docker, and Per-Project Linting | Ryan McGrath&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>SSL証明書を自作せずに、Railsの開発環境でhttps接続する方法</title><link>https://kseki.github.io/posts/rails-ssl-connection-with-localhost-gem/</link><pubDate>Fri, 31 Dec 2021 00:00:00 +0000</pubDate><guid>https://kseki.github.io/posts/rails-ssl-connection-with-localhost-gem/</guid><description>&lt;h3 id="概要"&gt;概要
+&lt;/h3&gt;&lt;p&gt;https接続するために自己証明書(オレオレ証明書)を作成するのはまぁ手間がかかります。&lt;br&gt;
+しかし、localhostというGemを使えばSSL証明書を自作せずにRailsの開発環境でhttps接続できます。&lt;br&gt;
+今回のコードは&lt;a class="link" href="https://github.com/kseki/learning-localhost-gem" target="_blank" rel="noopener"
+&gt;こちら&lt;/a&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ruby: 3.0.2&lt;/li&gt;
+&lt;li&gt;Ruby on Rails: 7.0.0&lt;/li&gt;
+&lt;li&gt;Puma: 5.5.2&lt;/li&gt;
+&lt;li&gt;localhost: 1.1.9&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="localhost-gemとは"&gt;localhost Gemとは
+&lt;/h3&gt;&lt;div class="iframely-embed"&gt;&lt;div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"&gt;&lt;a href="https://github.com/socketry/localhost" data-iframely-url="//iframely.net/r7DQH44?card=small"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a class="link" href="https://github.com/socketry/localhost" target="_blank" rel="noopener"
+&gt;localhost Gem&lt;/a&gt;とは、&lt;strong&gt;Gemを追加するだけ&lt;/strong&gt;で&lt;code&gt;https://localhost:8080&lt;/code&gt;のようにSSL接続できる便利なライブラリです。&lt;br&gt;
+自動的に秘密鍵及び、自己証明書（オレオレ証明書）を作成してくれます。&lt;/p&gt;
+&lt;h3 id="設定方法"&gt;設定方法
+&lt;/h3&gt;&lt;p&gt;開発環境だけlocalhost Gemを使いたいので、GemfileのdevelopmentグループブロックにGemを追加。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-ruby" data-lang="ruby"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Gemfile&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;group&lt;/span&gt; &lt;span class="ss"&gt;:development&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;localhost&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="実行"&gt;実行
+&lt;/h3&gt;&lt;p&gt;Pumaコマンドであれば、Gem追加だけでhttps接続ができます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ bundle &lt;span class="nb"&gt;exec&lt;/span&gt; puma -b &lt;span class="s1"&gt;&amp;#39;ssl://localhost:9292&amp;#39;&lt;/span&gt; config.ru
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Puma starting in single mode...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Puma version: 5.5.2 &lt;span class="o"&gt;(&lt;/span&gt;ruby 3.0.2-p107&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Zawgyi&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Min threads: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Max threads: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Environment: development
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* PID: &lt;span class="m"&gt;14848&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Listening on ssl://127.0.0.1:9292?
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Listening on ssl://&lt;span class="o"&gt;[&lt;/span&gt;::1&lt;span class="o"&gt;]&lt;/span&gt;:9292?
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Use Ctrl-C to stop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;ただ、これだとアプリケーションログは&lt;code&gt;log/development.log&lt;/code&gt;に出力されるので、別タブを開いて&lt;code&gt;tail&lt;/code&gt;コマンド等で参照するしかありません。
+&lt;code&gt;rails server&lt;/code&gt;で実行できた方が何かと便利です。&lt;/p&gt;
+&lt;h3 id="rails-serverで動かす"&gt;Rails serverで動かす
+&lt;/h3&gt;&lt;p&gt;Pumaの設定ファイルにSSL接続の設定を追加します。&lt;br&gt;
+Railsデフォルトの設定で3000番ポートは使われているので3001番ポートを指定します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-ruby" data-lang="ruby"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# config/puma.rb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;localhost/authority&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;authority&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Localhost&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Authority&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fetch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;ssl_bind&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;127.0.0.1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;3001&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="ss"&gt;key&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;authority&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;key_path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="ss"&gt;cert&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;authority&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;certificate_path&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Railsコマンドで実行する。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ bundle &lt;span class="nb"&gt;exec&lt;/span&gt; rails &lt;span class="nv"&gt;server&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; Booting &lt;span class="nv"&gt;Puma&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; Rails 7.0.0 application starting in &lt;span class="nv"&gt;development&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; Run &lt;span class="sb"&gt;`&lt;/span&gt;bin/rails server --help&lt;span class="sb"&gt;`&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; more startup options
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Puma starting in single mode...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Puma version: 5.5.2 &lt;span class="o"&gt;(&lt;/span&gt;ruby 3.0.2-p107&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Zawgyi&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Min threads: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Max threads: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Environment: development
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* PID: &lt;span class="m"&gt;17087&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Listening on ssl://127.0.0.1:3001?cert&lt;span class="o"&gt;=&lt;/span&gt;/Users/kseki/.localhost/localhost.crt&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/Users/kseki/.localhost/localhost.key&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;verify_mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;none
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Listening on http://127.0.0.1:3000
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Listening on http://&lt;span class="o"&gt;[&lt;/span&gt;::1&lt;span class="o"&gt;]&lt;/span&gt;:3000
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Use Ctrl-C to stop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;リスニングしているポートが２つあります。&lt;br&gt;
+&lt;code&gt;https://localhost:3001&lt;/code&gt;にアクセスすると続けてアプリケーションログも出力されます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Started GET &amp;#34;/&amp;#34; for 127.0.0.1 at 2021-12-31 23:20:45 +0900
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Processing by HomeController#index as HTML
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendering layout layouts/application.html.erb
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendering home/index.html.erb within layouts/application
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendered home/index.html.erb within layouts/application (Duration: 0.0ms | Allocations: 15)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendered layout layouts/application.html.erb (Duration: 0.6ms | Allocations: 484)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Completed 200 OK in 1ms (Views: 1.0ms | Allocations: 733)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;当然&lt;code&gt;http://localhost:3000&lt;/code&gt;にアクセスしても動きます。&lt;/p&gt;
+&lt;h3 id="ポート3000番で接続したい"&gt;ポート3000番で接続したい
+&lt;/h3&gt;&lt;p&gt;更にhttpsだけで接続するようにするにはPumaの設定を変更します。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ssl_bind&lt;/code&gt;メソッドの引数を&lt;code&gt;3001&lt;/code&gt;から&lt;code&gt;3000&lt;/code&gt;に変更&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PORT&lt;/code&gt;指定行をコメントアウト&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-diff" data-lang="diff"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# config/puma.rb
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gd"&gt;- ssl_bind &amp;#39;127.0.0.1&amp;#39;, &amp;#39;3001&amp;#39;, {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ ssl_bind &amp;#39;127.0.0.1&amp;#39;, &amp;#39;3000&amp;#39;, {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gd"&gt;- port ENV.fetch(&amp;#34;PORT&amp;#34;) { 3000 }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gi"&gt;+ # port ENV.fetch(&amp;#34;PORT&amp;#34;) { 3000 }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ bundle &lt;span class="nb"&gt;exec&lt;/span&gt; rails &lt;span class="nv"&gt;server&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; Booting &lt;span class="nv"&gt;Puma&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; Rails 7.0.0 application starting in &lt;span class="nv"&gt;development&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; Run &lt;span class="sb"&gt;`&lt;/span&gt;bin/rails server --help&lt;span class="sb"&gt;`&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; more startup options
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Puma starting in single mode...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Puma version: 5.5.2 &lt;span class="o"&gt;(&lt;/span&gt;ruby 3.0.2-p107&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Zawgyi&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Min threads: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Max threads: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Environment: development
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* PID: &lt;span class="m"&gt;20097&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* Listening on ssl://127.0.0.1:3000?cert&lt;span class="o"&gt;=&lt;/span&gt;/Users/kseki/.localhost/localhost.crt&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/Users/kseki/.localhost/localhost.key&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;verify_mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;none
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Use Ctrl-C to stop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;https://localhost:3000&lt;/code&gt;にアクセスすると続けてアプリケーションログが出力されます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Started GET &amp;#34;/&amp;#34; for 127.0.0.1 at 2021-12-31 23:28:51 +0900
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Processing by HomeController#index as HTML
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendering layout layouts/application.html.erb
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendering home/index.html.erb within layouts/application
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendered home/index.html.erb within layouts/application (Duration: 1.4ms | Allocations: 448)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Rendered layout layouts/application.html.erb (Duration: 4.6ms | Allocations: 1473)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Completed 200 OK in 12ms (Views: 8.2ms | Allocations: 4696)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="まとめ"&gt;まとめ
+&lt;/h3&gt;&lt;p&gt;&lt;a class="link" href="https://gist.github.com/kseki/bdd31b60f3ce1efff7846849687b26ea" target="_blank" rel="noopener"
+&gt;Gist&lt;/a&gt;に必要箇所だけまとめたので御覧ください。&lt;/p&gt;
+&lt;h3 id="参考"&gt;参考
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/socketry/localhost" target="_blank" rel="noopener"
+&gt;socketry/localhost&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/socketry/localhost/blob/v1.1.9/lib/localhost/authority.rb" target="_blank" rel="noopener"
+&gt;socketry/localhost: Localhost::Authority&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/puma/puma#self-signed-ssl-certificates-via-the-localhost-gem-for-development-use" target="_blank" rel="noopener"
+&gt;puma/puma: Self-signed SSL certificates (via the localhost gem, for development use)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://www.rubydoc.info/gems/puma/Puma%2FDSL:ssl_bind" target="_blank" rel="noopener"
+&gt;Method: Puma::DSL#ssl_bind — Documentation for puma (5.5.2)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;div class="amazon-widget"&gt;
+&lt;div class="amazon-widget-img"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4297114623/tag=kseki0c-22" target="_blank"&gt;
+&lt;img src="https://m.media-amazon.com/images/I/81yskupyNhL._AC_SX522_.jpg" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget-info"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4297114623/tag=kseki0c-22" target="_blank"&gt;
+&lt;span class="amazon-widget-title"&gt;
+パーフェクト Ruby on Rails 【増補改訂版】 (Perfect series)
+&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4297114623/tag=kseki0c-22" class="amazon-widget-button" target="_blank"&gt;Amazonで購入&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget"&gt;
+&lt;div class="amazon-widget-img"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/B0D1T41LWV/tag=kseki0c-22" target="_blank"&gt;
+&lt;img src="https://m.media-amazon.com/images/I/81IKSxc0d1L._AC_SX522_.jpg" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget-info"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/B0D1T41LWV/tag=kseki0c-22" target="_blank"&gt;
+&lt;span class="amazon-widget-title"&gt;
+SSL/TLS実践入門──Webの安全性を支える暗号化技術の設計思想 WEB&amp;#43;DB PRESS plus
+&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/B0D1T41LWV/tag=kseki0c-22" class="amazon-widget-button" target="_blank"&gt;Amazonで購入&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;</description></item><item><title>Archives</title><link>https://kseki.github.io/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://kseki.github.io/archives/</guid><description/></item><item><title>Search</title><link>https://kseki.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://kseki.github.io/search/</guid><description/></item></channel></rss>

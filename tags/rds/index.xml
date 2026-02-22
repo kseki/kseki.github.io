@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>RDS on Klog</title><link>https://kseki.github.io/tags/rds/</link><description>Recent content in RDS on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Tue, 30 Jul 2024 16:40:32 +0900</lastBuildDate><atom:link href="https://kseki.github.io/tags/rds/index.xml" rel="self" type="application/rss+xml"/><item><title>AWS RDSスナップショットのマルチアカウント・マルチリージョン移行方法</title><link>https://kseki.github.io/posts/aws-rds-snapshot-migration/</link><pubDate>Tue, 30 Jul 2024 16:40:32 +0900</pubDate><guid>https://kseki.github.io/posts/aws-rds-snapshot-migration/</guid><description>&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/cover.webp" alt="Featured image of post AWS RDSスナップショットのマルチアカウント・マルチリージョン移行方法" /&gt;&lt;p&gt;AWS環境で運用しているアプリケーションは、複数のアカウントや異なるリージョンで構築されることがあります。この記事では、そのような状況でAWS RDSのスナップショットを共有し、復元する方法を詳しく説明します。&lt;/p&gt;
+&lt;h2 id="作業概要"&gt;作業概要
+&lt;/h2&gt;&lt;p&gt;以下のような複数アカウント・複数リージョン運用のケース。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;アカウントA: 東京リージョン&lt;/li&gt;
+&lt;li&gt;アカウントB: オレゴンリージョン&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;アカウントAの東京リージョンの暗号化しているRDSインスタンスのスナップショットを、アカウントBのオレゴンリージョンで復元したい。&lt;/p&gt;
+&lt;h2 id="忙しい人の為の手順書"&gt;忙しい人の為の手順書
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;アカウントAにて&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;対象RDSインスタンスのスナップショットをとる&lt;/li&gt;
+&lt;li&gt;アカウントBと共有するカスタマー管理キーをマルチリージョンで作成する&lt;/li&gt;
+&lt;li&gt;上記のカスタマー管理キーのレプリカをオレゴンリージョンに作成する&lt;/li&gt;
+&lt;li&gt;スナップショットを手順2にて作成したカスタマー管理キーでオレゴンリージョンにコピーする&lt;/li&gt;
+&lt;li&gt;手順4でコピーしたスナップショットをアカウントBに共有する&lt;/li&gt;
+&lt;li&gt;3で作成したレプリカのカスタマー管理キーをアカウントBに共有する&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;アカウントBにて&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;オレゴンリージョンのRDS共有スナップショットを確認する&lt;/li&gt;
+&lt;li&gt;手順1の共有スナップショットをコピーする
+&lt;ul&gt;
+&lt;li&gt;共有スナップショットを復元できませんが、コピーすることで復元可能になります。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;手順2にてコピーしたスナップショットを復元する&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="スナップショット移行の手順"&gt;スナップショット移行の手順
+&lt;/h2&gt;&lt;h3 id="アカウントaで作業"&gt;アカウントAで作業
+&lt;/h3&gt;&lt;h4 id="スナップショットの作成"&gt;スナップショットの作成
+&lt;/h4&gt;&lt;p&gt;アカウントAで対象となるRDSインスタンスのスナップショットを作成します。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-1.webp"
+width="751"
+height="550"
+loading="lazy"
+alt="スナップショットの作成"
+class="gallery-image"
+data-flex-grow="136"
+data-flex-basis="327px"
+&gt;&lt;/p&gt;
+&lt;h4 id="kmsカスタマー管理型のキーの作成"&gt;KMSカスタマー管理型のキーの作成
+&lt;/h4&gt;&lt;p&gt;アカウントAでアカウントBと共有するマルチリージョン対応のKMSキーを東京リージョンで作成します。&lt;/p&gt;
+&lt;p&gt;KMS &amp;gt; カスタマー管理型のキー &amp;gt; キーの作成
+&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-2.webp"
+width="771"
+height="850"
+loading="lazy"
+alt="カスタマー管理型のキー作成"
+class="gallery-image"
+data-flex-grow="90"
+data-flex-basis="217px"
+&gt;&lt;/p&gt;
+&lt;h4 id="kmsカスタマー管理型のキーのレプリカ作成"&gt;KMSカスタマー管理型のキーのレプリカ作成
+&lt;/h4&gt;&lt;p&gt;アカウントAにて、東京リージョンで作成したキーのレプリカをオレゴンリージョンで作成します。&lt;/p&gt;
+&lt;p&gt;KMS &amp;gt; カスタマー管理型のキー &amp;gt; キー ID: XXXXXXXXXXXXXXX
+&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-3-1.webp"
+width="796"
+height="414"
+loading="lazy"
+alt="カスタマー管理型のキー詳細"
+class="gallery-image"
+data-flex-grow="192"
+data-flex-basis="461px"
+&gt;&lt;/p&gt;
+&lt;p&gt;関連するマルチリージョンキー &amp;gt; 新しいレプリカキーを作成&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-3-2.webp"
+width="745"
+height="298"
+loading="lazy"
+alt="新しいレプリカキーを作成"
+class="gallery-image"
+data-flex-grow="250"
+data-flex-basis="600px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;オレゴンリージョン&lt;/strong&gt;を選択する。&lt;/p&gt;
+&lt;h4 id="スナップショットのコピー"&gt;スナップショットのコピー
+&lt;/h4&gt;&lt;p&gt;アカウントAで作成したスナップショットを、手順2で作成したKMSキーを使用してオレゴンリージョンにコピーします。&lt;/p&gt;
+&lt;p&gt;RDS &amp;gt; スナップショット &amp;gt; スナップショットをコピー&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-4.webp"
+width="832"
+height="828"
+loading="lazy"
+alt="スナップショットのコピー"
+class="gallery-image"
+data-flex-grow="100"
+data-flex-basis="241px"
+&gt;&lt;/p&gt;
+&lt;p&gt;AWS KMSキーに上で作成したキーを指定する。&lt;/p&gt;
+&lt;h4 id="スナップショットの共有"&gt;スナップショットの共有
+&lt;/h4&gt;&lt;p&gt;アカウントAでコピーしたスナップショットをアカウントBと共有します。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-5.webp"
+width="839"
+height="707"
+loading="lazy"
+alt="スナップショットのアクセス許可"
+class="gallery-image"
+data-flex-grow="118"
+data-flex-basis="284px"
+&gt;&lt;/p&gt;
+&lt;p&gt;AWSアカウントIDに、&lt;strong&gt;アカウントBのID&lt;/strong&gt;を入力する。&lt;/p&gt;
+&lt;h4 id="kmsキーの共有"&gt;KMSキーの共有
+&lt;/h4&gt;&lt;p&gt;アカウントAで作成したレプリカのカスタマー管理キーをアカウントBに共有する。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/A-6.webp"
+width="634"
+height="376"
+loading="lazy"
+alt="カスタマー管理キーの共有"
+class="gallery-image"
+data-flex-grow="168"
+data-flex-basis="404px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;アカウントBのID&lt;/strong&gt;を入力する。&lt;/p&gt;
+&lt;h3 id="アカウントbで作業"&gt;アカウントBで作業
+&lt;/h3&gt;&lt;h4 id="オレゴンリージョンのrds共有スナップショットの確認"&gt;オレゴンリージョンのRDS共有スナップショットの確認
+&lt;/h4&gt;&lt;p&gt;共有スナップショットが参照できるか確認します。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/B-1.webp"
+width="1160"
+height="374"
+loading="lazy"
+alt="共有スナップショット"
+class="gallery-image"
+data-flex-grow="310"
+data-flex-basis="744px"
+&gt;&lt;/p&gt;
+&lt;h4 id="共有スナップショットのコピー"&gt;共有スナップショットのコピー
+&lt;/h4&gt;&lt;p&gt;アカウントBで共有されたスナップショットをコピーします。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/B-2-1.webp"
+width="1166"
+height="365"
+loading="lazy"
+alt="共有スナップショット"
+class="gallery-image"
+data-flex-grow="319"
+data-flex-basis="766px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/aws-rds-snapshot-migration/B-2-2.webp"
+width="766"
+height="542"
+loading="lazy"
+alt="共有スナップショット"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="339px"
+&gt;&lt;/p&gt;
+&lt;p&gt;Amazonリソースネーム(ARN): 先ほど共有した&lt;strong&gt;レプリカのカスタマー管理キーのARN&lt;/strong&gt;を入力する。&lt;/p&gt;
+&lt;h4 id="スナップショットのリストア"&gt;スナップショットのリストア
+&lt;/h4&gt;&lt;p&gt;アカウントBでコピーしたスナップショットをリストアします。&lt;/p&gt;
+&lt;p&gt;この手順により、AWS RDSのスナップショットを異なるアカウントとリージョン間で移行することが可能となります。&lt;/p&gt;
+&lt;div class="amazon-widget"&gt;
+&lt;div class="amazon-widget-img"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4297104083/tag=kseki0c-22" target="_blank"&gt;
+&lt;img src="https://m.media-amazon.com/images/I/81z7uX1cs5L._AC_SX522_.jpg" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="amazon-widget-info"&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4297104083/tag=kseki0c-22" target="_blank"&gt;
+&lt;span class="amazon-widget-title"&gt;
+失敗から学ぶRDBの正しい歩き方 (Software Design plus)
+&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href="https://www.amazon.co.jp/gp/product/4297104083/tag=kseki0c-22" class="amazon-widget-button" target="_blank"&gt;Amazonで購入&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item></channel></rss>

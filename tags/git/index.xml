@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on Klog</title><link>https://kseki.github.io/tags/git/</link><description>Recent content in Git on Klog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Tue, 10 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://kseki.github.io/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>NeovimでGitHub Copilot Chatでコミットメッセージを生成する方法</title><link>https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/</link><pubDate>Tue, 27 Aug 2024 17:16:17 +0900</pubDate><guid>https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/</guid><description>&lt;img src="https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/cover.webp" alt="Featured image of post NeovimでGitHub Copilot Chatでコミットメッセージを生成する方法" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;前回の &lt;a class="link" href="../github-copilot-chat-snippet/index.md" &gt;GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法&lt;/a&gt; では、スニペットを使ってGitHub Copilot Chatのプロンプトを効率よく使う方法を紹介しました。今回は、Gitのコミットメッセージを生成してクリップボードにコピーする方法を紹介します。&lt;/p&gt;
+&lt;h2 id="設定方法"&gt;設定方法
+&lt;/h2&gt;&lt;p&gt;以下の環境を前提に話を進めます。別の環境の場合は適宜読み替えてください。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; $ sw_vers
+ProductName: macOS
+ProductVersion: 14.6.1
+BuildVersion: 23G93
+$ nvim -v
+NVIM v0.10.1
+Build type: Release
+LuaJIT 2.1.1723675123
+CopilotChat.nvim
+branch canary
+commit 1a92bb6
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="copilotchatnvimの設定"&gt;CopilotChat.nvimの設定
+&lt;/h3&gt;&lt;p&gt;以下のようなプロンプトを変数定義しておきます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;local&lt;/span&gt; &lt;span class="n"&gt;commit_staged_prompt&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;[[
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;以下の条件を踏まえて変更に対するコミットメッセージを書いてください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;- コミットメッセージのprefixは、commitizenの規約に従ってください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;- コミットメッセージ本文は日本語で書いてください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;- タイトルは最大50文字、変更理由を含めてください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;- メッセージは72文字で折り返してください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;- メッセージ全体をgitcommit言語のコードブロックで囲んでください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;- ソースを見ても変更した理由がわからない時は、コミットメッセージを作る前に質問して、その回答も参考にコミットメッセージを生成してください。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;]]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;CopilotChat.nvimの設定ファイルに以下のように設定します。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;8行目にて、さっきのプロンプトを文字列結合して代入しています。&lt;/li&gt;
+&lt;li&gt;12~L17行目は、プロンプトの内容にコミットメッセージが含まれていた時にクリップボードにコピーするための設定です。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kr"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;CopilotC-Nvim/CopilotChat.nvim&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;branch&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;canary&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;cmd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;CopilotChat&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;opts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;prompts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;CommitStaged&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;prompt&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/COPILOT_GENERATE&amp;#34;&lt;/span&gt; &lt;span class="o"&gt;..&lt;/span&gt; &lt;span class="n"&gt;commit_staged_prompt&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;selection&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;return&lt;/span&gt; &lt;span class="n"&gt;select.gitdiff&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;callback&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kd"&gt;local&lt;/span&gt; &lt;span class="n"&gt;commit_message&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;```gitcommit(.-)```&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="n"&gt;commit_message&lt;/span&gt; &lt;span class="kr"&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;vim.fn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setreg&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;+&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;commit_message&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;c&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kr"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="使い方"&gt;使い方
+&lt;/h2&gt;&lt;p&gt;実際に使っている様子をGIFで紹介します。
+不要な変数を削除して、コミットメッセージを生成してクリップボードにコピーしています。
+コピーしたコミットメッセージを使って、 &lt;a class="link" href="https://github.com/jesseduffield/lazygit" target="_blank" rel="noopener"
+&gt;LazyGit&lt;/a&gt; にてコミットを行います。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/neovim-github-copilot-chat-commit-message/git-commit.gif"
+width="1018"
+height="592"
+loading="lazy"
+alt="GitHub Copilot Chatでコミットメッセージを生成する"
+class="gallery-image"
+data-flex-grow="171"
+data-flex-basis="412px"
+&gt;&lt;/p&gt;
+&lt;h2 id="一緒に読みたい記事"&gt;一緒に読みたい記事
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="../github-copilot-chat-snippet" &gt;GitHub Copilot Chatのプロンプトをスニペット化し、nvim-cmpと連携する方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="../github-copilot-chat-nvim" &gt;NeovimでGitHub Copilot Chatを使う方法&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>便利なGitコマンドラインツールLazygit</title><link>https://kseki.github.io/posts/how_to_lazygit/</link><pubDate>Tue, 18 Jun 2024 16:21:07 +0900</pubDate><guid>https://kseki.github.io/posts/how_to_lazygit/</guid><description>&lt;img src="https://kseki.github.io/posts/how_to_lazygit/lazygit.png" alt="Featured image of post 便利なGitコマンドラインツールLazygit" /&gt;&lt;h2 id="概要"&gt;概要
+&lt;/h2&gt;&lt;p&gt;Lazygitは、開発者の生産性を向上させるために設計された、コマンドラインツールです。このツールは、Gitの操作を簡単かつ効率的に行うことができるインターフェースを提供します。ステータスの確認、コミットの作成、ブランチの切り替えなどの一般的なGit操作を簡単に行うことができます。&lt;/p&gt;
+&lt;h2 id="インストール方法"&gt;インストール方法
+&lt;/h2&gt;&lt;p&gt;MacOSユーザーは、Homebrewを使用してLazygitを簡単にインストールできます。ターミナルを開き、以下のコマンドを実行します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install lazygit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;※他のインストール方法は&lt;a class="link" href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#installation" target="_blank" rel="noopener"
+&gt;こちら&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="チュートリアル"&gt;チュートリアル
+&lt;/h2&gt;&lt;p&gt;READMEに&lt;a class="link" href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#tutorials" target="_blank" rel="noopener"
+&gt;チュートリアル&lt;/a&gt;動画へのリンクがあるので一度やってみることをお勧めします！&lt;/p&gt;
+&lt;h2 id="githubと連携して一連の開発作業のやり方"&gt;GitHubと連携して一連の開発作業のやり方
+&lt;/h2&gt;&lt;p&gt;Lazygitを使用してGitHubと連携し、開発作業を行うプロセスは以下の通りです。&lt;/p&gt;
+&lt;h3 id="ブランチを作成"&gt;ブランチを作成
+&lt;/h3&gt;&lt;p&gt;リポジトリ内で新しいブランチを作成し、特定の機能や修正に取り組みます。
+ベースブランチの上にカーソルを合わせて &lt;kbd&gt;c&lt;/kbd&gt; を押すとダイアログが表示されるので、ブランチ名を入力して &lt;kbd&gt;Enter&lt;/kbd&gt; を押すだけです。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/how_to_lazygit/create-branch.gif"
+width="1920"
+height="1080"
+loading="lazy"
+alt="create branch"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+&gt;&lt;/p&gt;
+&lt;h3 id="ファイルを編集してコミット"&gt;ファイルを編集してコミット
+&lt;/h3&gt;&lt;p&gt;必要なファイルを編集し、変更をコミットします。Lazygitでは、変更をステージングし、コミットメッセージを入力することが容易です。
+コミットしたいディレクトリ、またはファイルにカーソルを合わせて &lt;kbd&gt;Space&lt;/kbd&gt; を押してステージング。 &lt;kbd&gt;c&lt;/kbd&gt; を押すとダイアログが表示されるのでコミットメッセージを入力して &lt;kbd&gt;Enter&lt;/kbd&gt; キーを押す。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/how_to_lazygit/add-commit.gif"
+width="1920"
+height="1080"
+loading="lazy"
+alt="add files and commit"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+&gt;&lt;/p&gt;
+&lt;h3 id="リモートリポジトリーにpushprの作成"&gt;リモートリポジトリーにpush、PRの作成
+&lt;/h3&gt;&lt;p&gt;コミットした変更をリモートリポジトリにpushします。GitHub上でPRを作成します。
+Pushしたいリポジトリにカーソルを合わせて &lt;kbd&gt;P&lt;/kbd&gt; を押し &lt;kbd&gt;Enter&lt;/kbd&gt; するだけです。（リモートリポジトリが存在する場合は &lt;kbd&gt;p&lt;/kbd&gt; でOKです。）
+Pushが終わったら、PR作成したいリポジトリにカーソルを合わせて&lt;code&gt;o&lt;/code&gt;を押すと、ブラウザでPR作成画面が表示されます。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://kseki.github.io/posts/how_to_lazygit/push-and-open-pr.gif"
+width="1920"
+height="1080"
+loading="lazy"
+alt="push and open pr"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+&gt;&lt;/p&gt;
+&lt;p&gt;他にも &lt;a class="link" href="https://github.com/jesseduffield/lazygit?tab=readme-ov-file#features" target="_blank" rel="noopener"
+&gt;たくさんの機能&lt;/a&gt; や &lt;a class="link" href="https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Command_Keybindings.md" target="_blank" rel="noopener"
+&gt;カスタムコマンド&lt;/a&gt; を追加出来ます！&lt;/p&gt;
+&lt;h2 id="まとめ"&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;Lazygitは、Gitの操作を簡単にし、開発者の作業を効率化する強力なツールです。その直感的なUIと豊富な機能により、開発プロセスがよりスムーズになります。この記事がLazygitの導入と利用の手助けになれば幸いです。&lt;/p&gt;
+&lt;h2 id="参考"&gt;参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/jesseduffield/lazygit" target="_blank" rel="noopener"
+&gt;jesseduffield/lazygit: simple terminal UI for git commands&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>
