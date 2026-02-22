@@ -6,13 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           submodules: true
       - name: Setup node/npm
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: "21"
+          node-version: "22"
       - name: textlint-github-pr-check
         uses: tsuyoshicho/action-textlint@v3
         with:

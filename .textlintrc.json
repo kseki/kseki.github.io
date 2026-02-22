@@ -5,7 +5,7 @@
     }
   },
   "filters": {
-    "whitelist": {
+    "allowlist": {
       "allow": [
           "/^\\+{3}[\\s\\S]*?\\+{3}/m"
       ]
