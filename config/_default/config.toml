@@ -2,7 +2,8 @@ baseurl = "https://kseki.github.io/"
 title = "Klog"
 languageCode = "ja-jp"
 defaultContentLanguage = "ja"
-paginate = 5
+[pagination]
+pagerSize = 5
 copyright = "kseki"
 
 enableRobotsTXT = true
